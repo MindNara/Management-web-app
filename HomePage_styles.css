@@ -16,8 +16,9 @@
 
 body {
     font-family: 'Kanit', sans-serif;
-    background-image: url('Images/Bg-HomePage.png');
+    /* background-image: url('Images/Bg-HomePage.png'); */
     overflow: hidden;
+    position: relative;
 }
 
 li,
@@ -33,6 +34,13 @@ header {
     align-items: center;
     padding: 5rem 10%;
     font-size: 16px;
+}
+
+.bgHome {
+    max-width: 100%;
+    height: auto;
+    position: absolute;
+    z-index: -1;
 }
 
 .logo {
