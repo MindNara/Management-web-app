@@ -1,0 +1,68 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>sign-up page</title>
+</head>
+<body>
+    <div class="columns is-gapless">
+        <div class="column is-half">
+            <div class="hero is-black is-fullheight">
+                <div class="container has-text-centered">
+                    <br><br><br><br>
+                    <p class="title is-1">WELCOME TO YOUR <br> PLANNER !</p>
+                    <p class="subtitle is-4">Plan with us ! for better life :)</p><br>
+                    <img src="https://cdn.discordapp.com/attachments/867056877895286806/1074962297073696798/diary_1.png" alt="" width="200px" height="200px"><br><br><br>
+                    <p class="subtitle is-4">Already have an account?</p>
+                    <button class="button is-large is-rounded has-text-weight-bold has-text-black" onclick="window.location.href='LoginPage.html'">LOGIN</button>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half ">
+            <div class="hero is-white is-fullheight">
+                <div class="ph-6 pv-4 mt-4 ml-6 mr-6 mb-5">
+                    <p class="title is-2 has-text-centered">CREATE ACCOUNT</p>
+                    <!-- <p class="subtitle has-text-centered">Make enjoy to do plan of life.</p> -->
+                    <form id="form">
+                        <div class="field">
+                            <label class="label" for="fname">firstname :</label>
+                            <input class="input" type="text" id="fname" name="fname">
+                       
+                        <div class="field">
+                            <label for="lname" class="label">lastname :</label>
+                            <input type="text" id="lname" name="lname" class="input">
+                        </div>
+                        <div class="field">
+                            <label for="email" class="label">email :</label>
+                            <input type="email" id="email" name="email" class="input">
+                        </div>
+                        <div class="field">
+                            <label for="phone" class="label">phone :</label>
+                            <input type="text" id="phone" name="phone" class="input">
+                        </div>
+                        <div class="field">
+                            <label for="user" class="label">username :</label>
+                            <input type="text" id="user" name="user" class="input">
+                        </div>
+                        <div class="field">
+                            <label for="password" class="label">password :</label>
+                            <input type="password" id="password" name="password" class="input">
+                        </div>    
+                        <div class="buttons is-centered">
+                            <button type="sub mit" class="button is-rounded is-black is is-large has-text-weight-bold">GO !</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
