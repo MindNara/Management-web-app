@@ -2,6 +2,12 @@
 
 /* font-family: 'Kanit', sans-serif; */
 
+:root {
+    --black: #000000;
+    --white: #FEFEFE;
+    --gray: #F6F6F8;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +23,7 @@ body {
 li,
 a,
 button {
-    color: black;
+    color: var(--black);
     text-decoration: none;
 }
 
@@ -59,8 +65,8 @@ header {
 .navItems_Sign a button {
     font-size: 16px;
     padding: 10px 25px;
-    background-color: black;
-    color: white;
+    background-color: var(--black);
+    color: var(--white);
     border-radius: 10px;
     cursor: pointer;
 }
@@ -70,7 +76,7 @@ content {
     flex-direction: column;
     justify-content: center;
     padding: 2rem 10%;
-    color: black;
+    color: var(--black);
 }
 
 .textTitle h1 {
@@ -95,8 +101,8 @@ content a button {
     font-size: 20px;
     margin-top: 1rem;
     padding: 10px 25px;
-    background-color: black;
-    color: white;
+    background-color: var(--black);
+    color: var(--white);
     border-radius: 15px;
     cursor: pointer;
 }
