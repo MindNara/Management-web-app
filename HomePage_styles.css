@@ -62,7 +62,7 @@ header {
 
 .navItems_Sign {
     margin-left: auto;
-    padding-right: 22rem;
+    padding-right: 23rem;
 }
 
 .navItems_Sign a {
@@ -83,8 +83,10 @@ content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2rem 10%;
+    /* margin-left: 10%; */
+    margin: 2rem 10%;
     color: var(--black);
+    max-width: 43%;
 }
 
 .textTitle h1 {
@@ -99,7 +101,6 @@ content {
 }
 
 content p {
-    width: 50%;
     font-size: 24px;
     font-weight: 300;
     margin: 2rem 0;
