@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>log-in page</title>
 </head>
@@ -34,16 +35,23 @@
                     <div class="card p-5">
                         <form id="form">
                         <div class="field">
-                            <label for="user" class="label">username :</label>
-                            <input type="text" id="user" name="user" class="input">
+                            <label class="label">username :</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input class="input" type="text" id="user" name="user" placeholder="Enter your username">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </div>
                         </div>
                         <div class="field">
                             <label for="password" class="label">password :</label>
-                            <input type="password" id="password" name="password" class="input">
-                        </div>    
-                        <div class="buttons is-centered">
-                            <button type="sub mit" class="button is-rounded is-black is is-large has-text-weight-bold">LOGIN</button>
-                        </div>
+                            <div class="control has-icons-left has-icons-right">
+                                <input type="password" id="password" name="password" class="input" placeholder="Enter your password">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </div>
+                        </div> 
                     </form>
                     </div>
                     
