@@ -17,21 +17,23 @@
 }
 
 body {
-    position: relative;
     min-height: 100vh;
     width: 100%;
     overflow: hidden;
     background: var(--black);
 }
 
+.container {
+    display: grid;
+    grid-template-columns: 0.6fr 1.6fr 1fr;
+    min-height: 100vh;
+    width: 100%;
+}
+
 nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 300px;
     background: var(--white);
     padding: 6px 14px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -75,3 +77,65 @@ nav {
 }
 
 /* --------------------- navbar template --------------------- */
+
+.content-center {
+    background: var(--white);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.content-tite {
+    font-size: 32px;
+    font-weight: 500;
+    padding: 20px 0;
+}
+
+.status {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.status div {
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    /* align-items: center; */
+    background: var(--gray);
+    border-radius: 20px;
+}
+
+.status div i {
+    font-size: 3.5rem;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.status div .text {
+    flex-direction: column;
+    line-height: 24px;
+}
+
+.status div .text span {
+    font-size: 32px;
+    font-weight: 700;
+    align-items: start;
+}
+
+.status div .text p {
+    font-size: 18px;
+}
+
+
+
+
+
+
+
+
+.content-right {
+    background: var(--white);
+}
