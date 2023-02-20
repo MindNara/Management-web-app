@@ -4,167 +4,77 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Dashboard_style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
     <title>Dashboard</title>
 </head>
 
 <body>
 
-    <div class="container">
-        <nav id="navbar">
-            <ul>
-                <li>
-                    <a href="HomaPage.html" class="logo">
-                        <img src="Images/Icons/logo-55.png" alt="logo">
-                        <span>LOGO</span>
-                    </a>
-                </li>
-                <div class="nav-item">
-                    <ul class="navbar-nav">
-                        <li class="active">
-                            <a href="#">
-                                <i class='bx bx-home-alt-2'></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bx-calendar-alt'></i>
-                                <span>Schedule</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bx-list-ul'></i>
-                                <span>Task</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bx-note'></i>
-                                <span>Note</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bx-log-in'></i>
-                                <span>Logout</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </ul>
-        </nav>
-        <!------------------------- navbar template ------------------------->
+    <div class=".container.is-fullhd">
+        <div class="columns-container columns is-desktop">
 
-        <div class="content-center">
-            <div class="content-tite">
-                <span>Dashboard</span>
+            <!------------------------ column navbar ------------------------>
+            <div class="navbar-column column is-2 has-background-white">
+
+                <nav class="navbar is-flex-direction-column mx-5 my-5" role="navigation" aria-label="main navigation">
+                    <div class="navbar-brand mb-5">
+                        <a class="navbar-item" href="HomaPage.html">
+                            <img class="mr-2" src="Images/Icons/logo-jira-100.png">
+                            <span class="is-size-3 has-text-weight-bold has-text-black">LOGO</span>
+                        </a>
+                    </div>
+
+                    <div id="navbar" class="navbar-menu">
+                        <div class="navbar-start is-flex-direction-column" style="width: 20rem;">
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5 is-active">
+                                <i class='bx bx-home-alt-2 mr-4 is-size-4'></i>
+                                <span class="is-size-5">Dashboard</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-calendar-alt mr-4 is-size-4'></i>
+                                <span class="is-size-5">Schedule</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-list-ul mr-4 is-size-4'></i>
+                                <span class="is-size-5">Task</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-note mr-4 is-size-4'></i>
+                                <span class="is-size-5">Note</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-log-in mr-4 is-size-4'></i>
+                                <span class="is-size-5">Logout</span>
+                            </a>
+
+                        </div>
+                    </div>
+                </nav>
+
             </div>
+            <!------------------------ column navbar ------------------------>
 
-            <div class="content-dashboard">
-                <div class="status">
-                    <div class="status-done">
-                        <i class='bx bx-task'></i>
-                        <div class="text">
-                            <span>04</span>
-                            <p>Task Done</p>
-                        </div>
-                    </div>
-
-                    <div class="status-progress">
-                        <i class='bx bx-task-x'></i>
-                        <div class="text">
-                            <span>12</span>
-                            <p>Task Not Started</p>
-                        </div>
-                    </div>
-
-                    <div class="status-notes">
-                        <i class='bx bx-note'></i>
-                        <div class="text">
-                            <span>06</span>
-                            <p>Notes</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="today-task">
-                    <div class="title">
-                        <span class="topic">Today Tasks</span>
-                        <a href="#"><span class="view-all">View All</span></a>
-                    </div>
-
-                    <div class="task">
-                        <div class="task-card">
-                            <i class='bx bxs-check-square'></i>
-                            <span class="activity">Activities 1</span>
-                            <div class="text">
-                                <span class="date">Tue, Feb 7</span>
-                                <div class="box-status">Done</div>
-                            </div>
-                        </div>
-
-                        <div class="task-card">
-                            <i class='bx bxs-check-square'></i>
-                            <span class="activity">Activities 2</span>
-                            <div class="text">
-                                <span class="date">Tue, Feb 7</span>
-                                <div class="box-status">Done</div>
-                            </div>
-                        </div>
-
-                        <div class="task-card">
-                            <i class='bx bxs-check-square'></i>
-                            <span class="activity">Activities 3</span>
-                            <div class="text">
-                                <span class="date">Tue, Feb 7</span>
-                                <div class="box-status">Done</div>
-                            </div>
-                        </div>
-
-                        <div class="task-card">
-                            <i class='bx bx-check-square'></i>
-                            <span class="activity">Activities 4</span>
-                            <div class="text">
-                                <span class="date">Tue, Feb 7</span>
-                                <div class="box-status">Not Started</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="note">
-                    <div class="title">
-                        <span class="topic">Notes</span>
-                        <a href="#"><span class="view-all">View All</span></a>
-                    </div>
-
-                    <div class="note-card">
-
-                    </div>
-                </div>
+            <!------------------------ column content-center ------------------------>
+            <div class="content-center column is-6 has-background-white">
+                2
             </div>
+            <!------------------------ column content-center ------------------------>
 
-        </div>
-
-        <div class="content-right">
-
+            <!------------------------ column content-right ------------------------>
+            <div class="content-right column has-background-white">
+                3
+            </div>
+            <!------------------------ column content-right ------------------------>
         </div>
     </div>
 
-
-
-
-
 </body>
-
-<script>
-    // $('#navbar .navbar-nav a').on('click', function () {
-    //     $('#navbar .navbar-nav').find('li.active').removeClass('active');
-    //     $(this).parent('li').addClass('active');
-    // });
-</script>
 
 </html>
