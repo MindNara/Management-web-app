@@ -16,11 +16,6 @@ button {
     font-family: 'Kanit', sans-serif;
 }
 
-.columns-container {
-    height: 100%;
-    margin-top: 0;
-}
-
 .navbar-item {
     padding: 0;
 }

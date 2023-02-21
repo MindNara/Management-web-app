@@ -12,46 +12,64 @@
 
 <body>
 
-    <div class=".container.is-fullhd">
-        <div class="columns-container columns is-desktop">
+    <div class="container.is-fullhd">
 
-            <!------------------------ column navbar ------------------------>
-            <div class="navbar-column column is-2 has-background-white">
+        <div class="columns" style="height: 12vh;">
 
-                <nav class="navbar is-flex-direction-column mx-5 my-5" role="navigation" aria-label="main navigation">
-                    <div class="navbar-brand mb-5">
-                        <a class="navbar-item" href="HomaPage.html">
-                            <img class="mr-2" src="Images/Icons/logo-jira-100.png">
-                            <span class="is-size-3 has-text-weight-bold has-text-black">LOGO</span>
-                        </a>
-                    </div>
+            <div class="column is-2">
+                <div class="navbar-brand pt-5 pl-5 mt-3">
+                    <a class="navbar-item" href="HomaPage.html">
+                        <img class="mr-2" src="Images/Icons/logo-jira-100.png">
+                        <span
+                            class="is-size-3-fullhd is-size-4-widescreen has-text-weight-bold has-text-black">LOGO</span>
+                    </a>
+                </div>
+            </div>
 
+            <div class="column is-6">
+                <div class="pt-5">
+                    <span
+                        class="is-size-2-fullhd is-size-3-widescreen has-text-weight-medium has-text-black">Dashboard</span>
+                </div>
+            </div>
+
+            <div class="column has-background-warning">
+                3
+            </div>
+
+        </div>
+
+        <div class="container-content columns" style="height: 90vh;">
+
+            <div class="column is-2">
+
+                <nav class="navbar is-flex-direction-column mx-5" role="navigation" aria-label="main navigation">
                     <div id="navbar" class="navbar-menu">
                         <div class="navbar-start is-flex-direction-column" style="width: 20rem;">
 
                             <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5 is-active">
-                                <i class='bx bx-home-alt-2 mr-4 is-size-4'></i>
-                                <span class="is-size-5">Dashboard</span>
+                                <i class='bx bx-home-alt-2 mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Dashboard</span>
                             </a>
 
                             <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
-                                <i class='bx bx-calendar-alt mr-4 is-size-4'></i>
-                                <span class="is-size-5">Schedule</span>
+                                <i class='bx bx-calendar-alt mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Schedule</span>
                             </a>
 
                             <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
-                                <i class='bx bx-list-ul mr-4 is-size-4'></i>
-                                <span class="is-size-5">Task</span>
+                                <i class='bx bx-list-ul mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Task</span>
                             </a>
 
                             <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
-                                <i class='bx bx-note mr-4 is-size-4'></i>
-                                <span class="is-size-5">Note</span>
+                                <i class='bx bx-note mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Note</span>
                             </a>
 
                             <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
-                                <i class='bx bx-log-in mr-4 is-size-4'></i>
-                                <span class="is-size-5">Logout</span>
+                                <i class='bx bx-log-in mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Logout</span>
                             </a>
 
                         </div>
@@ -59,19 +77,44 @@
                 </nav>
 
             </div>
-            <!------------------------ column navbar ------------------------>
 
-            <!------------------------ column content-center ------------------------>
-            <div class="content-center column is-6 has-background-white">
-                2
-            </div>
-            <!------------------------ column content-center ------------------------>
+            <div class="column is-6 has-background-grey">
 
-            <!------------------------ column content-right ------------------------>
-            <div class="content-right column has-background-white">
-                3
+                <div class="content-ts columns" style="height: 20vh;">
+                    <div class="task-status column has-background-info">
+                        Task status
+                    </div>
+                </div>
+
+                <div class="content-tt columns" style="height: 40vh;">
+                    <div class="today-tasks column has-background-primary">
+                        Today Tasks
+                    </div>
+                </div>
+
+                <div class="content-note columns" style="height: 30vh;">
+                    <div class="notes column has-background-warning">
+                        Notes
+                    </div>
+                </div>
+
             </div>
-            <!------------------------ column content-right ------------------------>
+
+            <div class="column has-background-link">
+
+                <div class="content-ts columns" style="height: 50vh;">
+                    <div class="task-status column has-background-danger">
+                        Calendar
+                    </div>
+                </div>
+
+                <div class="content-tt columns" style="height: 40vh;">
+                    <div class="today-tasks column has-background-grey">
+                        Today Schedule
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
