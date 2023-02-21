@@ -33,3 +33,27 @@ button {
     color: white;
     font-weight: 300;
 }
+
+.task-status .card {
+    height: 80%;
+    border-radius: 10px;
+    background: #F6F6F8;
+    color: black;
+}
+
+.task-status .card .card-content {
+    height: 100%;
+}
+
+.card-content i {
+    font-size: 3.5rem;
+    padding-right: 10px;
+}
+
+.card-content .text {
+    line-height: 30px;
+}
+
+.card-content .text span {
+    font-weight: 700;
+}
