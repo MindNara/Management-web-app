@@ -34,6 +34,12 @@ button {
     font-weight: 300;
 }
 
+.profile .profile-box {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 5px;
+}
+
 .task-status .card {
     height: 80%;
     border-radius: 10px;
@@ -44,6 +50,12 @@ button {
 
 .task-status .card .card-content {
     height: 100%;
+}
+
+.calendar-box .calendar {
+    background: #F6F6F8;
+    border-radius: 10px;
+    height: 92%;
 }
 
 .card-content i {
@@ -64,4 +76,31 @@ button {
     color: #7D7D7D;
     padding: 3px 12px;
     border: none;
+}
+
+.today-tasks .task-box {
+    height: 23%;
+    background: #F6F6F8;
+    color: black;
+    border-radius: 10px;
+}
+
+.task-box .btn-status {
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+}
+
+.schedule-box {
+    height: 4rem;
+    border-radius: 10px;
+    background: #F6F6F8;
+}
+
+.note-box .card {
+    height: 90%;
+    border-radius: 10px;
+}
+
+.note-box .card-image {
+    background: #F6F6F8;
 }
