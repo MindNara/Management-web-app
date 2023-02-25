@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <title>TaskPage</title>
+</head>
+
+<body>
+
+    <div class="container.is-fullhd">
+
+        <!----------------------------------------------- header column ----------------------------------------------->
+        <div class="columns" style="height: 12vh;">
+
+            <!---------------------------- logo ---------------------------->
+            <div class="column is-2">
+                <div class="navbar-brand pt-5 pl-5 mt-3">
+                    <a class="navbar-item" href="HomaPage.html">
+                        <img class="mr-2" src="Images/Icons/logo-100.png">
+                        <span
+                            class="is-size-3-fullhd is-size-4-widescreen has-text-weight-bold has-text-black">LOGO</span>
+                    </a>
+                </div>
+            </div>
+
+            <!---------------------------- title ---------------------------->
+            <div class="column is-6">
+                <div class="pt-5">
+                    <span
+                        class="is-size-2-fullhd is-size-3-widescreen has-text-weight-medium has-text-black">My Tasks</span>
+                </div>
+            </div>
+
+            <!---------------------------- profile member ---------------------------->
+            <div class="profile level column">
+                <div class="level-right pt-5" style="width: 100%;">
+                    <div class="level-item pt-3">
+                        <span class="name-member has-text-black is-size-5-fullhd ">Hi, Member Name</span>
+                        <div class="profile-box has-background-black mx-5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-content columns" style="height: 88vh;">
+
+            <!----------------------------------------------- navbar column ----------------------------------------------->
+            <div class="column is-2">
+
+                <!---------------------------- navbar ---------------------------->
+                <nav class="navbar is-flex-direction-column mx-5" role="navigation" aria-label="main navigation">
+                    <div id="navbar" class="navbar-menu">
+                        <div class="navbar-start is-flex-direction-column" style="width: 20rem;">
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5 is-active">
+                                <i class='bx bx-home-alt-2 mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Dashboard</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-calendar-alt mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Schedule</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-list-ul mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Task</span>
+                            </a>
+
+                            <a href="NoteDiary.html" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-note mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Note</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-log-in mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Logout</span>
+                            </a>
+
+                        </div>
+                    </div>
+                </nav>
+
+            </div>
+
+            <!----------------------------------------------- todo-list----------------------------------------------->
+            <div class="content column has-background-white mt-4 pr-5" style="overflow-x: hidden; overflow-y: scroll;" id="app">
+                <!-- table to-do list -->
+                <div class="tabs-wrapper">
+                    <div class="tabs has-background-black is-normal has-text-weight-bold has-text-white is-size-5">
+                        <a class="has-text-white is-size-5">
+                            <span class="icon is-medium" @click="status1 = num++ % 2 == 0">
+                                <i class="fas fa-angle-down"></i>
+                            </span>
+                            <span>To-Do List ( 4 )</span>
+                        </a>
+                        <a class="has-text-white is-size-5">
+                            <span class="icon" style="float: right;">
+                                <i class="fas fa-solid fa-plus"></i>
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="tabs-content">
+                        <li class="" :class="{'is-active' : status1}">
+                            <table class="table has-background-grey-lighter pt-5">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Task Name</th>
+                                        <th>Due Date</th>
+                                        <th>Create Data</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>01</td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Do Homework
+                                            </label>
+                                        </td>
+                                        <td>12/02/2023</td>
+                                        <td>11/02/2023</td>
+                                        <td>To-Do</td>
+                                    </tr>
+                                    <tr>
+                                        <td>02</td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Do Homework
+                                            </label>
+                                        </td>
+                                        <td>12/02/2023</td>
+                                        <td>11/02/2023</td>
+                                        <td>To-Do</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </div>
+                </div>
+                <!-- table to-do list -->
+
+                <!-- table done -->
+                <div class="tabs-wrapper mt-5">
+                    <div class="tabs has-background-black is-normal has-text-weight-bold has-text-white is-size-5">
+                        <a class="has-text-white is-size-5">
+                            <span class="icon is-medium" @click="status2 = num++ % 2 == 0">
+                                <i class="fas fa-angle-down"></i>
+                            </span>
+                            <span>Done ( 4 )</span>
+                        </a>
+                        <a class="has-text-white is-size-5">
+                            <span class="icon" style="float: right;">
+                                <i class="fas fa-solid fa-plus"></i>
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="tabs-content">
+                        <li class="" :class="{'is-active' : status2}">
+                            <table class="table has-background-grey-lighter pt-5">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Task Name</th>
+                                        <th>Due Date</th>
+                                        <th>Create Data</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>01</td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input type="checkbox" checked>
+                                                Do Homework
+                                            </label>
+                                        </td>
+                                        <td>12/02/2023</td>
+                                        <td>11/02/2023</td>
+                                        <td>Done</td>
+                                    </tr>
+                                    <tr>
+                                        <td>02</td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input type="checkbox" checked>
+                                                Do Homework
+                                            </label>
+                                        </td>
+                                        <td>12/02/2023</td>
+                                        <td>11/02/2023</td>
+                                        <td>Done</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </div>
+                </div>
+                <!-- table done -->
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+    <!-- script -->
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="./data.js"></script>
+</body>
+
+</html>
