@@ -106,6 +106,10 @@ button {
     height: 100%;
 }
 
+.task-status .column {
+    flex-basis: auto;
+}
+
 .calendar-box .calendar {
     background: #F6F6F8;
     border-radius: 10px;
