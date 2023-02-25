@@ -10,11 +10,64 @@
 body {
     font-family: 'Kanit', sans-serif;
     overflow: hidden;
+    position: relative;
 }
 
 button {
     font-family: 'Kanit', sans-serif;
 }
+
+/* -------------- HomaPage -------------- */
+
+.bgHome {
+    max-width: 100%;
+    height: auto;
+    position: absolute;
+    z-index: -1;
+}
+
+.nav {
+    width: 58%;
+    margin-left: 10%;
+}
+
+.nav div .signup {
+    background: black;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 300;
+}
+
+.content-text {
+    height: 65%;
+    width: 40%;
+}
+
+.content-text .text h1 {
+    font-size: 6rem;
+}
+
+.content-text .text h3 {
+    font-size: 5rem;
+    font-weight: 300;
+}
+
+.content-text .text p {
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+
+.content-text .text .btn {
+    background: black;
+    color: white;
+    font-weight: 300;
+    font-size: 1.2rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+}
+
+/* -------------- HomaPage -------------- */
 
 .navbar-item {
     padding: 0;
@@ -28,7 +81,8 @@ button {
     border-radius: 10px;
 }
 
-.nav-item:hover, .nav-item.is-active {
+.nav-item:hover,
+.nav-item.is-active {
     background: black;
     color: white;
     font-weight: 300;
@@ -71,7 +125,8 @@ button {
     font-weight: 700;
 }
 
-.today-tasks div .button, .notes div .button {
+.today-tasks div .button,
+.notes div .button {
     background: #F6F6F8;
     color: #7D7D7D;
     padding: 3px 12px;

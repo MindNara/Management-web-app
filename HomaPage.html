@@ -5,45 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="HomePage_styles.css">
+    <link rel="stylesheet" href="style.css">
     <title>Management Web Application</title>
 </head>
 
 <body>
+    <img class="bgHome" src="Images/Bg-HomePage.png" alt="BG">
 
-    <nav>
-        <img class="bgHome" src="Images/Bg-HomePage.png" alt="BG">
+    <div class="nav">
+        <div class="level my-6">
 
-        <div class="header">
-            <a class="logo" href="#">
-                <img src="Images/Icons/logo-55.png" alt="logo">
-                <p>LOGO</p>
-            </a>
-
-            <nav class="navItems_Menu">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">About</a></li>
-                </ul>
-            </nav>
-
-            <div class="navItems_Sign">
-                <a href="LoginPage.html">Sign In</a>
-                <a href="SignupPage.html"><button>Sign Up</button></a>
+            <div class="level-left">
+                <div class="level-item">
+                    <div class="navbar-brand">
+                        <a class="navbar-item" href="HomaPage.html">
+                            <img class="mr-2" src="Images/Icons/logo-100.png">
+                            <span
+                                class="is-size-3-fullhd is-size-4-widescreen has-text-weight-bold has-text-black">LOGO</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
 
-    <content>
-        <div class="textTitle">
-            <h1>Manage</h1>
-            <h2>your life better</h2>
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="LoginPage.html"><span class="login mr-6 has-text-black">Log In</span></a>
+                    <a href="SignupPage.html"><span class="signup">Sign Up</span></a>
+                </div>
+            </div>
+
         </div>
-        <p>Keeping life organized often feels like a juggling act. Just as swiftly as you move to catch one ball,
-            Unfortunately, some balls are bound to hit the ground.</p>
-        <a href="Dashboard.html"><button>Get Start</button></a>
-    </content>
+    </div>
+
+    <div class="content-text is-flex is-align-items-center" style="margin-left: 10%;">
+        <div class="text">
+            <h1 class="m-0 has-text-black">Manage</h1>
+            <h3 class="m-0 has-text-black">your life better</h3>
+            <p class="my-6 has-text-black">Keeping life organized often feels like a juggling act. Just as swiftly as
+                you move to catch
+                one ball, Unfortunately, some balls are bound to hit the ground.</p>
+            <a class="btn" href="Dashboard.html"><span>Get Start</span></a>
+        </div>
+    </div>
 
 </body>
 
