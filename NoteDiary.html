@@ -1,0 +1,203 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>NoteDairy</title>
+</head>
+
+<body>
+
+    <div class=".container.is-fullhd">
+        <div class="columns-container columns is-desktop">
+
+            <!------------------------ column navbar ------------------------>
+            <div class="navbar-column column is-2 has-background-white">
+
+                <nav class="navbar is-flex-direction-column mx-5 my-5" role="navigation" aria-label="main navigation">
+                    <div class="navbar-brand mb-5">
+                        <a class="navbar-item" href="HomaPage.html">
+                            <img class="mr-2" src="Images/Icons/logo-jira-100.png">
+                            <span class="is-size-3 has-text-weight-bold has-text-black">LOGO</span>
+                        </a>
+                    </div>
+
+                    <div id="navbar" class="navbar-menu">
+                        <div class="navbar-start is-flex-direction-column" style="width: 20rem;">
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5 is-active">
+                                <i class='bx bx-home-alt-2 mr-4 is-size-4'></i>
+                                <span class="is-size-5">Dashboard</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-calendar-alt mr-4 is-size-4'></i>
+                                <span class="is-size-5">Schedule</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-list-ul mr-4 is-size-4'></i>
+                                <span class="is-size-5">Task</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-note mr-4 is-size-4'></i>
+                                <span class="is-size-5">Note</span>
+                            </a>
+
+                            <a href="#" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-log-in mr-4 is-size-4'></i>
+                                <span class="is-size-5">Logout</span>
+                            </a>
+
+                        </div>
+                    </div>
+                </nav>
+
+            </div>
+            <!------------------------ column navbar ------------------------>
+
+            <!------------------------ column content ------------------------>
+            <div class="content column has-background-white ml-4 mr-4 mt-5" style="overflow-x: hidden; overflow-y: scroll;">
+                <h1 class="title">My Notes</h1>
+                <div>
+                  <button type="submit" class="button is-black is is-normal has-text-weight-bold">
+                    <span class="icon">
+                      <i class="fas fa-solid fa-plus"></i>
+                    </span>
+                    <span>CREATE NOTE</span>
+                  </button>
+                  <a>
+                    <button class="button is-black">01</button>
+                    <button class="button">02</button>
+                    <button class="button">03</button>
+                  </a>
+                </div>
+                <div class="columns mt-4">
+
+
+                  <div class="column is-one-third">
+                    <div class="card">
+                      <div class="card-image">
+                        <figure class="image is-2by1">
+                          <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
+                        </figure>
+                      </div>
+                      <div class="card-content">
+                        <div class="media">
+                          <div class="media-content">
+                            <p class="title is-4">Title</p>
+                            <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                            <p class="subtitle">11:09 PM - 1 Jan 2016</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="column">
+                    <div class="card">
+                      <div class="card-image">
+                        <figure class="image is-2by1">
+                          <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
+                        </figure>
+                      </div>
+                      <div class="card-content">
+                        <div class="media">
+                          <div class="media-content">
+                            <p class="title is-4">Title</p>
+                            <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                            <p class="subtitle">11:09 PM - 1 Jan 2016</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <div class="card">
+                      <div class="card-image">
+                        <figure class="image is-2by1">
+                          <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
+                        </figure>
+                      </div>
+                      <div class="card-content">
+                        <div class="media">
+                          <div class="media-content">
+                            <p class="title is-4">Title</p>
+                            <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                            <p class="subtitle">11:09 PM - 1 Jan 2016</p>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>        
+            </div>
+            
+            <div class="columns mt-4">
+              <div class="column is-one-third">
+                <div class="card">
+                  <div class="card-image">
+                    <figure class="image is-2by1">
+                      <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-content">
+                        <p class="title is-4">Title</p>
+                        <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                        <p class="subtitle">11:09 PM - 1 Jan 2016</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="card">
+                  <div class="card-image">
+                    <figure class="image is-2by1">
+                      <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-content">
+                        <p class="title is-4">Title</p>
+                        <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                        <p class="subtitle">11:09 PM - 1 Jan 2016</p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              </div>
+              <div class="column">
+                <div class="card">
+                  <div class="card-image">
+                    <figure class="image is-2by1">
+                      <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-content">
+                        <p class="title is-4">Title</p>
+                        <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                        <p class="subtitle">11:09 PM - 1 Jan 2016</p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>   
+          </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
