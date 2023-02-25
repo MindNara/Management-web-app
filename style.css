@@ -73,6 +73,9 @@ button {
 
 /* -------------- End HomaPage -------------- */
 
+
+/* -------------- Start Dashboard -------------- */
+
 .navbar-item {
     padding: 0;
 }
@@ -167,3 +170,5 @@ button {
 .note-box .card-image {
     background: #F6F6F8;
 }
+
+/* -------------- Start Dashboard -------------- */
