@@ -188,3 +188,7 @@ button {
     border-radius: 20px;
     background: #F6F6F8;
 }
+
+.container-header .create-s {
+    border-radius: 6px;
+}
