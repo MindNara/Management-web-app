@@ -54,10 +54,10 @@
 
                 <!---------------------------- navbar ---------------------------->
                 <nav class="navbar is-flex-direction-column mx-5" role="navigation" aria-label="main navigation">
-                    <div id="navbar" class="navbar-menu">
+                    <div class="navbar-menu">
                         <div class="navbar-start is-flex-direction-column" style="width: 20rem;">
 
-                            <a href="Dashboard.html" class="nav-item pl-5 pr-5 py-3 mb-5 is-active">
+                            <a href="Dashboard.html" class="nav-item pl-5 pr-5 py-3 mb-5">
                                 <i class='bx bx-home-alt-2 mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
                                 <span class="is-size-5-fullhd is-size-6-widescreen">Dashboard</span>
                             </a>
@@ -67,7 +67,7 @@
                                 <span class="is-size-5-fullhd is-size-6-widescreen">Schedule</span>
                             </a>
 
-                            <a href="TaskPage.html" class="nav-item pl-5 pr-5 py-3 mb-5">
+                            <a href="TaskPage.html" class="nav-item pl-5 pr-5 py-3 mb-5 is-active">
                                 <i class='bx bx-list-ul mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
                                 <span class="is-size-5-fullhd is-size-6-widescreen">Task</span>
                             </a>
@@ -93,7 +93,8 @@
                 id="app">
                 <!-- table to-do list -->
                 <div class="tabs-wrapper">
-                    <div class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
+                    <div
+                        class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
                         <a class="has-text-white is-size-5">
                             <span class="icon is-medium" @click="status1 = num++ % 2 == 0">
                                 <i class="fas fa-angle-down"></i>
@@ -153,7 +154,8 @@
 
                 <!-- table done -->
                 <div class="tabs-wrapper mt-5">
-                    <div class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
+                    <div
+                        class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
                         <a class="has-text-white is-size-5">
                             <span class="icon is-medium" @click="status2 = num++ % 2 == 0">
                                 <i class="fas fa-angle-down"></i>
