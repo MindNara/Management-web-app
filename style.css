@@ -17,8 +17,7 @@ button {
     font-family: 'Kanit', sans-serif;
 }
 
-/* -------------- Start HomaPage -------------- */
-
+/* -------------- HomaPage -------------- */
 .bgHome {
     max-width: 100%;
     height: auto;
@@ -71,11 +70,8 @@ button {
     border-radius: 10px;
 }
 
-/* -------------- End HomaPage -------------- */
 
-
-/* -------------- Start Dashboard -------------- */
-
+/* -------------- Dashboard -------------- */
 .navbar-item {
     padding: 0;
 }
@@ -119,7 +115,7 @@ button {
 
 .calendar-box .calendar {
     background: #F6F6F8;
-    border-radius: 10px;
+    border-radius: 20px;
     height: 92%;
 }
 
@@ -171,10 +167,8 @@ button {
     background: #F6F6F8;
 }
 
-/* -------------- Start Dashboard -------------- */
-
-/* to-do-list */
-.tabs{
+/* -------------- to-do-list -------------- */
+.tabs {
     border-radius: 5px;
     overflow-x: hidden;
 }
@@ -186,4 +180,14 @@ button {
 
 .tabs-content li.is-active {
     display: block;
+}
+
+.tabs-content .table {
+    background: #F6F6F8;
+}
+
+/* -------------- Schedule -------------- */
+.content-calendar .calendar {
+    border-radius: 20px;
+    background: #F6F6F8;
 }
