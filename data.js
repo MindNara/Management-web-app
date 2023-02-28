@@ -35,67 +35,67 @@ var app = new Vue({
             {
                 "id": 1,
                 "task_name": "Do homework",
-                "start_date": "01/01/2023",
+                "start_date": "2023-01-01",
                 "status": false,
-                "due_date": "02/01/2023"
+                "due_date": "2023-01-02"
             },
             {
                 "id": 2,
                 "task_name": "Clean my room",
-                "start_date": "05/01/2023",
+                "start_date": "2023-01-05",
                 "status": false,
-                "due_date": "05/01/2023"
+                "due_date": "2023-01-05"
             },
             {
                 "id": 3,
                 "task_name": "Read for exam",
-                "start_date": "05/01/2023",
+                "start_date": "2023-01-02",
                 "status": false,
-                "due_date": "10/01/2023"
+                "due_date": "2023-01-10"
             },
             {
                 "id": 4,
                 "task_name": "Go to cafe",
-                "start_date": "05/01/2023",
+                "start_date": "2023-01-05",
                 "status": false,
-                "due_date": "06/01/2023"
+                "due_date": "2023-01-06"
             },
             {
                 "id": 5,
                 "task_name": "Do project",
-                "start_date": "14/02/2023",
+                "start_date": "2023-02-14",
                 "status": false,
-                "due_date": "01/03/2023"
+                "due_date": "2023-03-01"
             },
             {
                 "id": 6,
                 "task_name": "Clean restroom",
-                "start_date": "26/02/2023",
+                "start_date": "2023-02-26",
                 "status": false,
-                "due_date": "28/01/2023"
+                "due_date": "2023-03-02"
             }
         ],
         task_done: [
             {
                 "id": 1,
                 "task_name": "Do homework",
-                "start_date": "12/12/2022",
+                "start_date": "2022-12-12",
                 "status": true,
-                "due_date": "13/12/2022"
+                "due_date": "2022-12-13"
             },
             {
                 "id": 2,
                 "task_name": "Clean my room",
-                "start_date": "20/12/2022",
+                "start_date": "2022-12-20",
                 "status": true,
-                "due_date": "22/12/2022"
+                "due_date": "2022-12-22"
             },
             {
                 "id": 3,
                 "task_name": "Read for exam",
-                "start_date": "22/11/2022",
+                "start_date": "2022-11-11",
                 "status": true,
-                "due_date": "28/12/2022"
+                "due_date": "2022-12-28"
             }
         ],
         status1: false,
