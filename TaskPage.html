@@ -89,14 +89,14 @@
             </div>
 
             <!----------------------------------------------- todo-list ----------------------------------------------->
-            <div class="content column has-background-white pr-5" style="overflow-x: hidden; overflow-y: scroll;"
+            <div class="content column has-background-white pr-5 mt-4" style="overflow-x: hidden; overflow-y: scroll;"
                 id="app">
                 <!-- table to-do list -->
                 <div class="tabs-wrapper">
                     <div
                         class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
                         <a class="has-text-white is-size-5">
-                            <span class="icon is-medium" @click="status1 = num++ % 2 == 0">
+                            <span class="icon is-medium" @click="status1 = !status1">
                                 <i class="fas fa-angle-down"></i>
                             </span>
                             <span>To-Do List ( 4 )</span>
@@ -157,7 +157,7 @@
                     <div
                         class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
                         <a class="has-text-white is-size-5">
-                            <span class="icon is-medium" @click="status2 = num++ % 2 == 0">
+                            <span class="icon is-medium" @click="status2 = !status2">
                                 <i class="fas fa-angle-down"></i>
                             </span>
                             <span>Done ( 4 )</span>
