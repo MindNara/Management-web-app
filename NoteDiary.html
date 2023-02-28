@@ -2,17 +2,15 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
   <link rel="stylesheet" href="style.css">
   <title>NoteDairy</title>
 </head>
 
 <body>
-  <div class="container.is-fullhd">
+  <div class="container.is-fullhd" id="app">
 
     <div class="columns" style="height: 12vh;">
       <div class="column is-2">
@@ -80,7 +78,7 @@
       </div>
       <div class="content column pr-5 mt-4" style="overflow-x: hidden; overflow-y: scroll;">
         <div>
-          <button type="submit" class="button is-black is is-normal has-text-weight-normal">
+          <button class="button is-black is is-normal has-text-weight-normal" @click="show_modal = !show_modal">
             <span class="icon">
               <i class="fas fa-solid fa-plus"></i>
             </span>
@@ -209,7 +207,56 @@
         </div>
       </div>
     </div>
+    <!-- modal-add-note -->
+    <div class="modal" v-bind:class="{'is-active':show_modal}">
+      <div class="modal-background" @click="show_modal = !show_modal"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">ADD NOTE-DIARY</p>
+          <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+          <form id="form">
+            <div class="field">
+              <label class="label">TOPIC :</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input" type="text" id="name-note" name="name-note">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-book"></i>
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="image-note" class="label">IMAGE :</label>
+              <input type="file" id="image-note" name="image-note">
+            </div>
+            <div class="field">
+              <label for="date-note" class="label">DATE :</label>
+              <div class="control has-icons-left has-icons-right">
+                <input type="date" id="date-note" name="date-note" class="input">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="date-note" class="label">STORY :</label>
+              <textarea placeholder="Remember, be nice!" cols="90" rows="20"></textarea>
+            </div>
+          </form>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" @click="show_modal = !show_modal">Create</button>
+          <button class="button" @click="show_modal = !show_modal">Cancel</button>
+        </footer>
+      </div>
+    </div>
+    <!-- modal-add-note -->
   </div>
+  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="./data.js"></script>
 </body>
 
 </html>
