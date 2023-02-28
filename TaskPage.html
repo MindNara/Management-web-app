@@ -98,7 +98,7 @@
                             <span class="icon is-medium" @click="status1 = !status1">
                                 <i class="fas fa-angle-down"></i>
                             </span>
-                            <span>To-Do List ( 2 )</span>
+                            <span>To-Do List ( {{task.length}} )</span>
                         </a>
                         <a class="has-text-white is-size-5">
                             <span class="icon" style="float: right;" @click="show_modal = !show_modal">
@@ -120,30 +120,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>01</td>
+                                    <tr v-for="(item, index) in task">
+                                        <td>0 {{item.id}}</td>
                                         <td>
                                             <label class="checkbox">
                                                 <input type="checkbox">
-                                                Do Homework
+                                                {{item.task_name}}
                                             </label>
                                         </td>
-                                        <td>12/02/2023</td>
-                                        <td>11/02/2023</td>
+                                        <td>{{item.due_date}}</td>
+                                        <td>{{item.start_date}}</td>
                                         <td>To-Do</td>
                                     </tr>
                                     <tr>
-                                        <td>02</td>
-                                        <td>
-                                            <label class="checkbox">
-                                                <input type="checkbox">
-                                                Do Homework
-                                            </label>
-                                        </td>
-                                        <td>12/02/2023</td>
-                                        <td>11/02/2023</td>
-                                        <td>To-Do</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </li>
@@ -159,7 +148,7 @@
                             <span class="icon is-medium" @click="status2 = !status2">
                                 <i class="fas fa-angle-down"></i>
                             </span>
-                            <span>Done ( 2 )</span>
+                            <span>Done ( {{task_done.length}} )</span>
                         </a>
                         <a class="has-text-white is-size-5">
                             <span class="icon" style="float: right;">
@@ -181,28 +170,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>01</td>
+                                    <tr v-for="(item, index) in task_done">
+                                        <td>0{{item.id}}</td>
                                         <td>
                                             <label class="checkbox">
                                                 <input type="checkbox" checked>
-                                                Do Homework
+                                                {{item.task_name}}
                                             </label>
                                         </td>
-                                        <td>12/02/2023</td>
-                                        <td>11/02/2023</td>
-                                        <td>Done</td>
-                                    </tr>
-                                    <tr>
-                                        <td>02</td>
-                                        <td>
-                                            <label class="checkbox">
-                                                <input type="checkbox" checked>
-                                                Do Homework
-                                            </label>
-                                        </td>
-                                        <td>12/02/2023</td>
-                                        <td>11/02/2023</td>
+                                        <td>{{item.due_date}}</td>
+                                        <td>{{item.start_date}}</td>
                                         <td>Done</td>
                                     </tr>
                                 </tbody>
