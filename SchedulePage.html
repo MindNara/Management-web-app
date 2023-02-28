@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.min.js"
+        integrity="sha384-0LaRLH/U5g8eCAwewLGQRyC/O+g0kXh8P+5pWpzijxwYczD3nKETIqUyhuA8B/UB"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.min.css"
+        integrity="sha384-44GnAqZy9yUojzFPjdcUpP822DGm1ebORKY8pe6TkHuqJ038FANyfBYBpRvw8O9w" crossorigin="anonymous">
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="script.js">
     <title>Schedule</title>
@@ -105,8 +112,7 @@
             <!----------------------------------------------- calendar column ----------------------------------------------->
             <div class="content-calendar column is-7">
 
-                <div class="calendar" style="height: 100%;">
-
+                <div id="calendar" class="calendar p-5" style="height: 100%;">
                 </div>
 
             </div>
@@ -117,8 +123,8 @@
                 <!---------------------------- calendar row ---------------------------->
                 <div class="content-c columns" style="height: 45vh;">
                     <div class="calendar-box mr-5" style="width: 100%;">
-                        <div class="calendar m-3 p-3">
-                            <!-- Calendar -->
+                        <div class="auto-jsCalendar white-theme  m-3">
+                            <!-- calendar -->
                         </div>
                     </div>
                 </div>
@@ -165,5 +171,18 @@
     </div>
 
 </body>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+        });
+        calendar.render();
+    });
+
+</script>
 
 </html>

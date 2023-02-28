@@ -183,6 +183,7 @@ button {
     background: #F6F6F8;
 }
 
+
 /* -------------- Schedule -------------- */
 .content-calendar .calendar {
     border-radius: 20px;
@@ -191,4 +192,63 @@ button {
 
 .container-header .create-s {
     border-radius: 6px;
+}
+
+
+
+/* -------------- White Theme Calendar -------------- */
+/* .jsCalendar {
+    width: 20rem;
+} */
+
+.jsCalendar.white-theme table {
+    background-color: #ffffff;
+    box-shadow: 0 0 2px rgba(80, 80, 80, 0.4);
+    color: #333333;
+}
+
+.jsCalendar.white-theme thead .jsCalendar-nav-left,
+.jsCalendar.white-theme thead .jsCalendar-nav-right {
+    color: #AFAFAF;
+}
+
+.jsCalendar.white-theme thead .jsCalendar-nav-left:hover,
+.jsCalendar.white-theme thead .jsCalendar-nav-right:hover {
+    background-color: #DADADA;
+    color: #555555;
+}
+
+.jsCalendar.white-theme tbody td:hover {
+    background-color: #DADADA;
+    color: #000000;
+}
+
+.jsCalendar.white-theme tbody td.jsCalendar-selected {
+    border: 2px solid #BFBFBF;
+}
+
+.jsCalendar.white-theme tbody td.jsCalendar-current {
+    background-color: #222222;
+}
+
+.jsCalendar.white-theme tbody td.jsCalendar-current:hover {
+    color: #FFFFFF;
+}
+
+.jsCalendar.white-theme tbody td.jsCalendar-previous,
+.jsCalendar.white-theme tbody td.jsCalendar-next {
+    color: #AFAFAF;
+}
+
+.jsCalendar.white-theme tbody td.jsCalendar-previous:hover,
+.jsCalendar.white-theme tbody td.jsCalendar-next:hover {
+    color: #000000;
+}
+
+.jsCalendar.white-theme ::-moz-selection {
+    background: #AFAFAF;
+}
+
+.jsCalendar.white-theme ::selection {
+    background: #AFAFAF;
 }
