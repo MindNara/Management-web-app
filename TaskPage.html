@@ -12,7 +12,7 @@
 
 <body>
 
-    <div class="container.is-fullhd">
+    <div class="container.is-fullhd" id="app">
 
         <!----------------------------------------------- header column ----------------------------------------------->
         <div class="columns" style="height: 12vh;">
@@ -89,8 +89,7 @@
             </div>
 
             <!----------------------------------------------- todo-list ----------------------------------------------->
-            <div class="content column has-background-white pr-5 mt-4" style="overflow-x: hidden; overflow-y: scroll;"
-                id="app">
+            <div class="content column has-background-white pr-5 mt-4" style="overflow-x: hidden; overflow-y: scroll;">
                 <!-- table to-do list -->
                 <div class="tabs-wrapper">
                     <div
@@ -99,10 +98,10 @@
                             <span class="icon is-medium" @click="status1 = !status1">
                                 <i class="fas fa-angle-down"></i>
                             </span>
-                            <span>To-Do List ( 4 )</span>
+                            <span>To-Do List ( 2 )</span>
                         </a>
                         <a class="has-text-white is-size-5">
-                            <span class="icon" style="float: right;">
+                            <span class="icon" style="float: right;" @click="show_modal = !show_modal">
                                 <i class="fas fa-solid fa-plus"></i>
                             </span>
                         </a>
@@ -160,7 +159,7 @@
                             <span class="icon is-medium" @click="status2 = !status2">
                                 <i class="fas fa-angle-down"></i>
                             </span>
-                            <span>Done ( 4 )</span>
+                            <span>Done ( 2 )</span>
                         </a>
                         <a class="has-text-white is-size-5">
                             <span class="icon" style="float: right;">
@@ -213,10 +212,46 @@
                 </div>
                 <!-- table done -->
             </div>
-
-
         </div>
-    </div>
+
+        <!-- modal-add-task -->
+        <div class="modal" v-bind:class="{'is-active':show_modal}">
+            <div class="modal-background" @click="show_modal = !show_modal"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title">ADD TASKS</p>
+                <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
+              </header>
+              <section class="modal-card-body">
+                <!-- Content ... -->
+                <form id="form">
+                    <div class="field">
+                        <label class="label">NAME TASKS :</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input class="input" type="text" id="name-task" name="name-task" placeholder="Your task">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-book"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="due-date" class="label">DUE DATE :</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input type="date" id="due-date" name="due-date" class="input">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>   
+                </form>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-success" @click="show_modal = !show_modal">Create</button>
+                <button class="button" @click="show_modal = !show_modal">Cancel</button>
+              </footer>
+            </div>
+        </div>
+        <!-- modal-add-task -->
     </div>
     <!-- script -->
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
