@@ -90,115 +90,21 @@
             <button class="button">03</button>
           </a>
         </div>
-        <div class="columns mt-4">
-          <div class="column is-one-third">
-            <div class="card" @click="show_modal_card = !show_modal_card">
+        
+        <div class="columns mt-4 is-multiline columns is-variable is-2">
+          <div class="column is-one-third" v-for="(item, index) in diary">
+            <div class="card" @click="openmodal(index)">
               <div class="card-image">
                 <figure class="image is-2by1">
-                  <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
+                    <img :src="item.image" alt="Placeholder image">
                 </figure>
               </div>
               <div class="card-content">
                 <div class="media">
                   <div class="media-content">
-                    <p class="title is-4">Title</p>
+                    <p class="title is-4">{{item.title}}</p>
                     <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                    <p class="subtitle">11:09 PM - 1 Jan 2016</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="column">
-            <div class="card">
-              <div class="card-image">
-                <figure class="image is-2by1">
-                  <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-content">
-                    <p class="title is-4">Title</p>
-                    <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                    <p class="subtitle">11:09 PM - 1 Jan 2016</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            <div class="card">
-              <div class="card-image">
-                <figure class="image is-2by1">
-                  <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-content">
-                    <p class="title is-4">Title</p>
-                    <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                    <p class="subtitle">11:09 PM - 1 Jan 2016</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="columns mt-4">
-          <div class="column is-one-third">
-            <div class="card">
-              <div class="card-image">
-                <figure class="image is-2by1">
-                  <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-content">
-                    <p class="title is-4">Title</p>
-                    <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                    <p class="subtitle">11:09 PM - 1 Jan 2016</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            <div class="card">
-              <div class="card-image">
-                <figure class="image is-2by1">
-                  <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-content">
-                    <p class="title is-4">Title</p>
-                    <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                    <p class="subtitle">11:09 PM - 1 Jan 2016</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            <div class="card">
-              <div class="card-image">
-                <figure class="image is-2by1">
-                  <img src="https://versions.bulma.io/0.7.4/images/placeholders/1280x960.png" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-content">
-                    <p class="title is-4">Title</p>
-                    <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                    <p class="subtitle">11:09 PM - 1 Jan 2016</p>
+                    <p class="subtitle">{{item.date}}</p>
                   </div>
                 </div>
               </div>
@@ -255,7 +161,7 @@
     <!-- modal-add-note -->
 
     <!-- modal-open-card -->
-    <div class="modal" v-bind:class="{'is-active':show_modal_card}">
+    <div class="modal" v-bind:class="{'is-active':show_modal_card}" v-for="(item, index) in content_card">
       <div class="modal-background" @click="show_modal = !show_modal_card"></div>
       <div class="modal-card">
         <header class="modal-card-head">
@@ -265,11 +171,11 @@
         <section class="modal-card-body">
           <!-- Content ... -->
           <figure class="image is-5by3">
-            <img src="https://bulma.io/images/placeholders/128x128.png">
+            <img :src="item.image" alt="Placeholder image">
           </figure>
-          <p class="title">Enjoys with time</p>
-          <p class="content">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa sint possimus qui non beatae dolores eligendi porro cum recusandae alias esse, veritatis quasi fugiat, voluptas, mollitia et? Itaque, dignissimos repellendus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eligendi asperiores illum quod numquam tenetur aut animi accusantium, id modi nam veritatis et. Necessitatibus fuga ut magni, iure reiciendis aspernatur?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio, aliquam eius atque molestias laboriosam cum architecto voluptate accusantium deserunt eum fugit assumenda ipsum id obcaecati ducimus odit est dolore doloribus?</p>
-          <p class="content">2022-08-21 #mydiary</p>
+          <p class="title">{{item.title}}</p>
+          <p class="content">{{item.content}}</p>
+          <p class="content">{{item.date}} #mydiary</p>
         </section>
         <footer class="modal-card-foot">
           <button class="button is-success" @click="show_modal_card = !show_modal_card">Save</button>
