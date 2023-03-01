@@ -139,7 +139,7 @@ var app = new Vue({
             // console.log(this.task_name)
             this.date = new Date()
             this.numid = this.task.length
-            this.task.push({"id": this.numid + 1, "task_name": this.task_name,"start_date": this.date.getFullYear() +  '-' + (this.date.getMonth() < 10 ? '0' : '') + this.date.getMonth() + '-' + (this.date.getDate() < 10 ? '0' : '') + this.date.getDate() 
+            this.task.push({"id": this.numid + 1, "task_name": this.task_name,"start_date": this.date.getFullYear() +  '-' + ((this.date.getMonth() + 1) < 10 ? '0' : '') + (this.date.getMonth() + 1) + '-' + (this.date.getDate() < 10 ? '0' : '') + this.date.getDate() 
             , "status": false, "due_date": this.due_date})
             this.show_modal = !this.show_modal
             this.task_name = ''
