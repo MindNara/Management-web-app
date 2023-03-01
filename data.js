@@ -122,6 +122,7 @@ var app = new Vue({
         date: '',
         name_id: '',
         num_id: 0,
+        name_id: '',
         },
     methods: {
         openmodal(index) {
@@ -144,6 +145,17 @@ var app = new Vue({
             this.show_modal = !this.show_modal
             this.task_name = ''
             this.due_date = ''
+        },
+        addCheck(){
+            this.name_id = '';
+            for (let i = 0; i < this.task.length; i++){
+                this.name_id = 'checkbox' + i;
+                if (document.getElementById(this.name_id).checked){
+                    this.task_done.push(this.task[i])
+                    this.task.splice(i, 1);
+                    document.getElementById(this.name_id).checked = false
+                }
+            }
         },
     }
 })
