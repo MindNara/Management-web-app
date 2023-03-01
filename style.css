@@ -191,10 +191,6 @@ button {
 
 
 /* -------------- Schedule -------------- */
-.content-calendar {
-    overflow-y: scroll;
-}
-
 .content-calendar .calendar {
     border-radius: 20px;
     background: #F6F6F8;
