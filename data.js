@@ -157,6 +157,17 @@ var app = new Vue({
                 }
             }
         },
+        addCheckND(){
+            this.name_id = '';
+            for (let i = 0; i < this.task_done.length; i++){
+                this.name_id = 'checkboxD' + i;
+                if (document.getElementById(this.name_id).checked == false){
+                    this.task.push(this.task_done[i])
+                    this.task_done.splice(i, 1);
+                    document.getElementById(this.name_id).checked = true
+                }
+            }
+        }
     }
 })
 
