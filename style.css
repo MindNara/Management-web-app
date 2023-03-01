@@ -17,6 +17,8 @@ button {
     font-family: 'Kanit', sans-serif;
 }
 
+
+
 /* -------------- HomaPage -------------- */
 .bgHome {
     max-width: 100%;
@@ -69,6 +71,7 @@ button {
     padding: 0.5rem 1.5rem;
     border-radius: 10px;
 }
+
 
 
 /* -------------- Dashboard -------------- */
@@ -164,6 +167,8 @@ button {
     background: #F6F6F8;
 }
 
+
+
 /* -------------- to-do-list -------------- */
 .tabs {
     border-radius: 5px;
@@ -184,6 +189,7 @@ button {
 }
 
 
+
 /* -------------- Schedule -------------- */
 .content-calendar {
     overflow-y: scroll;
@@ -199,46 +205,17 @@ button {
 }
 
 
-/* -------------- OLD Dynamic Calendar -------------- */
-/* .wrapper {
-    border-radius: 10px;
-}
 
-.wrapper header {
-    display: flex;
-    align-items: center;
-    padding: 20px 0 10px 20px;
-    justify-content: space-between;
-}
-
-header .icons {
-    display: flex;
-}
-
-header .icons span {
-    height: 38px;
-    width: 38px;
+/* -------------- Dynamic Calendar -------------- */
+.dynaminCalendar header .icons span {
     margin: 0 1px;
     cursor: pointer;
-    color: #878787;
-    text-align: center;
-    line-height: 38px;
-    font-size: 1.9rem;
-    user-select: none;
-    border-radius: 50%;
+    font-size: 1.8rem;
 }
 
-.icons span:last-child {
-    margin-right: 10px;
-}
-
-header .current-date {
+.dynaminCalendar header .current-date {
     font-size: 1.45rem;
     font-weight: 500;
-}
-
-.dinamiccalendar {
-    padding: 5px;
 }
 
 .dinamiccalendar ul {
@@ -267,7 +244,7 @@ header .current-date {
     z-index: 1;
     cursor: pointer;
     position: relative;
-    margin-top: 30px;
+    margin-top: 1.8rem;
 }
 
 .days li.inactive {
@@ -296,7 +273,18 @@ header .current-date {
 
 .days li:not(.active):hover::before {
     background: #f2f2f2;
-} */
+}
+
+@media screen and (max-width: 90rem) {
+    .dinamiccalendar .days li {
+        margin-top: 0.9rem;
+    }
+
+    .dinamiccalendar {
+        padding: 0 10px;
+    }
+  }
+
 
 
 
@@ -336,7 +324,7 @@ header .current-date {
     background: none;
 }
 
-.fullcalendar .dinamiccalendar .days td {
+.fullcalendar .table .days td {
     width: 4rem;
     height: 7.2rem;
     padding: 10px;
@@ -362,13 +350,7 @@ header .current-date {
 }
 
 @media screen and (max-width: 90rem) {
-    .fullcalendar .dinamiccalendar .days td {
+    .fullcalendar .table .days td {
         height: 5.5rem;
     }
   }
-
-
-/* -------------- Dynamic Calendar -------------- */
-/* .dynaminCalendar {
-    
-} */
