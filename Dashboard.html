@@ -8,15 +8,6 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
     <title>Dashboard</title>
-
-    <!-- fullcalendar cnd -->
-    <script src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.min.js"
-        integrity="sha384-0LaRLH/U5g8eCAwewLGQRyC/O+g0kXh8P+5pWpzijxwYczD3nKETIqUyhuA8B/UB"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.min.css"
-        integrity="sha384-44GnAqZy9yUojzFPjdcUpP822DGm1ebORKY8pe6TkHuqJ038FANyfBYBpRvw8O9w" crossorigin="anonymous">
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
-
 </head>
 
 <body>
@@ -335,11 +326,10 @@
 
                 <!---------------------------- calendar row ---------------------------->
                 <div class="content-ts columns" style="height: 51vh;">
-                    <div class="calendar-box mr-5" style="width: 100%;">
-                        <div id="calendar" class="wrapper calendar m-3">
-                            <!-- Calendar -->
+                    <div class="calendar-box mr-5 ml-3 mt-3" style="width: 100%;">
+                        <div class="dynaminCalendar calendar">
                             <header>
-                                <p class="current-date has-text-black ml-3"></p>
+                                <p class="current-date has-text-black ml-4"></p>
                                 <div class="icons mr-2">
                                     <span id="prev"><i class='bx bxs-chevron-left has-text-black'></i></span>
                                     <span id="next"><i class='bx bxs-chevron-right has-text-black'></i></span>
@@ -408,8 +398,6 @@
 </body>
 
 <!-- script -->
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<!-- <script src="fullCalendar.js"></script> -->
-<script src="dynamicCalendar.js"></script>
+<script src="calendar.js"></script>
 
 </html>
