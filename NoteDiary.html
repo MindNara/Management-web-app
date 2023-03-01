@@ -84,11 +84,11 @@
             </span>
             <span>Create Note</span>
           </button>
-          <a style="float: right;">
+          <!-- <a style="float: right;">
             <button class="button is-black">01</button>
             <button class="button">02</button>
             <button class="button">03</button>
-          </a>
+          </a> -->
         </div>
 
         <div class="columns mt-4 is-multiline columns is-variable is-2">
@@ -127,7 +127,7 @@
             <div class="field">
               <label class="label">TOPIC :</label>
               <div class="control has-icons-left has-icons-right">
-                <input class="input" type="text" id="name-note" name="name-note">
+                <input class="input" type="text" id="name-note" name="name-note" v-model="name_note">
                 <span class="icon is-small is-left">
                   <i class="fas fa-book"></i>
                 </span>
@@ -135,12 +135,12 @@
             </div>
             <div class="field">
               <label for="image-note" class="label">IMAGE :</label>
-              <input type="file" id="image-note" name="image-note">
+              <input type="file" id="image-note" name="image-note" @change="upImage">
             </div>
             <div class="field">
               <label for="date-note" class="label">DATE :</label>
               <div class="control has-icons-left has-icons-right">
-                <input type="date" id="date-note" name="date-note" class="input">
+                <input type="date" id="date-note" name="date-note" class="input" v-model="date_note">
                 <span class="icon is-small is-left">
                   <i class="fas fa-calendar"></i>
                 </span>
@@ -148,12 +148,12 @@
             </div>
             <div class="field">
               <label for="date-note" class="label">STORY :</label>
-              <textarea placeholder="Remember, be nice!" cols="90" rows="20"></textarea>
+              <textarea placeholder="Remember, be nice!" cols="90" rows="20" v-model="data_note"></textarea>
             </div>
           </form>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success" @click="show_modal = !show_modal">Create</button>
+          <button class="button is-success" @click="addNote()">Create</button>
           <button class="button" @click="show_modal = !show_modal">Cancel</button>
         </footer>
       </div>
