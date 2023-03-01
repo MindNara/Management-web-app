@@ -121,10 +121,10 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item, index) in task">
-                                        <td>0{{item.id}}</td>
+                                        <td>{{index + 1}}</td>
                                         <td>
                                             <label class="checkbox">
-                                                <input type="checkbox">
+                                                <input type="checkbox" :id="'checkbox' + index" @click="addCheck()">
                                                 {{item.task_name}}
                                             </label>
                                         </td>
@@ -166,7 +166,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item, index) in task_done">
-                                        <td>0{{item.id}}</td>
+                                        <td>{{index + 1}}</td>
                                         <td>
                                             <label class="checkbox">
                                                 <input type="checkbox" checked>
