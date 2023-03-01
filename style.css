@@ -185,6 +185,10 @@ button {
 
 
 /* -------------- Schedule -------------- */
+.content-calendar {
+    overflow-y: scroll;
+}
+
 .content-calendar .calendar {
     border-radius: 20px;
     background: #F6F6F8;
@@ -195,8 +199,8 @@ button {
 }
 
 
-/* -------------- Dynamic Calendar -------------- */
-.wrapper {
+/* -------------- OLD Dynamic Calendar -------------- */
+/* .wrapper {
     border-radius: 10px;
 }
 
@@ -292,4 +296,79 @@ header .current-date {
 
 .days li:not(.active):hover::before {
     background: #f2f2f2;
+} */
+
+
+
+/* -------------- Full Calendar -------------- */
+.fullcalendar {
+    border-radius: 10px;
+    background: #F6F6F8;
+    padding: 0 20px 20px 20px;
 }
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px 0 10px 0;
+    justify-content: space-between;
+}
+
+header .icons {
+    display: flex;
+}
+
+.fullcalendar header .icons span i {
+    cursor: pointer;
+    background: rgb(39, 39, 39);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin: 0 3px;
+}
+
+header .current-date {
+    font-size: 1.45rem;
+    font-weight: 500;
+}
+
+.table {
+    background: none;
+}
+
+.fullcalendar .dinamiccalendar .days td {
+    width: 4rem;
+    height: 7.2rem;
+    padding: 10px;
+    color: #000;
+    font-weight: 500;
+}
+
+.fullcalendar .days td.inactive {
+    color: #aaa;
+}
+
+.fullcalendar .days td.active {
+    color: #000;
+    background: rgba(158, 158, 158, 0.199);
+}
+
+.fullcalendar .icons #prev i:hover,
+.fullcalendar .icons #next i:hover {
+    background: rgb(0, 0, 0);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 90rem) {
+    .fullcalendar .dinamiccalendar .days td {
+        height: 5.5rem;
+    }
+  }
+
+
+/* -------------- Dynamic Calendar -------------- */
+/* .dynaminCalendar {
+    
+} */
