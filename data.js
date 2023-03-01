@@ -127,7 +127,7 @@ var app = new Vue({
         data_note: '',
         img: '',
 
-        },
+    },
     methods: {
         openmodal(index) {
             this.content_card = [];
@@ -139,42 +139,44 @@ var app = new Vue({
             console.log(this.content_card)
             this.show_modal_card = !this.show_modal_card;
         },
-        addTask(){
+        addTask() {
             console.log(this.task);
             // console.log(this.task_name)
             this.date = new Date()
             this.numid = this.task.length
-            this.task.push({"id": this.numid + 1, "task_name": this.task_name,"start_date": this.date.getFullYear() +  '-' + ((this.date.getMonth() + 1) < 10 ? '0' : '') + (this.date.getMonth() + 1) + '-' + (this.date.getDate() < 10 ? '0' : '') + this.date.getDate() 
-            , "status": false, "due_date": this.due_date})
+            this.task.push({
+                "id": this.numid + 1, "task_name": this.task_name, "start_date": this.date.getFullYear() + '-' + ((this.date.getMonth() + 1) < 10 ? '0' : '') + (this.date.getMonth() + 1) + '-' + (this.date.getDate() < 10 ? '0' : '') + this.date.getDate()
+                , "status": false, "due_date": this.due_date
+            })
             this.show_modal = !this.show_modal
             this.task_name = ''
             this.due_date = ''
         },
-        addCheck(){
+        addCheck() {
             this.name_id = '';
-            for (let i = 0; i < this.task.length; i++){
+            for (let i = 0; i < this.task.length; i++) {
                 this.name_id = 'checkbox' + i;
-                if (document.getElementById(this.name_id).checked){
+                if (document.getElementById(this.name_id).checked) {
                     this.task_done.push(this.task[i])
                     this.task.splice(i, 1);
                     document.getElementById(this.name_id).checked = false
                 }
             }
         },
-        addCheckND(){
+        addCheckND() {
             this.name_id = '';
-            for (let i = 0; i < this.task_done.length; i++){
+            for (let i = 0; i < this.task_done.length; i++) {
                 this.name_id = 'checkboxD' + i;
-                if (document.getElementById(this.name_id).checked == false){
+                if (document.getElementById(this.name_id).checked == false) {
                     this.task.push(this.task_done[i])
                     this.task_done.splice(i, 1);
                     document.getElementById(this.name_id).checked = true
                 }
             }
         },
-        addNote(){
+        addNote() {
             this.numid = this.diary.length
-            this.diary.push({'id': this.numid++, 'title': this.name_note, 'date': this.date_note, 'image': this.img, 'content': this.data_note})
+            this.diary.push({ 'id': this.numid++, 'title': this.name_note, 'date': this.date_note, 'image': this.img, 'content': this.data_note })
             console.log(this.diary);
             // console.log(this.task_name)
             this.show_modal = !this.show_modal
@@ -183,11 +185,11 @@ var app = new Vue({
             this.data_note = ''
             this.image_note = ''
         },
-        upImage(event){
+        upImage(event) {
             this.img = ''
             const file = event.target.files[0]
             this.img = URL.createObjectURL(file)
-        }
+        },
     }
 })
 

@@ -25,7 +25,7 @@ const renderCalendar = () => {
 
     tdTag += `<tr>`;
     for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
-        tdTag += `<td class="inactive">${lastDateofLastMonth - i + 1}</td>`;
+        tdTag += `<td onclick="showModel()" class="inactive" id="${(lastDateofLastMonth - i + 1).toString() + currMonth.toString() + currYear.toString()}" >${lastDateofLastMonth - i + 1}</td>`;
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
         numday++;
     }
@@ -33,9 +33,9 @@ const renderCalendar = () => {
     for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
         // adding active class to li if the current day, month, and year matched
         let isToday = i == date.getDate() && currMonth == new Date().getMonth()
-            && currYear == new Date().getFullYear() ? "active" : "";
+            && currYear == new Date().getFullYear() ? "active" : "daymonth";
 
-        tdTag += `<td class="${isToday}">${i}</td>`;
+        tdTag += `<td onclick="showModel()" class="${isToday}" id="${i.toString() + (currMonth + 1).toString() + currYear.toString()}" >${i}</td>`;
         liTag += `<li class="${isToday}">${i}</li>`;
         numday++;
 
@@ -46,7 +46,7 @@ const renderCalendar = () => {
     }
 
     for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
-        tdTag += `<td class="inactive">${i - lastDayofMonth + 1}</td>`
+        tdTag += `<td onclick="showModel()" class="inactive" id="${(i - lastDayofMonth + 1).toString() + (currMonth + 2).toString() + currYear.toString()}" >${i - lastDayofMonth + 1}</td>`
         liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
         numday++;
     }
@@ -74,3 +74,38 @@ prevNextIcon.forEach(icon => { // getting prev and next icons
         renderCalendar(); // calling renderCalendar function
     });
 });
+
+function showModel() {
+    console.log("Yak sus");
+
+    const modal = document.querySelector(".modal");
+    const closeModalBtn = document.querySelector(".btn-close");
+    const cancleModalBtn = document.querySelector(".btn-cancle");
+
+    modal.classList.add("is-active");
+
+    const closeModal = function () {
+        modal.classList.remove("is-active");
+    };
+    closeModalBtn.addEventListener("click", closeModal);
+    cancleModalBtn.addEventListener("click", closeModal);
+}
+
+function addSchedule() {
+    console.log("add schedule");
+
+    const modal = document.querySelector(".modal");
+    let text = document.getElementById("title").value;
+    console.log("Title : " + text);
+
+    // const table = document.getElementById();
+    // table.innerText = text;
+
+
+
+    if (text != "") {
+        modal.classList.remove("is-active");
+    } else {
+        alert("Please enter your title.");
+    }
+}
