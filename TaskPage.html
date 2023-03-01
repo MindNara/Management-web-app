@@ -169,7 +169,7 @@
                                         <td>{{index + 1}}</td>
                                         <td>
                                             <label class="checkbox">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" checked :id="'checkboxD' + index" @click="addCheckND">
                                                 {{item.task_name}}
                                             </label>
                                         </td>
