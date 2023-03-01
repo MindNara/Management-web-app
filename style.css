@@ -195,60 +195,101 @@ button {
 }
 
 
-
-/* -------------- White Theme Calendar -------------- */
-/* .jsCalendar {
-    width: 20rem;
-} */
-
-.jsCalendar.white-theme table {
-    background-color: #ffffff;
-    box-shadow: 0 0 2px rgba(80, 80, 80, 0.4);
-    color: #333333;
+/* -------------- Dynamic Calendar -------------- */
+.wrapper {
+    border-radius: 10px;
 }
 
-.jsCalendar.white-theme thead .jsCalendar-nav-left,
-.jsCalendar.white-theme thead .jsCalendar-nav-right {
-    color: #AFAFAF;
+.wrapper header {
+    display: flex;
+    align-items: center;
+    padding: 20px 0 10px 20px;
+    justify-content: space-between;
 }
 
-.jsCalendar.white-theme thead .jsCalendar-nav-left:hover,
-.jsCalendar.white-theme thead .jsCalendar-nav-right:hover {
-    background-color: #DADADA;
-    color: #555555;
+header .icons {
+    display: flex;
 }
 
-.jsCalendar.white-theme tbody td:hover {
-    background-color: #DADADA;
-    color: #000000;
+header .icons span {
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    cursor: pointer;
+    color: #878787;
+    text-align: center;
+    line-height: 38px;
+    font-size: 1.9rem;
+    user-select: none;
+    border-radius: 50%;
 }
 
-.jsCalendar.white-theme tbody td.jsCalendar-selected {
-    border: 2px solid #BFBFBF;
+.icons span:last-child {
+    margin-right: 10px;
 }
 
-.jsCalendar.white-theme tbody td.jsCalendar-current {
-    background-color: #222222;
+header .current-date {
+    font-size: 1.45rem;
+    font-weight: 500;
 }
 
-.jsCalendar.white-theme tbody td.jsCalendar-current:hover {
-    color: #FFFFFF;
+.dinamiccalendar {
+    padding: 5px;
 }
 
-.jsCalendar.white-theme tbody td.jsCalendar-previous,
-.jsCalendar.white-theme tbody td.jsCalendar-next {
-    color: #AFAFAF;
+.dinamiccalendar ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
 }
 
-.jsCalendar.white-theme tbody td.jsCalendar-previous:hover,
-.jsCalendar.white-theme tbody td.jsCalendar-next:hover {
-    color: #000000;
+.dinamiccalendar .days {
+    margin-bottom: 20px;
 }
 
-.jsCalendar.white-theme ::-moz-selection {
-    background: #AFAFAF;
+.dinamiccalendar li {
+    color: #333;
+    width: calc(100% / 7);
+    font-size: 1.07rem;
 }
 
-.jsCalendar.white-theme ::selection {
-    background: #AFAFAF;
+.dinamiccalendar .weeks li {
+    font-weight: 500;
+    cursor: default;
+}
+
+.dinamiccalendar .days li {
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    margin-top: 30px;
+}
+
+.days li.inactive {
+    color: #aaa;
+}
+
+.days li.active {
+    color: #fff;
+}
+
+.days li::before {
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.days li.active::before {
+    background: black;
+}
+
+.days li:not(.active):hover::before {
+    background: #f2f2f2;
 }
