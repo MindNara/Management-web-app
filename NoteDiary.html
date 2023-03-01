@@ -90,13 +90,13 @@
             <button class="button">03</button>
           </a>
         </div>
-        
+
         <div class="columns mt-4 is-multiline columns is-variable is-2">
           <div class="column is-one-third" v-for="(item, index) in diary">
             <div class="card" @click="openmodal(index)">
               <div class="card-image">
                 <figure class="image is-2by1">
-                    <img :src="item.image" alt="Placeholder image">
+                  <img :src="item.image" alt="Placeholder image">
                 </figure>
               </div>
               <div class="card-content">
@@ -182,8 +182,8 @@
           <button class="button" @click="show_modal_card = !show_modal_card">Cancel</button>
         </footer>
       </div>
-  </div>
-  <!-- modal-open-card -->
+    </div>
+    <!-- modal-open-card -->
   </div>
   <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
