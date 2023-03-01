@@ -200,7 +200,7 @@
                     <div class="field">
                         <label class="label">NAME TASKS :</label>
                         <div class="control has-icons-left has-icons-right">
-                            <input class="input" type="text" id="name-task" name="name-task" placeholder="Your task">
+                            <input class="input" type="text" id="name-task" name="name-task" placeholder="Your task" v-model="task_name">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-book"></i>
                             </span>
@@ -209,7 +209,7 @@
                     <div class="field">
                         <label for="due-date" class="label">DUE DATE :</label>
                         <div class="control has-icons-left has-icons-right">
-                            <input type="date" id="due-date" name="due-date" class="input">
+                            <input type="date" id="due-date" name="due-date" class="input" v-model="due_date">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-calendar"></i>
                             </span>
@@ -218,7 +218,7 @@
                 </form>
               </section>
               <footer class="modal-card-foot">
-                <button class="button is-success" @click="show_modal = !show_modal">Create</button>
+                <button class="button is-success" @click="addTask()">Create</button>
                 <button class="button" @click="show_modal = !show_modal">Cancel</button>
               </footer>
             </div>
