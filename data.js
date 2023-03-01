@@ -122,7 +122,11 @@ var app = new Vue({
         date: '',
         name_id: '',
         num_id: 0,
-        name_id: '',
+        name_note: '',
+        date_note: '',
+        data_note: '',
+        img: '',
+
         },
     methods: {
         openmodal(index) {
@@ -167,6 +171,22 @@ var app = new Vue({
                     document.getElementById(this.name_id).checked = true
                 }
             }
+        },
+        addNote(){
+            this.numid = this.diary.length
+            this.diary.push({'id': this.numid++, 'title': this.name_note, 'date': this.date_note, 'image': this.img, 'content': this.data_note})
+            console.log(this.diary);
+            // console.log(this.task_name)
+            this.show_modal = !this.show_modal
+            this.name_note = ''
+            this.date_note = ''
+            this.data_note = ''
+            this.image_note = ''
+        },
+        upImage(event){
+            this.img = ''
+            const file = event.target.files[0]
+            this.img = URL.createObjectURL(file)
         }
     }
 })
