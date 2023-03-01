@@ -90,6 +90,32 @@
 
             <!----------------------------------------------- todo-list ----------------------------------------------->
             <div class="content column has-background-white pr-5 mt-4" style="overflow-x: hidden; overflow-y: scroll;">
+                <!-- card task-done -->
+                <div class="columns is-multiline columns is-variable is-2">
+                    <div class="column is-half">
+                        <div class="card">
+                            <div class="card-content is-flex is-justify-content-center is-align-items-center">
+                                <i class='bx bx-task'></i>
+                                <div class="text">
+                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{task_done.length}}</span>
+                                    <p class="is-size-5-fullhd is-size-6-widescreen">Task Done</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-content is-flex is-justify-content-center is-align-items-center">
+                                <i class='bx bx-task-x'></i>
+                                <div class="text">
+                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{task.length}}</span>
+                                    <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- table to-do list -->
                 <div class="tabs-wrapper">
                     <div
