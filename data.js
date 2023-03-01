@@ -117,7 +117,12 @@ var app = new Vue({
         show_modal: false,
         show_modal_card: false,
         content_card: [],
-    },
+        task_name: '',
+        due_date: '',
+        date: '',
+        name_id: '',
+        num_id: 0,
+        },
     methods: {
         openmodal(index) {
             this.content_card = [];
@@ -128,6 +133,17 @@ var app = new Vue({
             }
             console.log(this.content_card)
             this.show_modal_card = !this.show_modal_card;
+        },
+        addTask(){
+            console.log(this.task);
+            // console.log(this.task_name)
+            this.date = new Date()
+            this.numid = this.task.length
+            this.task.push({"id": this.numid + 1, "task_name": this.task_name,"start_date": this.date.getFullYear() +  '-' + (this.date.getMonth() < 10 ? '0' : '') + this.date.getMonth() + '-' + (this.date.getDate() < 10 ? '0' : '') + this.date.getDate() 
+            , "status": false, "due_date": this.due_date})
+            this.show_modal = !this.show_modal
+            this.task_name = ''
+            this.due_date = ''
         },
     }
 })
