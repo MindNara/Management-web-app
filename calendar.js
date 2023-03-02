@@ -138,7 +138,7 @@ function addSchedule() {
         date.value = "";
 
         // save down localStorage
-        window.localStorage.setItem("array", JSON.stringify(array));
+        window.localStorage.setItem("schedule", JSON.stringify(array));
 
     } else {
         alert("Please enter your title.");
@@ -197,7 +197,7 @@ function showArray() {
 
 // --------------------- Get LocalStorage --------------------- //
 function getLocalStorage() {
-    const savelocalStorage = JSON.parse(localStorage.getItem("array"));
+    const savelocalStorage = JSON.parse(localStorage.getItem("schedule"));
 
     if (savelocalStorage != null) {
         array = savelocalStorage;

@@ -128,7 +128,7 @@ var app = new Vue({
         img: '',
 
     },
-    created(){
+    created() {
         // this.task = this.task
         // this.task_done = this.task_done
         // this.diary = this.diary
@@ -136,16 +136,16 @@ var app = new Vue({
         const taskdone = JSON.parse(localStorage.getItem("taskdone"));
         const diarylist = JSON.parse(localStorage.getItem("diary"));
         console.log(task)
-        if (task !== null){
+        if (task !== null) {
             this.task = task
         }
-        if(taskdone !== null){
+        if (taskdone !== null) {
             this.task_done = taskdone
         }
-        if(diarylist !== null){
+        if (diarylist !== null) {
             this.diary = diarylist
         }
-        
+
     },
     methods: {
         openmodal(index) {
