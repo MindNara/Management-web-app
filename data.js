@@ -5,43 +5,43 @@ var app = new Vue({
             {
                 id: 0,
                 title: "Enjoy time",
-                date: "2022-08-21",
-                image: 'https://cdn.wallpapersafari.com/21/58/FRetIc.jpg',
+                date: "2023-08-21",
+                image: 'https://images.pexels.com/photos/8157623/pexels-photo-8157623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                 content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa sint possimus qui non beatae dolores eligendi porro cum recusandae alias esse, veritatis quasi fugiat, voluptas, mollitia et? Itaque, dignissimos repellendus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eligendi asperiores illum quod numquam tenetur aut animi accusantium, id modi nam veritatis et. Necessitatibus fuga ut magni, iure reiciendis aspernatur?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio, aliquam eius atque molestias laboriosam cum architecto voluptate accusantium deserunt eum fugit assumenda ipsum id obcaecati ducimus odit est dolore doloribus?"
             },
             {
                 id: 1,
-                title: "Enjoy with dog",
-                date: "2022-08-22",
-                image: 'https://swall.teahub.io/photos/small/200-2008148_360-x-400-pixels.jpg',
+                title: "Enjoy your life",
+                date: "2023-08-22",
+                image: 'https://images.pexels.com/photos/2157167/pexels-photo-2157167.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                 content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa sint possimus qui non beatae dolores eligendi porro cum recusandae alias esse, veritatis quasi fugiat, voluptas, mollitia et? Itaque, dignissimos repellendus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eligendi asperiores illum quod numquam tenetur aut animi accusantium, id modi nam veritatis et. Necessitatibus fuga ut magni, iure reiciendis aspernatur?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio, aliquam eius atque molestias laboriosam cum architecto voluptate accusantium deserunt eum fugit assumenda ipsum id obcaecati ducimus odit est dolore doloribus?"
             },
             {
                 id: 2,
                 title: "Eat all around",
-                date: "2022-09-11",
-                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTszTyg3HCkUM68GIVP6Wqpp67IEjh1fcHuOA&usqp=CAU',
+                date: "2023-09-11",
+                image: 'https://images.pexels.com/photos/12124726/pexels-photo-12124726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                 content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa sint possimus qui non beatae dolores eligendi porro cum recusandae alias esse, veritatis quasi fugiat, voluptas, mollitia et? Itaque, dignissimos repellendus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eligendi asperiores illum quod numquam tenetur aut animi accusantium, id modi nam veritatis et. Necessitatibus fuga ut magni, iure reiciendis aspernatur?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio, aliquam eius atque molestias laboriosam cum architecto voluptate accusantium deserunt eum fugit assumenda ipsum id obcaecati ducimus odit est dolore doloribus?"
             },
             {
                 id: 3,
                 title: "Enjoy to world",
-                date: "2022-12-25",
-                image: 'https://www.chromethemer.com/wallpapers/chromebook-wallpapers/images/rabbit-wallpaper-for-chromebook.jpg',
+                date: "2023-12-25",
+                image: 'https://images.pexels.com/photos/2174613/pexels-photo-2174613.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                 content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa sint possimus qui non beatae dolores eligendi porro cum recusandae alias esse, veritatis quasi fugiat, voluptas, mollitia et? Itaque, dignissimos repellendus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eligendi asperiores illum quod numquam tenetur aut animi accusantium, id modi nam veritatis et. Necessitatibus fuga ut magni, iure reiciendis aspernatur?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio, aliquam eius atque molestias laboriosam cum architecto voluptate accusantium deserunt eum fugit assumenda ipsum id obcaecati ducimus odit est dolore doloribus?"
             },
             {
                 id: 4,
                 title: "Bad Day",
                 date: "2023-02-14",
-                image: 'https://cdn.wallpapersafari.com/68/75/Bd0zb1.jpg',
+                image: 'https://images.pexels.com/photos/11376120/pexels-photo-11376120.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                 content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa sint possimus qui non beatae dolores eligendi porro cum recusandae alias esse, veritatis quasi fugiat, voluptas, mollitia et? Itaque, dignissimos repellendus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eligendi asperiores illum quod numquam tenetur aut animi accusantium, id modi nam veritatis et. Necessitatibus fuga ut magni, iure reiciendis aspernatur?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio, aliquam eius atque molestias laboriosam cum architecto voluptate accusantium deserunt eum fugit assumenda ipsum id obcaecati ducimus odit est dolore doloribus?"
             },
             {
                 id: 5,
                 title: "Go To my world",
-                date: "2022-04-28",
-                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcBCewEiFmXUWiXeeD0ksxRUchp8FabuPYlg&usqp=CAU',
+                date: "2023-04-28",
+                image: 'https://images.pexels.com/photos/6334822/pexels-photo-6334822.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                 content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa sint possimus qui non beatae dolores eligendi porro cum recusandae alias esse, veritatis quasi fugiat, voluptas, mollitia et? Itaque, dignissimos repellendus?Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eligendi asperiores illum quod numquam tenetur aut animi accusantium, id modi nam veritatis et. Necessitatibus fuga ut magni, iure reiciendis aspernatur?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio, aliquam eius atque molestias laboriosam cum architecto voluptate accusantium deserunt eum fugit assumenda ipsum id obcaecati ducimus odit est dolore doloribus?"
             }
         ],
