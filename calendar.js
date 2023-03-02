@@ -129,15 +129,16 @@ function addSchedule() {
         modal.classList.remove("is-active");
         console.log("create schedule");
 
+        // push down array
         array.push({
             title: text.value,
             date: date.value
         });
-
         text.value = "";
         date.value = "";
 
-        window.localStorage.setItem('array', JSON.stringify(array));
+        // save down localStorage
+        window.localStorage.setItem("array", JSON.stringify(array));
 
     } else {
         alert("Please enter your title.");
@@ -196,8 +197,12 @@ function showArray() {
 
 // --------------------- Get LocalStorage --------------------- //
 function getLocalStorage() {
-    const savelocalStorage = JSON.parse(localStorage.getItem('array'));
-    array = savelocalStorage;
+    const savelocalStorage = JSON.parse(localStorage.getItem("array"));
+
+    if (savelocalStorage != null) {
+        array = savelocalStorage;
+    }
+
 }
 getLocalStorage();
 showArray();
