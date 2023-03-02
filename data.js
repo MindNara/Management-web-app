@@ -128,6 +128,25 @@ var app = new Vue({
         img: '',
 
     },
+    created(){
+        // this.task = this.task
+        // this.task_done = this.task_done
+        // this.diary = this.diary
+        const task = JSON.parse(localStorage.getItem("task"));
+        const taskdone = JSON.parse(localStorage.getItem("taskdone"));
+        const diarylist = JSON.parse(localStorage.getItem("diary"));
+        console.log(task)
+        if (task !== null){
+            this.task = task
+        }
+        if(taskdone !== null){
+            this.task_done = taskdone
+        }
+        if(diarylist !== null){
+            this.diary = diarylist
+        }
+        
+    },
     methods: {
         openmodal(index) {
             this.content_card = [];
@@ -152,6 +171,10 @@ var app = new Vue({
                 "id": this.numid + 1, "task_name": this.task_name, "start_date": this.date.getFullYear() + '-' + ((this.date.getMonth() + 1) < 10 ? '0' : '') + (this.date.getMonth() + 1) + '-' + (this.date.getDate() < 10 ? '0' : '') + this.date.getDate()
                 , "status": false, "due_date": this.due_date
             })
+            const taskList = this.task
+            const taskDone = this.task_done
+            localStorage.setItem("task", JSON.stringify(taskList))
+            localStorage.setItem("taskdone", JSON.stringify(taskDone))
             this.show_modal = !this.show_modal
             this.task_name = ''
             this.due_date = ''
@@ -166,6 +189,10 @@ var app = new Vue({
                     document.getElementById(this.name_id).checked = false
                 }
             }
+            const taskList = this.task
+            const taskDone = this.task_done
+            localStorage.setItem("task", JSON.stringify(taskList))
+            localStorage.setItem("taskdone", JSON.stringify(taskDone))
         },
         addCheckND() {
             this.name_id = '';
@@ -177,6 +204,10 @@ var app = new Vue({
                     document.getElementById(this.name_id).checked = true
                 }
             }
+            const taskList = this.task
+            const taskDone = this.task_done
+            localStorage.setItem("task", JSON.stringify(taskList))
+            localStorage.setItem("taskdone", JSON.stringify(taskDone))
         },
         addNote() {
             this.numid = this.diary.length
@@ -187,6 +218,8 @@ var app = new Vue({
             this.diary.push({ 'id': this.numid++, 'title': this.name_note, 'date': this.date_note, 'image': this.img, 'content': this.data_note })
             console.log(this.diary);
             // console.log(this.task_name)
+            const diaryList = this.diary
+            localStorage.setItem("diary", JSON.stringify(diaryList))
             this.show_modal = !this.show_modal
             this.name_note = ''
             this.date_note = ''
