@@ -68,7 +68,7 @@ function renderCalendar() {
     let tdTag = "";
     let liTag = "";
 
-    tdTag += `<tr id="show">`;
+    tdTag += `<tr>`;
     for (let i = (firstDayofMonth - 1); i >= 0; i--) { // create date of last month
         let dateofLastMonth = lastDateofLastMonth - i;
         tdTag += `<td class="inactive" id="${currYear + "-" + (currMonth < 10 ? "0" : "") + (currMonth) + "-" + ((dateofLastMonth) < 10 ? "0" : "") + (dateofLastMonth)}" >${dateofLastMonth}</td>`;
@@ -91,7 +91,7 @@ function renderCalendar() {
         }
     }
 
-    for (let i = (lastDayofMonth + 1); i <= 6; i++) { // create date of next month
+    for (let i = (lastDayofMonth + 1); i < 7; i++) { // create date of next month
         let dateofNextMonth = i - lastDayofMonth;
         tdTag += `<td class="inactive" id="${currYear + "-" + ((currMonth + 2) < 10 ? "0" : "") + (currMonth + 2) + "-" + ((dateofNextMonth) < 10 ? "0" : "") + (dateofNextMonth)}" >${dateofNextMonth}</td>`
         liTag += `<li class="inactive">${dateofNextMonth}</li>`
@@ -139,8 +139,6 @@ prevNextIcon();
 
 // --------------------- Show Model --------------------- //
 function showModel() {
-    console.log("add schedule");
-
     const modal = document.querySelector(".modal");
     const closeModalBtn = document.querySelector(".btn-close");
     const cancleModalBtn = document.querySelector(".btn-cancle");
