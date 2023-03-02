@@ -1,39 +1,40 @@
 const fullcalendar = document.querySelector(".fullcalendar .days"),
     dynamicCalendar = document.querySelector(".dynaminCalendar .days"),
     currentDate_full = document.querySelector(".fullcalendar .current-date"),
-    currentDate_dynamic = document.querySelector(".dynaminCalendar .current-date"),
-    prevNextIcon = document.querySelectorAll(".icons span");
+    currentDate_dynamic = document.querySelector(".dynaminCalendar .current-date");
 
-// getting new date, current year and month
 let date = new Date(),
     currYear = date.getFullYear(),
     currMonth = date.getMonth();
+console.log("Month : " + currMonth);
 
-// storing full name of all months in array
 const months = ["January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"];
 
-const renderCalendar = () => {
-    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
-        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
-        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
-        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+
+// --------------------- Calendar --------------------- //
+function renderCalendar() {
+    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // first day of month
+        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // last date of month
+        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // last day of month
+        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // last date of last month
 
     let numday = 0;
     let tdTag = "";
     let liTag = "";
 
-    tdTag += `<tr>`;
-    for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
+    tdTag += `<tr id="show">`;
+    for (let i = firstDayofMonth; i > 0; i--) { // create date of last month
         tdTag += `<td onclick="showModel()" class="inactive" id="${(lastDateofLastMonth - i + 1).toString() + currMonth.toString() + currYear.toString()}" >${lastDateofLastMonth - i + 1}</td>`;
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
         numday++;
     }
 
-    for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
-        // adding active class to li if the current day, month, and year matched
+    for (let i = 1; i <= lastDateofMonth; i++) { // create date of present month
+
+        // add class in <td></td>
         let isToday = i == date.getDate() && currMonth == new Date().getMonth()
-            && currYear == new Date().getFullYear() ? "active" : "daymonth";
+            && currYear == new Date().getFullYear() ? "active" : "";
 
         tdTag += `<td onclick="showModel()" class="${isToday}" id="${i.toString() + (currMonth + 1).toString() + currYear.toString()}" >${i}</td>`;
         liTag += `<li class="${isToday}">${i}</li>`;
@@ -45,7 +46,7 @@ const renderCalendar = () => {
         }
     }
 
-    for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
+    for (let i = lastDayofMonth; i < 6; i++) { // create date of next month
         tdTag += `<td onclick="showModel()" class="inactive" id="${(i - lastDayofMonth + 1).toString() + (currMonth + 2).toString() + currYear.toString()}" >${i - lastDayofMonth + 1}</td>`
         liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
         numday++;
@@ -54,36 +55,51 @@ const renderCalendar = () => {
     currentDate_dynamic.innerText = `${months[currMonth]} ${currYear}`;
     dynamicCalendar.innerHTML = liTag;
 
-    currentDate_full.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+    currentDate_full.innerText = `${months[currMonth]} ${currYear}`;
     fullcalendar.innerHTML = tdTag;
 }
 renderCalendar();
 
-prevNextIcon.forEach(icon => { // getting prev and next icons
-    icon.addEventListener("click", () => { // adding click event on both icons
-        // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
-        currMonth = icon.id == "prev" ? currMonth - 1 : currMonth + 1;
-        if (currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
-            // creating a new date of current year & month and pass it as date value
-            date = new Date(currYear, currMonth, new Date().getDate());
-            currYear = date.getFullYear(); // updating current year with new date year
-            currMonth = date.getMonth(); // updating current month with new date month
-        } else {
-            date = new Date(); // pass the current date as date value
-        }
-        renderCalendar(); // calling renderCalendar function
-    });
-});
 
+// --------------------- Change Month --------------------- //
+function prevNextIcon() {
+
+    const prevNextIcon = document.querySelectorAll(".icons span"); // span icon have 2 btn
+    prevNextIcon.forEach(icon => { // use to forEach -> get prav & next icons
+
+        icon.addEventListener("click", () => {
+            // checked month
+            currMonth = icon.id == "prev" ? currMonth - 1 : currMonth + 1;
+
+            // checked year
+            if (currMonth < 1 || currMonth > 11) {
+                date = new Date(currYear, currMonth, new Date().getDate());
+                currYear = date.getFullYear();
+                currMonth = date.getMonth();
+            } else {
+                date = new Date();
+            }
+            renderCalendar();
+
+        });
+
+    });
+}
+prevNextIcon();
+
+
+// --------------------- Show Model --------------------- //
 function showModel() {
-    console.log("Yak sus");
+    console.log("add schedule");
 
     const modal = document.querySelector(".modal");
     const closeModalBtn = document.querySelector(".btn-close");
     const cancleModalBtn = document.querySelector(".btn-cancle");
 
+    // show model
     modal.classList.add("is-active");
 
+    // close model
     const closeModal = function () {
         modal.classList.remove("is-active");
     };
@@ -91,20 +107,40 @@ function showModel() {
     cancleModalBtn.addEventListener("click", closeModal);
 }
 
+
+// --------------------- Add Schedule --------------------- //
 function addSchedule() {
-    console.log("add schedule");
-
     const modal = document.querySelector(".modal");
-    let text = document.getElementById("title").value;
-    console.log("Title : " + text);
+    let text = document.getElementById("title");
+    console.log("Title : " + text.value);
 
-    // const table = document.getElementById();
-    // table.innerText = text;
+    let statusDate = document.getElementsByClassName("inactive");
+    console.log("StatusDate : " + statusDate.id);
+
+
+    // let tdId = "";
+    // for (let i = firstDayofMonth; i > 0; i--) {
+    //     for (let j = 1; j <= lastDateofMonth; j++) {
+    //         for (let k = lastDayofMonth; k < 6; k++) {
+
+    //             tdId = (lastDateofLastMonth - i + 1).toString() + currMonth.toString() + currYear.toString();
+    //             console.log(tdId);
+
+    //             // if (document.getElementById(tdId)) {
+    //             //     // table.innerText = text;
+    //             //     console.log("Suscess")
+    //             // }
+
+    //         }
+    //     }
+    // }
 
 
 
-    if (text != "") {
+    if (text.value != "") {
         modal.classList.remove("is-active");
+        console.log("create schedule");
+        text.value = "";
     } else {
         alert("Please enter your title.");
     }
