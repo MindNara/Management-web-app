@@ -22,6 +22,26 @@ let array = [{
     "title": "Present web pro",
     "date": "2023-03-03"
 },
+{
+    "title": "Eng Midterm",
+    "date": "2023-03-07"
+},
+{
+    "title": "DSC Midterm",
+    "date": "2023-03-08"
+},
+{
+    "title": "Prob Midterm",
+    "date": "2023-03-09"
+},
+{
+    "title": "ISAD Midterm",
+    "date": "2023-03-11"
+},
+{
+    "title": "SE Midterm",
+    "date": "2023-03-13"
+}
 ];
 
 
@@ -37,11 +57,11 @@ function getLocalStorage() {
 getLocalStorage();
 
 
-// --------------------- Calendar --------------------- //
+// --------------------- Render Calendar --------------------- //
 function renderCalendar() {
-    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // first day of month
-        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // last date of month
-        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // last day of month
+    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // first day of current month
+        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // last date of current month
+        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // last day of current month
         lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // last date of last month
 
     let numday = 0;
@@ -49,31 +69,32 @@ function renderCalendar() {
     let liTag = "";
 
     tdTag += `<tr id="show">`;
-    for (let i = firstDayofMonth; i > 0; i--) { // create date of last month
-        tdTag += `<td class="inactive" id="${currYear.toString() + "-" + (currMonth < 10 ? "0" : "") + (currMonth).toString() + "-" + ((lastDateofLastMonth - i + 1) < 10 ? "0" : "") + (lastDateofLastMonth - i + 1).toString()}" >${lastDateofLastMonth - i + 1}</td>`;
-        liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+    for (let i = (firstDayofMonth - 1); i >= 0; i--) { // create date of last month
+        let dateofLastMonth = lastDateofLastMonth - i;
+        tdTag += `<td class="inactive" id="${currYear + "-" + (currMonth < 10 ? "0" : "") + (currMonth) + "-" + ((dateofLastMonth) < 10 ? "0" : "") + (dateofLastMonth)}" >${dateofLastMonth}</td>`;
+        liTag += `<li class="inactive">${dateofLastMonth}</li>`;
         numday++;
     }
 
-    for (let i = 1; i <= lastDateofMonth; i++) { // create date of present month
+    for (let i = 1; i <= lastDateofMonth; i++) { // create date of current month
 
         // add class in <td></td>
-        let isToday = i == date.getDate() && currMonth == new Date().getMonth()
-            && currYear == new Date().getFullYear() ? "active" : "";
+        let isToday = i == date.getDate() && currMonth == new Date().getMonth() && currYear == new Date().getFullYear() ? "active" : "";
 
-        tdTag += `<td class="${isToday}" id="${currYear.toString() + "-" + ((currMonth + 1) < 10 ? "0" : "") + (currMonth + 1).toString() + "-" + ((i) < 10 ? "0" : "") + (i).toString()}" >${i}</td>`;
+        tdTag += `<td class="${isToday}" id="${currYear + "-" + ((currMonth + 1) < 10 ? "0" : "") + (currMonth + 1) + "-" + ((i) < 10 ? "0" : "") + (i)}" >${i}</td>`;
         liTag += `<li class="${isToday}">${i}</li>`;
         numday++;
 
-        if (numday == 7) {
+        if (numday > 6) {
             tdTag += `</tr>`;
             numday = 0;
         }
     }
 
-    for (let i = lastDayofMonth; i < 6; i++) { // create date of next month
-        tdTag += `<td class="inactive" id="${currYear.toString() + "-" + ((currMonth + 2) < 10 ? "0" : "") + (currMonth + 2).toString() + "-" + ((i - lastDayofMonth + 1) < 10 ? "0" : "") + (i - lastDayofMonth + 1).toString()}" >${i - lastDayofMonth + 1}</td>`
-        liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
+    for (let i = (lastDayofMonth + 1); i <= 6; i++) { // create date of next month
+        let dateofNextMonth = i - lastDayofMonth;
+        tdTag += `<td class="inactive" id="${currYear + "-" + ((currMonth + 2) < 10 ? "0" : "") + (currMonth + 2) + "-" + ((dateofNextMonth) < 10 ? "0" : "") + (dateofNextMonth)}" >${dateofNextMonth}</td>`
+        liTag += `<li class="inactive">${dateofNextMonth}</li>`
         numday++;
     }
 
@@ -144,15 +165,14 @@ function addSchedule() {
     let text = document.getElementById("title");
     let date = document.getElementById("date");
 
-    let idDate = document.getElementById(date.value);
+    let tdDate = document.getElementById(date.value);
     let div = document.createElement("div");
     div.innerHTML = text.value;
     div.classList.add("boxtext");
-    idDate.appendChild(div);
 
-    if (text.value != "") {
+    if (text.value != "" || date.value != "") {
+        tdDate.appendChild(div);
         modal.classList.remove("is-active");
-        console.log("create schedule");
 
         // push down array
         array.push({
@@ -186,18 +206,18 @@ function showArray() {
             schedule1.innerHTML = item["title"];
 
             let date = item["date"];
-            let text = item["title"];
-            let idDate = document.getElementById(date);
+            let title = item["title"];
+            let tdDate = document.getElementById(date);
 
-            div.innerHTML = text;
-            idDate.appendChild(div);
+            div.innerHTML = title;
+            tdDate.appendChild(div);
             div.classList.add("boxtext");
         } else {
             let date = item["date"];
-            let text = item["title"];
+            let title = item["title"];
             let idDate = document.getElementById(date);
 
-            div.innerHTML = text;
+            div.innerHTML = title;
             idDate.appendChild(div);
             div.classList.add("boxtext");
         }
