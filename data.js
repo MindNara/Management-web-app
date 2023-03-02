@@ -144,6 +144,10 @@ var app = new Vue({
             // console.log(this.task_name)
             this.date = new Date()
             this.numid = this.task.length
+            if (this.task_name === '' || this.due_date === ''){
+                alert("Please enter all inputs")
+                return
+            }
             this.task.push({
                 "id": this.numid + 1, "task_name": this.task_name, "start_date": this.date.getFullYear() + '-' + ((this.date.getMonth() + 1) < 10 ? '0' : '') + (this.date.getMonth() + 1) + '-' + (this.date.getDate() < 10 ? '0' : '') + this.date.getDate()
                 , "status": false, "due_date": this.due_date
@@ -176,6 +180,10 @@ var app = new Vue({
         },
         addNote() {
             this.numid = this.diary.length
+            if (this.name_note === '' || this.date_note === '' || this.img === '' || this.data_note === ''){
+                alert("Please Enter all inputs")
+                return
+            }
             this.diary.push({ 'id': this.numid++, 'title': this.name_note, 'date': this.date_note, 'image': this.img, 'content': this.data_note })
             console.log(this.diary);
             // console.log(this.task_name)
