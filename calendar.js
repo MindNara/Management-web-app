@@ -108,6 +108,7 @@ function showModel() {
 }
 
 
+
 // --------------------- Add Schedule --------------------- //
 function addSchedule() {
 
@@ -119,15 +120,86 @@ function addSchedule() {
     let div = document.createElement("div");
     div.innerHTML = text.value;
     div.classList.add("boxtext");
-
     idDate.appendChild(div);
 
     if (text.value != "") {
         modal.classList.remove("is-active");
         console.log("create schedule");
+
+        array.push({
+            title: text.value,
+            date: date.value
+        });
+        console.log(array);
+        array.forEach(showArray);
+
         text.value = "";
         date.value = "";
     } else {
         alert("Please enter your title.");
     }
 }
+
+
+
+let array = [{
+    "title": "Travel with boyfriend",
+    "date": "2023-03-01"
+},
+{
+    "title": "Comback home",
+    "date": "2023-03-02"
+},
+{
+    "title": "Present web pro",
+    "date": "2023-03-03"
+},
+];
+
+
+// --------------------- Show Array --------------------- //
+function showArray() {
+
+    console.log("show dai suk tee ei sus!");
+
+    array.forEach((item, index) => {
+
+        let div = document.createElement("div");
+        let schedule1 = document.getElementById("schedule1");
+        let schedule2 = document.getElementById("schedule2");
+        let schedule3 = document.getElementById("schedule3");
+        let todayDate = new Date();
+        let todaySchedule = item["date"];
+
+        if (todaySchedule == todayDate.getFullYear() + '-' + ((todayDate.getMonth() + 1) < 10 ? '0' : '') + (todayDate.getMonth() + 1) + '-' + (todayDate.getDate() < 10 ? '0' : '') + todayDate.getDate()) {
+            schedule1.innerHTML = item["title"];
+
+            let date = item["date"];
+            let text = item["title"];
+            let idDate = document.getElementById(date);
+
+            div.innerHTML = text;
+            idDate.appendChild(div);
+            div.classList.add("boxtext");
+        } else {
+            let date = item["date"];
+            let text = item["title"];
+            let idDate = document.getElementById(date);
+
+            div.innerHTML = text;
+            idDate.appendChild(div);
+            div.classList.add("boxtext");
+        }
+
+    })
+
+    // let schedule = document.getElementById("schedule1");
+    // let date = new Date();
+    // let todaySchedule = item["date"];
+
+    // if (todaySchedule == date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + '-' + (date.getDate() < 10 ? '0' : '') + date.getDate()) {
+    //     schedule.innerHTML = todaySchedule["title"];
+    //     console.log("Today suscess!");
+    // }
+}
+showArray();
