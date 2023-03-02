@@ -59,10 +59,10 @@ getLocalStorage();
 
 // --------------------- Render Calendar --------------------- //
 function renderCalendar() {
-    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // first day of current month
-        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // last date of current month
-        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // last day of current month
-        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // last date of last month
+    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // first day of current month = 3
+        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // last date of current month = 31
+        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // last day of current month = 5
+        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // last date of last month = 28
 
     let numday = 0;
     let tdTag = "";
