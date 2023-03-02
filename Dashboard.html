@@ -12,7 +12,7 @@
 
 <body>
 
-    <div class="container.is-fullhd">
+    <div class="container.is-fullhd" id="app">
 
         <!----------------------------------------------- header column ----------------------------------------------->
         <div class="columns" style="height: 12vh;">
@@ -102,7 +102,8 @@
                                     <div class="card-content is-flex is-justify-content-center is-align-items-center">
                                         <i class='bx bx-task'></i>
                                         <div class="text">
-                                            <span class="is-size-2-fullhd is-size-3-widescreen">04</span>
+                                            <span
+                                                class="is-size-2-fullhd is-size-3-widescreen">{{task_done.length}}</span>
                                             <p class="is-size-5-fullhd is-size-6-widescreen">Task Done</p>
                                         </div>
                                     </div>
@@ -115,7 +116,7 @@
                                     <div class="card-content is-flex is-justify-content-center is-align-items-center">
                                         <i class='bx bx-task-x'></i>
                                         <div class="text">
-                                            <span class="is-size-2-fullhd is-size-3-widescreen">12</span>
+                                            <span class="is-size-2-fullhd is-size-3-widescreen">{{task.length}}</span>
                                             <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
                                         </div>
                                     </div>
@@ -128,7 +129,7 @@
                                     <div class="card-content is-flex is-justify-content-center is-align-items-center">
                                         <i class='bx bx-note'></i>
                                         <div class="text">
-                                            <span class="is-size-2-fullhd is-size-3-widescreen">06</span>
+                                            <span class="is-size-2-fullhd is-size-3-widescreen">{{diary.length}}</span>
                                             <p class="is-size-5-fullhd is-size-6-widescreen">Notes</p>
                                         </div>
                                     </div>
@@ -255,64 +256,23 @@
                         </div>
 
                         <!----------------- notes card ----------------->
-                        <div class="columns" style="height: 33vh;">
+                        <div class="columns mt-4 is-multiline" style="height: 33vh;">
 
-                            <div class="note-box column">
-                                <div class="card">
+                            <div class="column is-one-third" v-for="(item, index) in diary">
+                                <div class="card" @click="openmodal(index)">
                                     <div class="card-image">
-                                        <figure class="image is-5by3">
-                                            <!-- image -->
+                                        <figure class="image is-2by1">
+                                            <img :src="item.image" alt="Placeholder image">
                                         </figure>
                                     </div>
-
-                                    <div class="content py-4 px-4">
-                                        <div class="level m-0">
-                                            <p class="title is-size-4-fullhd is-size-5-widescreen m-0">Title</p>
-                                            <span><i
-                                                    class='bx bx-happy-heart-eyes is-size-4-fullhd is-size-5-widescreen has-text-black'></i></span>
+                                    <div class="card-content">
+                                        <div class="media">
+                                            <div class="media-content">
+                                                <p class="title is-4">{{item.title}}</p>
+                                                <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                                                <p class="subtitle">{{item.date}}</p>
+                                            </div>
                                         </div>
-                                        <p class="is-size-6-fullhd is-size-7-widescreen has-text-weight-light">Lorem
-                                            ipsum dolor.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="note-box column">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <figure class="image is-5by3">
-                                            <!-- image -->
-                                        </figure>
-                                    </div>
-
-                                    <div class="content py-4 px-4">
-                                        <div class="level m-0">
-                                            <p class="title is-size-4-fullhd is-size-5-widescreen m-0">Title</p>
-                                            <span><i
-                                                    class='bx bx-happy-heart-eyes is-size-4-fullhd is-size-5-widescreen has-text-black'></i></span>
-                                        </div>
-                                        <p class="is-size-6-fullhd is-size-7-widescreen has-text-weight-light">Lorem
-                                            ipsum dolor.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="note-box column">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <figure class="image is-5by3">
-                                            <!-- image -->
-                                        </figure>
-                                    </div>
-
-                                    <div class="content py-4 px-4">
-                                        <div class="level m-0">
-                                            <p class="title is-size-4-fullhd is-size-5-widescreen m-0">Title</p>
-                                            <span><i
-                                                    class='bx bx-happy-heart-eyes is-size-4-fullhd is-size-5-widescreen has-text-black'></i></span>
-                                        </div>
-                                        <p class="is-size-6-fullhd is-size-7-widescreen has-text-weight-light">Lorem
-                                            ipsum dolor.</p>
                                     </div>
                                 </div>
                             </div>
@@ -393,11 +353,37 @@
 
             </div>
         </div>
+        <!-- modal-open-card -->
+        <div class="modal" v-bind:class="{'is-active':show_modal_card}" v-for="(item, index) in content_card">
+            <div class="modal-background" @click="show_modal = !show_modal_card"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">MY DIARY</p>
+                    <button class="delete" aria-label="close" @click="show_modal_card = !show_modal_card"></button>
+                </header>
+                <section class="modal-card-body">
+                    <!-- Content ... -->
+                    <figure class="image is-5by3">
+                        <img :src="item.image" alt="Placeholder image">
+                    </figure>
+                    <p class="title">{{item.title}}</p>
+                    <p class="content">{{item.content}}</p>
+                    <p class="content">{{item.date}} #mydiary</p>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-black" @click="show_modal_card = !show_modal_card">OK</button>
+                </footer>
+            </div>
+        </div>
+
+        <!-- modal-open-card -->
     </div>
 
 </body>
 
 <!-- script -->
 <script src="calendar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="data.js"></script>
 
 </html>
