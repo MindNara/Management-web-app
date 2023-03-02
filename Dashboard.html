@@ -165,64 +165,22 @@
                         <!----------------- today tasks card ----------------->
                         <div class="columns" style="height: 30vh;">
                             <div class="clumns" style="width: 100%;">
-                                <div class="column">
+                                <div class="column" v-for="(item, index) in task" v-if="index < 3">
                                     <div class="level task-box p-3">
                                         <div class="level-left">
                                             <div class="level-item">
                                                 <a class="has-text-black"><i
                                                         class='bx bx-check-circle mx-4 is-size-3'></i></a>
-                                                <span class="is-size-5 has-text-weight-medium">Activity 1</span>
+                                                <span class="is-size-5 has-text-weight-medium">{{ item.task_name }}</span>
                                             </div>
                                         </div>
 
                                         <div class="level-right">
                                             <div class="level-item">
-                                                <span class="date mr-6">Tue, Feb 7</span>
+                                                <span class="date mr-6">{{ item.due_date }}</span>
                                                 <span
                                                     class="btn-status has-background-black has-text-white has-text-weight-light mx-4">In
                                                     Progress</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="column">
-                                    <div class="level task-box p-3">
-                                        <div class="level-left">
-                                            <div class="level-item">
-                                                <a class="has-text-black"><i
-                                                        class='bx bx-check-circle mx-4 is-size-3'></i></a>
-                                                <span class="is-size-5 has-text-weight-medium">Activity 2</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="level-right">
-                                            <div class="level-item">
-                                                <span class="date mr-6">Tue, Feb 7</span>
-                                                <span
-                                                    class="btn-status has-background-black has-text-white has-text-weight-light mx-4">In
-                                                    Progress</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="column">
-                                    <div class="level task-box p-3">
-                                        <div class="level-left">
-                                            <div class="level-item">
-                                                <a class="has-text-black"><i
-                                                        class='bx bx-check-circle mx-4 is-size-3'></i></a>
-                                                <span class="is-size-5 has-text-weight-medium">Activity 3</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="level-right">
-                                            <div class="level-item">
-                                                <span class="date mr-6">Tue, Feb 7</span>
-                                                <span
-                                                    class="btn-status has-background-black has-text-white has-text-weight-light mx-4">Not
-                                                    Started</span>
                                             </div>
                                         </div>
                                     </div>
@@ -258,7 +216,7 @@
                         <!----------------- notes card ----------------->
                         <div class="columns mt-4 is-multiline" style="height: 33vh;">
 
-                            <div class="column is-one-third" v-for="(item, index) in diary">
+                            <div class="column is-one-third" v-for="(item, index) in diary" v-if="index < 3">
                                 <div class="card" @click="openmodal(index)">
                                     <div class="card-image">
                                         <figure class="image is-2by1">
@@ -334,17 +292,20 @@
                         </div>
 
                         <div class="columns" style="height: 33vh;">
-                            <div class="column mr-5" style="width: 100%;">
+                            <div class="column mr-5">
                                 <div class="level schedule-box px-5 mb-4 has-background-black">
-                                    <span class="has-text-white has-text-weight-light">Today Task 1</span>
+                                    <span id="schedule1" class="has-text-white has-text-weight-light">Today Task
+                                        1</span>
                                 </div>
 
                                 <div class="level schedule-box px-5 mb-4">
-                                    <span class="has-text-black has-text-weight-light">Today Task 2</span>
+                                    <span id="schedule2" class="has-text-black has-text-weight-light">Today Task
+                                        2</span>
                                 </div>
 
                                 <div class="level schedule-box px-5 mb-4">
-                                    <span class="has-text-black has-text-weight-light">Today Task 3</span>
+                                    <span id="schedule3" class="has-text-black has-text-weight-light">Today Task
+                                        3</span>
                                 </div>
                             </div>
                         </div>

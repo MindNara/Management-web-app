@@ -12,6 +12,7 @@ const months = ["January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"];
 
 
+
 // --------------------- Calendar --------------------- //
 function renderCalendar() {
     let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // first day of month
@@ -61,6 +62,7 @@ function renderCalendar() {
 renderCalendar();
 
 
+
 // --------------------- Change Month --------------------- //
 function prevNextIcon() {
 
@@ -80,12 +82,13 @@ function prevNextIcon() {
                 date = new Date();
             }
             renderCalendar();
-
+            showArray();
         });
 
     });
 }
 prevNextIcon();
+
 
 
 // --------------------- Show Model --------------------- //
@@ -130,11 +133,12 @@ function addSchedule() {
             title: text.value,
             date: date.value
         });
-        console.log(array);
-        array.forEach(showArray);
 
         text.value = "";
         date.value = "";
+
+        window.localStorage.setItem('array', JSON.stringify(array));
+
     } else {
         alert("Please enter your title.");
     }
@@ -142,6 +146,7 @@ function addSchedule() {
 
 
 
+// --------------------- Show Array --------------------- //
 let array = [{
     "title": "Travel with boyfriend",
     "date": "2023-03-01"
@@ -156,18 +161,12 @@ let array = [{
 },
 ];
 
-
-// --------------------- Show Array --------------------- //
 function showArray() {
-
-    console.log("show dai suk tee ei sus!");
 
     array.forEach((item, index) => {
 
         let div = document.createElement("div");
         let schedule1 = document.getElementById("schedule1");
-        let schedule2 = document.getElementById("schedule2");
-        let schedule3 = document.getElementById("schedule3");
         let todayDate = new Date();
         let todaySchedule = item["date"];
 
@@ -190,16 +189,15 @@ function showArray() {
             idDate.appendChild(div);
             div.classList.add("boxtext");
         }
-
     })
-
-    // let schedule = document.getElementById("schedule1");
-    // let date = new Date();
-    // let todaySchedule = item["date"];
-
-    // if (todaySchedule == date.getFullYear() + '-' + ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + '-' + (date.getDate() < 10 ? '0' : '') + date.getDate()) {
-    //     schedule.innerHTML = todaySchedule["title"];
-    //     console.log("Today suscess!");
-    // }
 }
+
+
+
+// --------------------- Get LocalStorage --------------------- //
+function getLocalStorage() {
+    const savelocalStorage = JSON.parse(localStorage.getItem('array'));
+    array = savelocalStorage;
+}
+getLocalStorage();
 showArray();
