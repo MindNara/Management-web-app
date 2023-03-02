@@ -144,7 +144,7 @@ var app = new Vue({
             // console.log(this.task_name)
             this.date = new Date()
             this.numid = this.task.length
-            if (this.task_name === '' || this.due_date === ''){
+            if (this.task_name === '' || this.due_date === '') {
                 alert("Please enter all inputs")
                 return
             }
@@ -180,7 +180,7 @@ var app = new Vue({
         },
         addNote() {
             this.numid = this.diary.length
-            if (this.name_note === '' || this.date_note === '' || this.img === '' || this.data_note === ''){
+            if (this.name_note === '' || this.date_note === '' || this.img === '' || this.data_note === '') {
                 alert("Please Enter all inputs")
                 return
             }
