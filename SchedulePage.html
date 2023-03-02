@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="level-right pt-5 btn-open">
-                        <button type="submit" class="create-s button is-black">
+                        <button type="submit" class="create-s button is-black" onclick="showModel()">
                             <i class="fas fa-solid fa-plus mr-3"></i>
                             <span>Create Schedule</span>
                         </button>
@@ -211,17 +211,25 @@
                         <div class="field">
                             <label class="label">TITLE :</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input" type="text" id="title" name="title"
-                                    placeholder="Your title">
+                                <input class="input" type="text" id="title" name="title" placeholder="Your title">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-book"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="date" class="label">DATE :</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input type="date" id="date" name="date" class="input">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-calendar"></i>
                                 </span>
                             </div>
                         </div>
                     </form>
                 </section>
                 <footer class="modal-card-foot">
-                    <button onclick="addSchedule()" class="button is-success">Create</button>
+                    <button onclick="addSchedule()" class="button is-black">Create</button>
                     <button class="button btn-cancle">Cancel</button>
                 </footer>
             </div>

@@ -25,7 +25,7 @@ function renderCalendar() {
 
     tdTag += `<tr id="show">`;
     for (let i = firstDayofMonth; i > 0; i--) { // create date of last month
-        tdTag += `<td onclick="showModel()" class="inactive" id="${(lastDateofLastMonth - i + 1).toString() + currMonth.toString() + currYear.toString()}" >${lastDateofLastMonth - i + 1}</td>`;
+        tdTag += `<td class="inactive" id="${currYear.toString() + "-" + (currMonth < 10 ? "0" : "") + (currMonth).toString() + "-" + ((lastDateofLastMonth - i + 1) < 10 ? "0" : "") + (lastDateofLastMonth - i + 1).toString()}" >${lastDateofLastMonth - i + 1}</td>`;
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
         numday++;
     }
@@ -36,7 +36,7 @@ function renderCalendar() {
         let isToday = i == date.getDate() && currMonth == new Date().getMonth()
             && currYear == new Date().getFullYear() ? "active" : "";
 
-        tdTag += `<td onclick="showModel()" class="${isToday}" id="${i.toString() + (currMonth + 1).toString() + currYear.toString()}" >${i}</td>`;
+        tdTag += `<td class="${isToday}" id="${currYear.toString() + "-" + ((currMonth + 1) < 10 ? "0" : "") + (currMonth + 1).toString() + "-" + ((i) < 10 ? "0" : "") + (i).toString()}" >${i}</td>`;
         liTag += `<li class="${isToday}">${i}</li>`;
         numday++;
 
@@ -47,7 +47,7 @@ function renderCalendar() {
     }
 
     for (let i = lastDayofMonth; i < 6; i++) { // create date of next month
-        tdTag += `<td onclick="showModel()" class="inactive" id="${(i - lastDayofMonth + 1).toString() + (currMonth + 2).toString() + currYear.toString()}" >${i - lastDayofMonth + 1}</td>`
+        tdTag += `<td class="inactive" id="${currYear.toString() + "-" + ((currMonth + 2) < 10 ? "0" : "") + (currMonth + 2).toString() + "-" + ((i - lastDayofMonth + 1) < 10 ? "0" : "") + (i - lastDayofMonth + 1).toString()}" >${i - lastDayofMonth + 1}</td>`
         liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
         numday++;
     }
@@ -110,37 +110,23 @@ function showModel() {
 
 // --------------------- Add Schedule --------------------- //
 function addSchedule() {
+
     const modal = document.querySelector(".modal");
     let text = document.getElementById("title");
-    console.log("Title : " + text.value);
+    let date = document.getElementById("date");
 
-    let statusDate = document.getElementsByClassName("inactive");
-    console.log("StatusDate : " + statusDate.id);
+    let idDate = document.getElementById(date.value);
+    let div = document.createElement("div");
+    div.innerHTML = text.value;
+    div.classList.add("boxtext");
 
-
-    // let tdId = "";
-    // for (let i = firstDayofMonth; i > 0; i--) {
-    //     for (let j = 1; j <= lastDateofMonth; j++) {
-    //         for (let k = lastDayofMonth; k < 6; k++) {
-
-    //             tdId = (lastDateofLastMonth - i + 1).toString() + currMonth.toString() + currYear.toString();
-    //             console.log(tdId);
-
-    //             // if (document.getElementById(tdId)) {
-    //             //     // table.innerText = text;
-    //             //     console.log("Suscess")
-    //             // }
-
-    //         }
-    //     }
-    // }
-
-
+    idDate.appendChild(div);
 
     if (text.value != "") {
         modal.classList.remove("is-active");
         console.log("create schedule");
         text.value = "";
+        date.value = "";
     } else {
         alert("Please enter your title.");
     }
