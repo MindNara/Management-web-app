@@ -6,11 +6,35 @@ const fullcalendar = document.querySelector(".fullcalendar .days"),
 let date = new Date(),
     currYear = date.getFullYear(),
     currMonth = date.getMonth();
-console.log("Month : " + currMonth);
 
 const months = ["January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"];
 
+let array = [{
+    "title": "Travel with boyfriend",
+    "date": "2023-03-01"
+},
+{
+    "title": "Comback home",
+    "date": "2023-03-02"
+},
+{
+    "title": "Present web pro",
+    "date": "2023-03-03"
+},
+];
+
+
+// --------------------- Get LocalStorage --------------------- //
+function getLocalStorage() {
+    const savelocalStorage = JSON.parse(localStorage.getItem("schedule"));
+
+    if (savelocalStorage != null) {
+        array = savelocalStorage;
+    }
+
+}
+getLocalStorage();
 
 
 // --------------------- Calendar --------------------- //
@@ -58,6 +82,7 @@ function renderCalendar() {
 
     currentDate_full.innerText = `${months[currMonth]} ${currYear}`;
     fullcalendar.innerHTML = tdTag;
+
 }
 renderCalendar();
 
@@ -66,8 +91,10 @@ renderCalendar();
 // --------------------- Change Month --------------------- //
 function prevNextIcon() {
 
-    const prevNextIcon = document.querySelectorAll(".icons span"); // span icon have 2 btn
-    prevNextIcon.forEach(icon => { // use to forEach -> get prav & next icons
+    const prevNextIcon = document.querySelectorAll(".icons span");
+
+    // checked btn prev & next
+    prevNextIcon.forEach(icon => {
 
         icon.addEventListener("click", () => {
             // checked month
@@ -78,17 +105,15 @@ function prevNextIcon() {
                 date = new Date(currYear, currMonth, new Date().getDate());
                 currYear = date.getFullYear();
                 currMonth = date.getMonth();
-            } else {
-                date = new Date();
             }
             renderCalendar();
+            getLocalStorage();
             showArray();
         });
-
     });
+
 }
 prevNextIcon();
-
 
 
 // --------------------- Show Model --------------------- //
@@ -148,20 +173,6 @@ function addSchedule() {
 
 
 // --------------------- Show Array --------------------- //
-let array = [{
-    "title": "Travel with boyfriend",
-    "date": "2023-03-01"
-},
-{
-    "title": "Comback home",
-    "date": "2023-03-02"
-},
-{
-    "title": "Present web pro",
-    "date": "2023-03-03"
-},
-];
-
 function showArray() {
 
     array.forEach((item, index) => {
@@ -192,17 +203,4 @@ function showArray() {
         }
     })
 }
-
-
-
-// --------------------- Get LocalStorage --------------------- //
-function getLocalStorage() {
-    const savelocalStorage = JSON.parse(localStorage.getItem("schedule"));
-
-    if (savelocalStorage != null) {
-        array = savelocalStorage;
-    }
-
-}
-getLocalStorage();
 showArray();
