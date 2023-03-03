@@ -120,7 +120,7 @@
                 <div class="tabs-wrapper">
                     <div
                         class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                        <a class="has-text-white is-size-5">
+                        <a class="has-text-white is-size-5" @click="showTaskToDo()">
                             <span class="icon is-medium" @click="status1 = !status1">
                                 <i class="fas fa-angle-down"></i>
                             </span>
@@ -134,7 +134,7 @@
                     </div>
 
                     <div class="tabs-content">
-                        <li class="" :class="{'is-active' : status1}">
+                        <li class="task-to-do is-active" :class="{'is-active' : status1}">
                             <table class="table pt-5">
                                 <thead>
                                     <tr>
@@ -170,7 +170,7 @@
                 <div class="tabs-wrapper mt-5">
                     <div
                         class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                        <a class="has-text-white is-size-5">
+                        <a class="has-text-white is-size-5" @click="showTaskDone()">
                             <span class="icon is-medium" @click="status2 = !status2">
                                 <i class="fas fa-angle-down"></i>
                             </span>
@@ -179,7 +179,7 @@
                     </div>
 
                     <div class="tabs-content">
-                        <li class="" :class="{'is-active' : status2}">
+                        <li class="task-done is-active" :class="{'is-active' : status2}">
                             <table class="table pt-5">
                                 <thead>
                                     <tr>
