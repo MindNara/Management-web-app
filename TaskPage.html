@@ -143,6 +143,7 @@
                                         <th>Due Date</th>
                                         <th>Create Date</th>
                                         <th>Status</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -157,6 +158,17 @@
                                         <td>{{item.due_date}}</td>
                                         <td>{{item.start_date}}</td>
                                         <td>To-Do</td>
+                                        <td>
+                                            <a style="float: left;">
+                                                <span class="icon has-text-dark" @click="show_modal = !show_modal">
+                                                <i class="fas fa-pen"></i>
+                                            </span>
+                                            <span class="icon has-text-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </span>     
+                                            </a>
+                                                              
+                                        </td>
                                     </tr>
                                     <tr>
                                 </tbody>
@@ -188,6 +200,7 @@
                                         <th>Due Date</th>
                                         <th>Create Date</th>
                                         <th>Status</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -202,6 +215,17 @@
                                         <td>{{item.due_date}}</td>
                                         <td>{{item.start_date}}</td>
                                         <td>Done</td>
+                                        <td>
+                                            <a style="float: left;">
+                                                <span class="icon has-text-dark" @click="show_modal = !show_modal">
+                                                <i class="fas fa-pen"></i>
+                                            </span>
+                                            <span class="icon has-text-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </span>     
+                                            </a>
+                                                              
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
