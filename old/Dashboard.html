@@ -1,0 +1,350 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+    <div class="container.is-fullhd" id="app">
+
+        <!----------------------------------------------- header column ----------------------------------------------->
+        <div class="columns" style="height: 12vh;">
+
+            <!---------------------------- logo ---------------------------->
+            <div class="column is-2">
+                <div class="navbar-brand pt-3 pl-5 mt-3">
+                    <a class="navbar-item" href="HomaPage.html">
+                        <img class="mr-2" src="/public/Images/Icons/logo-100.png">
+                        <span
+                            class="is-size-3-fullhd is-size-4-widescreen has-text-weight-bold has-text-black">LOGO</span>
+                    </a>
+                </div>
+            </div>
+
+            <!---------------------------- title ---------------------------->
+            <div class="column is-6">
+                <div class="pt-5">
+                    <span
+                        class="is-size-2-fullhd is-size-3-widescreen has-text-weight-medium has-text-black">Dashboard</span>
+                </div>
+            </div>
+
+            <!---------------------------- profile member ---------------------------->
+            <div class="profile level column">
+                <div class="level-right pt-4" style="width: 100%;">
+                    <div class="level-item pt-4">
+                        <span class="name-member has-text-black is-size-5-fullhd ">Hi, Member Name</span>
+                        <div class="profile-box has-background-black mx-5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-content columns" style="height: 88vh;">
+
+            <!----------------------------------------------- navbar column ----------------------------------------------->
+            <div class="column is-2">
+
+                <!---------------------------- navbar ---------------------------->
+                <nav class="navbar is-flex-direction-column mx-5" role="navigation" aria-label="main navigation">
+                    <div class="navbar-menu">
+                        <div class="navbar-start is-flex-direction-column" style="width: 20rem;">
+
+                            <a href="Dashboard.html" class="nav-item pl-5 pr-5 py-3 mb-5 is-active">
+                                <i class='bx bx-home-alt-2 mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Dashboard</span>
+                            </a>
+
+                            <a href="SchedulePage.html" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-calendar-alt mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Schedule</span>
+                            </a>
+
+                            <a href="TaskPage.html" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-list-ul mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Task</span>
+                            </a>
+
+                            <a href="NoteDiary.html" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-note mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Note</span>
+                            </a>
+
+                            <a href="HomaPage.html" class="nav-item pl-5 pr-5 py-3 mb-5">
+                                <i class='bx bx-log-in mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
+                                <span class="is-size-5-fullhd is-size-6-widescreen">Logout</span>
+                            </a>
+
+                        </div>
+                    </div>
+                </nav>
+
+            </div>
+
+            <!----------------------------------------------- taday-tasks & notes column ----------------------------------------------->
+            <div class="column is-6">
+
+                <!---------------------------- status tasks row ---------------------------->
+                <div class="content-ts columns" style="height: 16vh;">
+                    <div class="task-status column">
+                        <div class="columns" style="height: 18vh">
+
+                            <!----------------- task done ----------------->
+                            <div class="column">
+                                <div class="card">
+                                    <div class="card-content is-flex is-justify-content-center is-align-items-center">
+                                        <i class='bx bx-task'></i>
+                                        <div class="text">
+                                            <span
+                                                class="is-size-2-fullhd is-size-3-widescreen">{{task_done.length}}</span>
+                                            <p class="is-size-5-fullhd is-size-6-widescreen">Task Done</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!----------------- task not start ----------------->
+                            <div class="column">
+                                <div class="card">
+                                    <div class="card-content is-flex is-justify-content-center is-align-items-center">
+                                        <i class='bx bx-task-x'></i>
+                                        <div class="text">
+                                            <span class="is-size-2-fullhd is-size-3-widescreen">{{task.length}}</span>
+                                            <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!----------------- notes ----------------->
+                            <div class="column">
+                                <div class="card">
+                                    <div class="card-content is-flex is-justify-content-center is-align-items-center">
+                                        <i class='bx bx-note'></i>
+                                        <div class="text">
+                                            <span class="is-size-2-fullhd is-size-3-widescreen">{{diary.length}}</span>
+                                            <p class="is-size-5-fullhd is-size-6-widescreen">Notes</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!---------------------------- today tasks row ---------------------------->
+                <div class="content-tt columns" style="height: 35vh;">
+                    <div class="today-tasks column">
+
+                        <!----------------- title ----------------->
+                        <div class="level columns" style="height: 5vh;">
+                            <div class="level-left">
+                                <div class="column">
+                                    <span
+                                        class="has-text-black is-size-4-fullhd has-text-weight-medium is-size-5-widescreen">
+                                        Today Tasks
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="level-right">
+                                <div class="column">
+                                    <a href="TaskPage.html" class="button is-size-7 has-text-weight-medium">View All</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!----------------- today tasks card ----------------->
+                        <div class="columns" style="height: 30vh;">
+                            <div class="clumns" style="width: 100%;">
+                                <div class="column" v-for="(item, index) in task" v-if="index < 3">
+                                    <div class="level task-box p-3">
+                                        <div class="level-left">
+                                            <div class="level-item">
+                                                <a class="has-text-black"><i
+                                                        class='bx bx-check-circle mx-4 is-size-3'></i></a>
+                                                <span class="is-size-5 has-text-weight-medium">{{ item.task_name }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="level-right">
+                                            <div class="level-item">
+                                                <span class="date mr-6">{{ item.due_date }}</span>
+                                                <span
+                                                    class="btn-status has-background-black has-text-white has-text-weight-light mx-4">In
+                                                    Progress</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!---------------------------- notes row ---------------------------->
+                <div class="content-note columns" style="height: 36vh;">
+                    <div class="notes column">
+
+                        <!----------------- title ----------------->
+                        <div class="level columns" style="height: 5vh;">
+                            <div class="level-left">
+                                <div class="column">
+                                    <span
+                                        class="has-text-black is-size-4-fullhd has-text-weight-medium is-size-5-widescreen">
+                                        Notes
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="level-right">
+                                <div class="column">
+                                    <a href="NoteDiary.html" class="button is-size-7 has-text-weight-medium">View
+                                        All</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!----------------- notes card ----------------->
+                        <div class="columns mt-4 is-multiline" style="height: 33vh;">
+
+                            <div class="column is-one-third" v-for="(item, index) in diary" v-if="index < 3">
+                                <div class="card" @click="openmodal(index)">
+                                    <div class="card-image">
+                                        <figure class="image is-2by1">
+                                            <img :src="item.image" alt="Placeholder image">
+                                        </figure>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="media">
+                                            <div class="media-content">
+                                                <p class="title is-4">{{item.title}}</p>
+                                                <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                                                <p class="subtitle">{{item.date}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!----------------------------------------------- calendar column ----------------------------------------------->
+            <div class="column">
+
+                <!---------------------------- calendar row ---------------------------->
+                <div class="content-ts columns" style="height: 51vh;">
+                    <div class="calendar-box mr-5 ml-3 mt-3" style="width: 100%;">
+                        <div class="dynaminCalendar calendar">
+                            <header class="px-2">
+                                <p class="current-date has-text-black ml-4"></p>
+                                <div class="icons mr-2">
+                                    <span id="prev"><i class='bx bxs-chevron-left has-text-black'></i></span>
+                                    <span id="next"><i class='bx bxs-chevron-right has-text-black'></i></span>
+                                </div>
+                            </header>
+                            <div class="dinamiccalendar">
+                                <ul class="weeks">
+                                    <li>Sun</li>
+                                    <li>Mon</li>
+                                    <li>Tue</li>
+                                    <li>Wed</li>
+                                    <li>Thu</li>
+                                    <li>Fri</li>
+                                    <li>Sat</li>
+                                </ul>
+                                <ul class="days"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!---------------------------- today schedule row ---------------------------->
+                <div class="content-tt columns" style="height: 38vh;">
+                    <div class="today-schedule today-tasks column">
+
+                        <div class="level columns" style="height: 5vh;">
+                            <div class="level-left">
+                                <div class="column">
+                                    <span
+                                        class="has-text-black is-size-4-fullhd has-text-weight-medium is-size-5-widescreen">
+                                        Today Schedule
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="level-right">
+                                <div class="column">
+                                    <a href="SchedulePage.html"
+                                        class="button is-size-7 has-text-weight-medium mr-5">View All</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="columns" style="height: 33vh;">
+                            <div class="column mr-5">
+                                <div class="level schedule-box px-5 mb-4 has-background-black">
+                                    <span id="schedule1" class="has-text-white has-text-weight-light">Today Task
+                                        1</span>
+                                </div>
+
+                                <div class="level schedule-box px-5 mb-4">
+                                    <span id="schedule2" class="has-text-black has-text-weight-light">Today Task
+                                        2</span>
+                                </div>
+
+                                <div class="level schedule-box px-5 mb-4">
+                                    <span id="schedule3" class="has-text-black has-text-weight-light">Today Task
+                                        3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- modal-open-card -->
+        <div class="modal" v-bind:class="{'is-active':show_modal_card}" v-for="(item, index) in content_card">
+            <div class="modal-background" @click="show_modal = !show_modal_card"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">MY DIARY</p>
+                    <button class="delete" aria-label="close" @click="show_modal_card = !show_modal_card"></button>
+                </header>
+                <section class="modal-card-body">
+                    <!-- Content ... -->
+                    <figure class="image is-5by3">
+                        <img :src="item.image" alt="Placeholder image">
+                    </figure>
+                    <p class="title">{{item.title}}</p>
+                    <p class="content">{{item.content}}</p>
+                    <p class="content">{{item.date}} #mydiary</p>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-black" @click="show_modal_card = !show_modal_card">OK</button>
+                </footer>
+            </div>
+        </div>
+
+        <!-- modal-open-card -->
+    </div>
+
+</body>
+
+<!-- script -->
+<script src="calendar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="data.js"></script>
+
+</html>

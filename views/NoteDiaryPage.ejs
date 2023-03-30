@@ -1,0 +1,157 @@
+<%- include('Header') -%>
+
+  <body>
+    <div class="container.is-fullhd" id="app">
+
+      <div class="columns" style="height: 12vh;">
+        <div class="column is-2">
+          <%- include('Logo') -%>
+        </div>
+
+        <div class="column is-6">
+          <div class="pt-5">
+            <span class="is-size-2-fullhd is-size-3-widescreen has-text-weight-medium has-text-black">My Notes</span>
+          </div>
+        </div>
+
+        <div class="profile level column">
+          <div class="level-right pt-4" style="width: 100%;">
+            <div class="level-item pt-4">
+              <span class="name-member has-text-black is-size-5-fullhd ">Hi, Member Name</span>
+              <div class="profile-box has-background-black mx-5"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-content columns" style="height: 88vh;">
+
+        <div class="column is-2">
+
+          <%- include('Navbar') -%>
+
+        </div>
+        <div class="content column pr-5" style="overflow-x: hidden; overflow-y: scroll;">
+          <div>
+            <button class="button is-black is is-normal has-text-weight-normal" @click="show_modal = !show_modal">
+              <span class="icon">
+                <i class="fas fa-solid fa-plus"></i>
+              </span>
+              <span>Create Note</span>
+            </button>
+            <!-- <a style="float: right;">
+              <button class="button is-black">01</button>
+              <button class="button">02</button>
+              <button class="button">03</button>
+            </a> -->
+          </div>
+
+          <div class="columns mt-4 is-multiline columns is-variable is-2">
+            <div class="column is-one-third" v-for="(item, index) in diary">
+              <div class="card">
+                <div @click="openmodal(index)">
+                  <div class="card-image">
+                    <figure class="image is-2by1">
+                      <img :src="item.image" alt="Placeholder image">
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-content">
+                        <p class="title is-4">{{item.title}}</p>
+                        <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                        <p class="subtitle" style="float: left;">{{item.date}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <a href="#" class="card-footer-item" @click="show_modal = !show_modal">
+                    <span class="icon has-text-dark">
+                      <i class="fas fa-pen"></i>
+                    </span>
+                  </a>
+                  <a href="#" class="card-footer-item">
+                    <span class="icon has-text-danger">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                  </a>
+                </footer>
+              </div>
+            </div>
+          </div>
+          <!-- modal-add-note -->
+          <div class="modal" v-bind:class="{'is-active':show_modal}">
+            <div class="modal-background" @click="show_modal = !show_modal"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title">ADD NOTE-DIARY</p>
+                <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
+              </header>
+              <section class="modal-card-body">
+                <!-- Content ... -->
+                <form id="form">
+                  <div class="field">
+                    <label class="label">TOPIC :</label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input class="input" type="text" id="name-note" name="name-note" v-model="name_note">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-book"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="image-note" class="label">IMAGE :</label>
+                    <input type="file" id="image-note" name="image-note" @change="upImage">
+                  </div>
+                  <div class="field">
+                    <label for="date-note" class="label">DATE :</label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input type="date" id="date-note" name="date-note" class="input" v-model="date_note">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-calendar"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="date-note" class="label">STORY :</label>
+                    <textarea placeholder="Remember, be nice!" cols="90" rows="20" v-model="data_note"></textarea>
+                  </div>
+                </form>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-black" @click="addNote()">Create</button>
+                <button class="button" @click="show_modal = !show_modal">Cancel</button>
+              </footer>
+            </div>
+          </div>
+          <!-- modal-add-note -->
+
+          <!-- modal-open-card -->
+          <div class="modal" v-bind:class="{'is-active':show_modal_card}" v-for="(item, index) in content_card">
+            <div class="modal-background" @click="show_modal = !show_modal_card"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title">MY DIARY</p>
+                <button class="delete" aria-label="close" @click="show_modal_card = !show_modal_card"></button>
+              </header>
+              <section class="modal-card-body">
+                <!-- Content ... -->
+                <figure class="image is-5by3">
+                  <img :src="item.image" alt="Placeholder image">
+                </figure>
+                <p class="title">{{item.title}}</p>
+                <p class="content">{{item.content}}</p>
+                <p class="content">{{item.date}} #mydiary</p>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-black" @click="show_modal_card = !show_modal_card">OK</button>
+              </footer>
+            </div>
+          </div>
+          <!-- modal-open-card -->
+        </div>
+        <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="./data.js"></script>
+  </body>

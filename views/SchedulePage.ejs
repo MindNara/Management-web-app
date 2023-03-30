@@ -1,0 +1,202 @@
+<%- include('Header') -%>
+<body>
+
+    <div class="container.is-fullhd" id="app">
+
+        <!----------------------------------------------- header column ----------------------------------------------->
+        <div class="container-header columns" style="height: 12vh;">
+
+            <!---------------------------- logo ---------------------------->
+            <div class="column is-2">
+                <%- include('Logo') -%>
+            </div>
+
+            <!---------------------------- title ---------------------------->
+            <div class="column is-7">
+
+                <!----------------- title ----------------->
+                <div class="level">
+                    <div class="level-left pt-5">
+                        <span class="is-size-2-fullhd is-size-3-widescreen has-text-weight-medium has-text-black">My
+                            Schedule</span>
+                    </div>
+
+                    <div class="level-right pt-5 btn-open">
+                        <button type="submit" class="create-s button is-black" onclick="showModel()">
+                            <i class="fas fa-solid fa-plus mr-3"></i>
+                            <span>Create Schedule</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!---------------------------- profile member ---------------------------->
+            <div class="profile level column">
+                <div class="level-right pt-4" style="width: 100%;">
+                    <div class="level-item pt-4">
+                        <span class="name-member has-text-black is-size-5-fullhd ">Hi, Member Name</span>
+                        <div class="profile-box has-background-black mx-5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-content columns" style="height: 88vh;">
+
+            <!----------------------------------------------- navbar column ----------------------------------------------->
+            <div class="content-navbar column is-2">
+
+                <!---------------------------- navbar ---------------------------->
+                <%- include('Navbar') -%>
+
+            </div>
+
+            <!----------------------------------------------- calendar column ----------------------------------------------->
+            <div class="content-calendar column is-7">
+
+                <div id="calendar" class="calendar" style="height: 100%;">
+                    <div class="fullcalendar calendar">
+                        <header>
+                            <p class="current-date has-text-black is-size-4"></p>
+                            <div class="icons">
+                                <span id="prev"><i class='bx bxs-chevron-left is-size-4'></i></span>
+                                <span id="next"><i class='bx bxs-chevron-right is-size-4'></i></span>
+                            </div>
+                        </header>
+                        <table class="table is-bordered" style="width: 100%;">
+                            <thead class="p-3">
+                                <tr class="weeks">
+                                    <th>Sun</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                </tr>
+                            </thead>
+                            <tbody class="days"><!-- FullCalendar --></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!----------------------------------------------- schedule column ----------------------------------------------->
+            <div class="content-schedule column is-3">
+
+                <!---------------------------- calendar row ---------------------------->
+                <div class="content-c columns" style="height: 50vh;">
+                    <div class="calendar-box mr-5 ml-3 mt-3" style="height: 100%;">
+                        <div class="dynaminCalendar calendar">
+                            <header>
+                                <p class="current-date has-text-black ml-4"></p>
+                                <div class="icons mr-2">
+                                    <span id="prev"><i class='bx bxs-chevron-left has-text-black'></i></span>
+                                    <span id="next"><i class='bx bxs-chevron-right has-text-black'></i></span>
+                                </div>
+                            </header>
+                            <!-- Dynamic Calendar -->
+                            <div class="dinamiccalendar">
+                                <ul class="weeks">
+                                    <li>Sun</li>
+                                    <li>Mon</li>
+                                    <li>Tue</li>
+                                    <li>Wed</li>
+                                    <li>Thu</li>
+                                    <li>Fri</li>
+                                    <li>Sat</li>
+                                </ul>
+                                <ul class="days"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!---------------------------- schedule row ---------------------------->
+                <div class="content-tt columns" style="height: 38vh;">
+                    <div class="today-schedule today-tasks column">
+
+                        <div class="level columns" style="height: 5vh;">
+                            <div class="level-left">
+                                <div class="column">
+                                    <span
+                                        class="has-text-black is-size-4-fullhd has-text-weight-medium is-size-5-widescreen">
+                                        Today Schedule
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="columns" style="height: 33vh;">
+                            <div class="column mr-5">
+                                <div class="level schedule-box px-5 mb-4 has-background-black">
+                                    <span id="schedule1" class="has-text-white has-text-weight-light">Today Task
+                                        1</span>
+                                </div>
+
+                                <div class="level schedule-box px-5 mb-4">
+                                    <span id="schedule2" class="has-text-black has-text-weight-light">Today Task
+                                        2</span>
+                                </div>
+
+                                <div class="level schedule-box px-5 mb-4">
+                                    <span id="schedule3" class="has-text-black has-text-weight-light">Today Task
+                                        3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- modal-add-task -->
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">ADD SCHEDULE</p>
+                    <button class="delete btn-close" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <!-- Content ... -->
+                    <form id="form">
+                        <div class="field">
+                            <label class="label">TITLE :</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input class="input" type="text" id="title" name="title" placeholder="Your title">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-book"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="date" class="label">DATE :</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input type="date" id="date" name="date" class="input">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <footer class="modal-card-foot">
+                    <button onclick="addSchedule()" class="btn-create button is-black">Create</button>
+                    <button class="button btn-cancle">Cancel</button>
+                </footer>
+            </div>
+        </div>
+        <!-- modal-add-task -->
+
+    </div>
+
+    <!-- script -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <script src="./data.js"></script>
+    <script src="./calendar.js"></script>
+</body>

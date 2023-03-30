@@ -1,0 +1,371 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* font-family: 'Kanit', sans-serif; */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+button {
+    font-family: 'Kanit', sans-serif;
+}
+
+
+
+/* -------------- HomaPage -------------- */
+.bgHome {
+    max-width: 100%;
+    height: auto;
+    position: absolute;
+    z-index: -1;
+}
+
+.nav {
+    width: 55%;
+    margin-left: 10%;
+}
+
+.nav div .signup {
+    background: black;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 300;
+}
+
+.content-text {
+    height: 65%;
+    width: 40%;
+}
+
+.text .title-text {
+    line-height: 6rem;
+}
+
+.content-text .text h1 {
+    font-size: 6rem;
+}
+
+.content-text .text h3 {
+    font-size: 5rem;
+    font-weight: 300;
+}
+
+.content-text .text p {
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+
+.content-text .text .btn {
+    background: black;
+    color: white;
+    font-weight: 300;
+    font-size: 1.2rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+}
+
+
+
+/* -------------- Dashboard -------------- */
+.nav-item {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    background: white;
+    color: black;
+    border-radius: 10px;
+}
+
+.nav-item:hover,
+.nav-item.is-active {
+    background: black;
+    color: white;
+    font-weight: 300;
+}
+
+.profile .profile-box {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 5px;
+}
+
+.task-status .card {
+    height: 80%;
+    border-radius: 10px;
+    background: #F6F6F8;
+    color: black;
+    box-shadow: none;
+}
+
+.task-status .card .card-content {
+    height: 100%;
+}
+
+.task-status .column {
+    flex-basis: auto;
+}
+
+.calendar-box .calendar {
+    background: #F6F6F8;
+    border-radius: 20px;
+    height: 92%;
+}
+
+.card-content i {
+    font-size: 4rem;
+    padding-right: 12px;
+}
+
+.card-content .text {
+    line-height: 30px;
+}
+
+.card-content .text span {
+    font-weight: 700;
+}
+
+.today-tasks div .button,
+.notes div .button {
+    background: #F6F6F8;
+    color: #7D7D7D;
+    padding: 3px 12px;
+    border: none;
+}
+
+.today-tasks .task-box {
+    height: 23%;
+    background: #F6F6F8;
+    color: black;
+    border-radius: 10px;
+}
+
+.task-box .btn-status {
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+}
+
+.schedule-box {
+    height: 4rem;
+    border-radius: 10px;
+    background: #F6F6F8;
+}
+
+.schedule-box span {
+    font-size: 18px;
+}
+
+.note-box .card {
+    height: 90%;
+    border-radius: 10px;
+}
+
+.note-box .card-image {
+    background: #F6F6F8;
+}
+
+
+
+/* -------------- to-do-list -------------- */
+.tabs {
+    border-radius: 5px;
+    overflow-x: hidden;
+}
+
+.tabs-content li {
+    display: none;
+    list-style: none;
+}
+
+.tabs-content li.is-active {
+    display: block;
+}
+
+.tabs-content .table {
+    background: #F6F6F8;
+}
+
+
+
+/* -------------- Schedule -------------- */
+.content-calendar .calendar {
+    border-radius: 20px;
+    background: #F6F6F8;
+}
+
+.container-header .create-s {
+    border-radius: 6px;
+}
+
+.hidden {
+    display: none;
+}
+
+.boxtext {
+    padding: 5px 10px;
+    background: black;
+    margin: 0;
+    color: white;
+    font-weight: 300;
+    line-height: 18px;
+    border-radius: 5px;
+    opacity: 80%;
+    margin-bottom: 2px;
+}
+
+
+/* -------------- Dynamic Calendar -------------- */
+.dynaminCalendar header .icons span {
+    margin: 0 1px;
+    cursor: pointer;
+    font-size: 1.8rem;
+}
+
+.dynaminCalendar header .current-date {
+    font-size: 1.45rem;
+    font-weight: 500;
+}
+
+.dinamiccalendar ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+}
+
+.dinamiccalendar .days {
+    margin-bottom: 20px;
+}
+
+.dinamiccalendar li {
+    color: #333;
+    width: calc(100% / 7);
+    font-size: 1.07rem;
+}
+
+.dinamiccalendar .weeks li {
+    font-weight: 500;
+    cursor: default;
+}
+
+.dinamiccalendar .days li {
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    margin-top: 1.8rem;
+}
+
+.days li.inactive {
+    color: #aaa;
+}
+
+.days li.active {
+    color: #fff;
+}
+
+.days li::before {
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.days li.active::before {
+    background: black;
+}
+
+.days li:not(.active):hover::before {
+    background: #f2f2f2;
+}
+
+@media screen and (max-width: 90rem) {
+    .dinamiccalendar .days li {
+        margin-top: 0.9rem;
+    }
+
+    .dinamiccalendar {
+        padding: 0 10px;
+    }
+}
+
+
+
+
+/* -------------- Full Calendar -------------- */
+.fullcalendar {
+    border-radius: 10px;
+    background: #F6F6F8;
+    padding: 0 20px 20px 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px 0 10px 0;
+    justify-content: space-between;
+}
+
+header .icons {
+    display: flex;
+}
+
+.fullcalendar header .icons span i {
+    cursor: pointer;
+    background: rgb(39, 39, 39);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin: 0 3px;
+}
+
+header .current-date {
+    font-size: 1.45rem;
+    font-weight: 500;
+}
+
+.table {
+    background: none;
+}
+
+.fullcalendar .table .days td {
+    width: 4rem;
+    height: 7.2rem;
+    /* padding: 10px; */
+    color: #000;
+    font-weight: 500;
+}
+
+.fullcalendar .days td.inactive {
+    color: #aaa;
+}
+
+.fullcalendar .days td.active {
+    color: #000;
+    background: rgba(158, 158, 158, 0.199);
+}
+
+.fullcalendar .icons #prev i:hover,
+.fullcalendar .icons #next i:hover {
+    background: rgb(0, 0, 0);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 90rem) {
+    .fullcalendar .table .days td {
+        height: 5.5rem;
+    }
+}
