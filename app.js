@@ -12,28 +12,28 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Config Router
-const homepage = require('./routes/index')
+const homepage = require('./routes/Index')
 app.use('/', homepage)
 
-const dashboard = require('./routes/index')
+const dashboard = require('./routes/Index')
 app.use('/Dashboard', dashboard)
 
-const schedule = require('./routes/index')
+const schedule = require('./routes/Index')
 app.use('/Schedule', schedule)
 
-const task = require('./routes/index')
+const task = require('./routes/Index')
 app.use('/Task', task)
 
-const notediary = require('./routes/index')
+const notediary = require('./routes/Index')
 app.use('/NoteDiary', notediary)
 
-const login = require('./routes/index')
+const login = require('./routes/Index')
 app.use('/Login', login)
 
-const signup = require('./routes/index')
+const signup = require('./routes/Index')
 app.use('/Signup', signup)
 
 app.listen(3000, () => {
-    console.log('Start server at port 3000.')
+    console.log('Start server at http://localhost:3000')
 })
 
