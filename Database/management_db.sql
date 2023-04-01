@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2023 at 11:29 AM
+-- Generation Time: Apr 01, 2023 at 11:35 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -35,6 +35,14 @@ CREATE TABLE `note_diary` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `note_diary`
+--
+
+INSERT INTO `note_diary` (`noted_id`, `noted_date`, `noted_title`, `noted_content`, `user_id`) VALUES
+(1, '2023-04-01', 'Test', 'test', 1),
+(2, '2023-04-02', 'Test', 'test', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -63,7 +71,7 @@ INSERT INTO `schedule` (`schedule_id`, `schedule_date`, `schedule_act`, `user_id
 
 CREATE TABLE `to-do-list` (
   `list_id` int(11) NOT NULL,
-  `list_create_date` date NOT NULL DEFAULT current_timestamp(),
+  `list_create_date` date NOT NULL,
   `list_date` date NOT NULL,
   `list_act` text NOT NULL,
   `list_status` tinyint(1) NOT NULL,
@@ -129,6 +137,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `note_diary`
+--
+ALTER TABLE `note_diary`
+  MODIFY `noted_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `schedule`
