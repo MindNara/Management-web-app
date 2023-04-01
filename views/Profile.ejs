@@ -2,13 +2,13 @@
     <div class="is-flex is-align-items-center" style="position: relative;">
         <span class="name-member has-text-black is-size-5-fullhd ">Hi, <%= user.fname %></span>
         <div class="profile-box tabs has-background-black mx-5" @click="showProfile()">
-            <a style="width: 100%;" @click="status1 = !status1"></a>
+            <a style="width: 100%;" @click="statusProfile = !statusProfile"></a>
 
         </div>
     </div>
 
-    <div class="tab-profile profile has-background-white px-5 py-2" :class="{'is-active' : status1}">
-        <a class="has-text-black" @click="show_modal = !show_modal; status1 = !status1">Profile</a>
+    <div class="tab-profile profile has-background-white px-5 py-2" :class="{'is-active' : statusProfile}">
+        <a class="has-text-black" @click="show_modal = !show_modal; statusProfile = !statusProfile">Profile</a>
     </div>
 
     <!-- modal-add-task -->

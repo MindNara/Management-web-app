@@ -126,6 +126,7 @@ var app = new Vue({
     ],
     status1: false,
     status2: false,
+    statusProfile: false,
     show_modal: false,
     show_modal_card: false,
     content_card: [],
@@ -282,7 +283,7 @@ var app = new Vue({
       const modal_profile = document.querySelector(".profile");
       modal_profile.classList.add("is-active");
 
-      if (this.status2 == false) {
+      if (this.statusProfile == false) {
         modal_profile.classList.remove("is-active");
       }
     },
