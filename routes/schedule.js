@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-router.get('/', function (req, res) {
-    res.render('Homepage')
+router.get('/Schedule', function (req, res) {
+    res.render('SchedulePage')
 })
 
 exports.router = router;
