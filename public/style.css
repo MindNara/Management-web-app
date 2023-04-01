@@ -383,3 +383,18 @@ header .current-date {
         height: 5.5rem;
     }
 }
+
+
+/* -------------- Profile -------------- */
+.img-profile {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 20px;
+}
+
+.user-card {
+    background: #f2f2f2;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
