@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2023 at 09:44 AM
+-- Generation Time: Apr 01, 2023 at 11:29 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `note_diary` (
   `noted_id` int(11) NOT NULL,
   `noted_date` date NOT NULL,
-  `noted_act` text NOT NULL,
+  `noted_title` text NOT NULL,
+  `noted_content` text NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -62,6 +63,7 @@ INSERT INTO `schedule` (`schedule_id`, `schedule_date`, `schedule_act`, `user_id
 
 CREATE TABLE `to-do-list` (
   `list_id` int(11) NOT NULL,
+  `list_create_date` date NOT NULL DEFAULT current_timestamp(),
   `list_date` date NOT NULL,
   `list_act` text NOT NULL,
   `list_status` tinyint(1) NOT NULL,
@@ -101,21 +103,21 @@ INSERT INTO `user` (`user_id`, `fname`, `lname`, `email`, `username`, `password`
 --
 ALTER TABLE `note_diary`
   ADD PRIMARY KEY (`noted_id`),
-  ADD UNIQUE KEY `user_id` (`user_id`);
+  ADD KEY `fk_note_diary_user_id` (`user_id`);
 
 --
 -- Indexes for table `schedule`
 --
 ALTER TABLE `schedule`
   ADD PRIMARY KEY (`schedule_id`),
-  ADD UNIQUE KEY `user_id` (`user_id`);
+  ADD KEY `fk_schedule_user_id` (`user_id`);
 
 --
 -- Indexes for table `to-do-list`
 --
 ALTER TABLE `to-do-list`
   ADD PRIMARY KEY (`list_id`),
-  ADD UNIQUE KEY `user_id` (`user_id`);
+  ADD KEY `fk_list_id_user_id` (`user_id`);
 
 --
 -- Indexes for table `user`
@@ -138,7 +140,7 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT for table `to-do-list`
 --
 ALTER TABLE `to-do-list`
-  MODIFY `list_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -154,19 +156,19 @@ ALTER TABLE `user`
 -- Constraints for table `note_diary`
 --
 ALTER TABLE `note_diary`
-  ADD CONSTRAINT `fk_note_diary_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_note_diary_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `schedule`
 --
 ALTER TABLE `schedule`
-  ADD CONSTRAINT `fk_schedule_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_schedule_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `to-do-list`
 --
 ALTER TABLE `to-do-list`
-  ADD CONSTRAINT `fk_list_id_user_id` FOREIGN KEY (`list_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_list_id_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
