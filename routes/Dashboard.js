@@ -1,14 +1,9 @@
 const express = require("express");
-const pool = require("../config");
+const router = express.Router();
 
-router = express.Router();
+router.get('/Dashboard', function (req, res) {
+    console.log("Hello")
+    res.render('Dashboard')
+})
 
-router.get("/Dashboard", async function (req, res, next) {
-    try {
-
-    } catch (err) {
-        return next(err)
-    }
-});
-
-exports.router = router;
+module.exports = router;
