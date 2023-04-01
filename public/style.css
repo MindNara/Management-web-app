@@ -192,6 +192,20 @@ button {
     background: #F6F6F8;
 }
 
+.tab-profile {
+    position: absolute;
+    right: 24; top: 80;
+    border-radius: 10px;
+    border: 1px solid #bdbdbd;
+    z-index: 1;
+    display: none;
+    list-style: none;
+}
+
+.tab-profile.is-active {
+    display: block;
+}
+
 
 
 /* -------------- Schedule -------------- */

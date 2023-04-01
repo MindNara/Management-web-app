@@ -1,0 +1,53 @@
+<div class="level-item mt-4">
+    <div class="is-flex is-align-items-center" style="position: relative;">
+        <span class="name-member has-text-black is-size-5-fullhd ">Hi, <%= user.fname %></span>
+        <div class="profile-box tabs has-background-black mx-5" @click="showProfile()">
+            <a style="width: 100%;" @click="status1 = !status1"></a>
+
+        </div>
+    </div>
+
+    <div class="tab-profile profile has-background-white px-5 py-2" :class="{'is-active' : status1}">
+        <a class="has-text-black" @click="show_modal = !show_modal; status1 = !status1">Profile</a>
+    </div>
+
+    <!-- modal-add-task -->
+    <div class="modal" v-bind:class="{'is-active':show_modal}">
+        <div class="modal-background" @click="show_modal = !show_modal"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">ADD TASKS</p>
+                <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
+            </header>
+            <section class="modal-card-body">
+                <!-- Content ... -->
+                <form id="form">
+                    <div class="field">
+                        <label class="label">NAME TASKS :</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input class="input" type="text" id="name-task" name="name-task" placeholder="Your task"
+                                v-model="task_name">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-book"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="due-date" class="label">DUE DATE :</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input type="date" id="due-date" name="due-date" class="input" v-model="due_date">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-black" @click="addTask()">Create</button>
+                <button class="button" @click="show_modal = !show_modal">Cancel</button>
+            </footer>
+        </div>
+    </div>
+    <!-- modal-add-task -->
+</div>

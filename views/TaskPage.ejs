@@ -1,234 +1,236 @@
 <%- include('Header') -%>
-<body>
 
-    <div class="container.is-fullhd" id="app">
+    <body>
 
-        <!----------------------------------------------- header column ----------------------------------------------->
-        <div class="columns" style="height: 12vh;">
+        <div class="container.is-fullhd" id="app">
 
-            <!---------------------------- logo ---------------------------->
-            <div class="column is-2">
-                <%- include('Logo') -%>
-            </div>
+            <!----------------------------------------------- header column ----------------------------------------------->
+            <div class="columns" style="height: 12vh;">
 
-            <!---------------------------- title ---------------------------->
-            <div class="column is-6">
-                <div class="pt-5">
-                    <span class="is-size-2-fullhd is-size-3-widescreen has-text-weight-medium has-text-black">My
-                        Tasks</span>
+                <!---------------------------- logo ---------------------------->
+                <div class="column is-2">
+                    <%- include('Logo') -%>
                 </div>
-            </div>
 
-            <!---------------------------- profile member ---------------------------->
-            <div class="profile level column">
-                <div class="level-right pt-4" style="width: 100%;">
-                    <div class="level-item pt-4">
-                        <span class="name-member has-text-black is-size-5-fullhd ">Hi, Member Name</span>
-                        <div class="profile-box has-background-black mx-5"></div>
+                <!---------------------------- title ---------------------------->
+                <div class="column is-6">
+                    <div class="pt-5">
+                        <span class="is-size-2-fullhd is-size-3-widescreen has-text-weight-medium has-text-black">My
+                            Tasks</span>
+                    </div>
+                </div>
+
+                <!---------------------------- profile member ---------------------------->
+                <div class="profile level column">
+                    <div class="level-right pt-4" style="width: 100%;">
+                        <%- include('Profile') -%>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container-content columns" style="height: 88vh;">
+            <div class="container-content columns" style="height: 88vh;">
 
-            <!----------------------------------------------- navbar column ----------------------------------------------->
-            <div class="column is-2">
+                <!----------------------------------------------- navbar column ----------------------------------------------->
+                <div class="column is-2">
 
-                <!---------------------------- navbar ---------------------------->
-                <%- include('Navbar') -%>
+                    <!---------------------------- navbar ---------------------------->
+                    <%- include('Navbar') -%>
 
-            </div>
+                </div>
 
-            <!----------------------------------------------- todo-list ----------------------------------------------->
-            <div class="content column pr-5" style="overflow-x: hidden; overflow-y: scroll;">
-                <!-- card task-done -->
-                <div class="columns is-multiline columns is-variable is-2">
-                    <div class="column is-half">
-                        <div class="card" style="background: #F6F6F8; box-shadow: none;">
-                            <div class="card-content is-flex is-justify-content-center is-align-items-center has-text-black">
-                                <i class='bx bx-task'></i>
-                                <div class="text">
-                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{task_done.length}}</span>
-                                    <p class="is-size-5-fullhd is-size-6-widescreen">Task Done</p>
+                <!----------------------------------------------- todo-list ----------------------------------------------->
+                <div class="content column pr-5" style="overflow-x: hidden; overflow-y: scroll;">
+                    <!-- card task-done -->
+                    <div class="columns is-multiline columns is-variable is-2">
+                        <div class="column is-half">
+                            <div class="card" style="background: #F6F6F8; box-shadow: none;">
+                                <div
+                                    class="card-content is-flex is-justify-content-center is-align-items-center has-text-black">
+                                    <i class='bx bx-task'></i>
+                                    <div class="text">
+                                        <span class="is-size-2-fullhd is-size-3-widescreen">{{task_done.length}}</span>
+                                        <p class="is-size-5-fullhd is-size-6-widescreen">Task Done</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="card" style="background: #F6F6F8; box-shadow: none;">
+                                <div
+                                    class="card-content is-flex is-justify-content-center is-align-items-center has-text-black">
+                                    <i class='bx bx-task-x'></i>
+                                    <div class="text">
+                                        <span class="is-size-2-fullhd is-size-3-widescreen">{{task.length}}</span>
+                                        <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="column">
-                        <div class="card" style="background: #F6F6F8; box-shadow: none;">
-                            <div class="card-content is-flex is-justify-content-center is-align-items-center has-text-black">
-                                <i class='bx bx-task-x'></i>
-                                <div class="text">
-                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{task.length}}</span>
-                                    <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
+
+                    <!-- table to-do list -->
+                    <div class="tabs-wrapper">
+                        <div
+                            class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
+                            <a class="has-text-white is-size-5" @click="showTaskToDo()">
+                                <span class="icon is-medium" @click="status1 = !status1">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                                <span>To-Do List ( {{task.length}} )</span>
+                            </a>
+                            <a class="has-text-white is-size-5">
+                                <span class="icon" style="float: right;" @click="show_modal = !show_modal">
+                                    <i class="fas fa-solid fa-plus"></i>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="tabs-content">
+                            <li class="task-to-do is-active" :class="{'is-active' : status1}">
+                                <table class="table pt-5">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Task Name</th>
+                                            <th>Due Date</th>
+                                            <th>Create Date</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in task">
+                                            <td>{{index + 1}}</td>
+                                            <td>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" :id="'checkbox' + index" @click="addCheck()">
+                                                    {{item.task_name}}
+                                                </label>
+                                            </td>
+                                            <td>{{item.due_date}}</td>
+                                            <td>{{item.start_date}}</td>
+                                            <td>To-Do</td>
+                                            <td>
+                                                <a style="float: left;">
+                                                    <span class="icon has-text-dark" @click="show_modal = !show_modal">
+                                                        <i class="fas fa-pen"></i>
+                                                    </span>
+                                                    <span class="icon has-text-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                    </tbody>
+                                </table>
+                            </li>
+                        </div>
+                    </div>
+                    <!-- table to-do list -->
+
+                    <!-- table done -->
+                    <div class="tabs-wrapper mt-5">
+                        <div
+                            class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
+                            <a class="has-text-white is-size-5" @click="showTaskDone()">
+                                <span class="icon is-medium" @click="status2 = !status2">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                                <span>Done ( {{task_done.length}} )</span>
+                            </a>
+                        </div>
+
+                        <div class="tabs-content">
+                            <li class="task-done is-active" :class="{'is-active' : status2}">
+                                <table class="table pt-5">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Task Name</th>
+                                            <th>Due Date</th>
+                                            <th>Create Date</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in task_done">
+                                            <td>{{index + 1}}</td>
+                                            <td>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" checked :id="'checkboxD' + index"
+                                                        @click="addCheckND">
+                                                    {{item.task_name}}
+                                                </label>
+                                            </td>
+                                            <td>{{item.due_date}}</td>
+                                            <td>{{item.start_date}}</td>
+                                            <td>Done</td>
+                                            <td>
+                                                <a style="float: left;">
+                                                    <span class="icon has-text-dark" @click="show_modal = !show_modal">
+                                                        <i class="fas fa-pen"></i>
+                                                    </span>
+                                                    <span class="icon has-text-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </li>
+                        </div>
+                    </div>
+                    <!-- table done -->
+                </div>
+            </div>
+
+            <!-- modal-add-task -->
+            <div class="modal" v-bind:class="{'is-active':show_modal}">
+                <div class="modal-background" @click="show_modal = !show_modal"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">ADD TASKS</p>
+                        <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
+                    </header>
+                    <section class="modal-card-body">
+                        <!-- Content ... -->
+                        <form id="form">
+                            <div class="field">
+                                <label class="label">NAME TASKS :</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input" type="text" id="name-task" name="name-task"
+                                        placeholder="Your task" v-model="task_name">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-book"></i>
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            <div class="field">
+                                <label for="due-date" class="label">DUE DATE :</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input type="date" id="due-date" name="due-date" class="input" v-model="due_date">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button class="button is-black" @click="addTask()">Create</button>
+                        <button class="button" @click="show_modal = !show_modal">Cancel</button>
+                    </footer>
                 </div>
-
-                <!-- table to-do list -->
-                <div class="tabs-wrapper">
-                    <div
-                        class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                        <a class="has-text-white is-size-5" @click="showTaskToDo()">
-                            <span class="icon is-medium" @click="status1 = !status1">
-                                <i class="fas fa-angle-down"></i>
-                            </span>
-                            <span>To-Do List ( {{task.length}} )</span>
-                        </a>
-                        <a class="has-text-white is-size-5">
-                            <span class="icon" style="float: right;" @click="show_modal = !show_modal">
-                                <i class="fas fa-solid fa-plus"></i>
-                            </span>
-                        </a>
-                    </div>
-
-                    <div class="tabs-content">
-                        <li class="task-to-do is-active" :class="{'is-active' : status1}">
-                            <table class="table pt-5">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Task Name</th>
-                                        <th>Due Date</th>
-                                        <th>Create Date</th>
-                                        <th>Status</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(item, index) in task">
-                                        <td>{{index + 1}}</td>
-                                        <td>
-                                            <label class="checkbox">
-                                                <input type="checkbox" :id="'checkbox' + index" @click="addCheck()">
-                                                {{item.task_name}}
-                                            </label>
-                                        </td>
-                                        <td>{{item.due_date}}</td>
-                                        <td>{{item.start_date}}</td>
-                                        <td>To-Do</td>
-                                        <td>
-                                            <a style="float: left;">
-                                                <span class="icon has-text-dark" @click="show_modal = !show_modal">
-                                                <i class="fas fa-pen"></i>
-                                            </span>
-                                            <span class="icon has-text-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </span>     
-                                            </a>
-                                                              
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                </tbody>
-                            </table>
-                        </li>
-                    </div>
-                </div>
-                <!-- table to-do list -->
-
-                <!-- table done -->
-                <div class="tabs-wrapper mt-5">
-                    <div
-                        class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                        <a class="has-text-white is-size-5" @click="showTaskDone()">
-                            <span class="icon is-medium" @click="status2 = !status2">
-                                <i class="fas fa-angle-down"></i>
-                            </span>
-                            <span>Done ( {{task_done.length}} )</span>
-                        </a>
-                    </div>
-
-                    <div class="tabs-content">
-                        <li class="task-done is-active" :class="{'is-active' : status2}">
-                            <table class="table pt-5">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Task Name</th>
-                                        <th>Due Date</th>
-                                        <th>Create Date</th>
-                                        <th>Status</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(item, index) in task_done">
-                                        <td>{{index + 1}}</td>
-                                        <td>
-                                            <label class="checkbox">
-                                                <input type="checkbox" checked :id="'checkboxD' + index" @click="addCheckND">
-                                                {{item.task_name}}
-                                            </label>
-                                        </td>
-                                        <td>{{item.due_date}}</td>
-                                        <td>{{item.start_date}}</td>
-                                        <td>Done</td>
-                                        <td>
-                                            <a style="float: left;">
-                                                <span class="icon has-text-dark" @click="show_modal = !show_modal">
-                                                <i class="fas fa-pen"></i>
-                                            </span>
-                                            <span class="icon has-text-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </span>     
-                                            </a>
-                                                              
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </li>
-                    </div>
-                </div>
-                <!-- table done -->
             </div>
+            <!-- modal-add-task -->
         </div>
-
-        <!-- modal-add-task -->
-        <div class="modal" v-bind:class="{'is-active':show_modal}">
-            <div class="modal-background" @click="show_modal = !show_modal"></div>
-            <div class="modal-card">
-              <header class="modal-card-head">
-                <p class="modal-card-title">ADD TASKS</p>
-                <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
-              </header>
-              <section class="modal-card-body">
-                <!-- Content ... -->
-                <form id="form">
-                    <div class="field">
-                        <label class="label">NAME TASKS :</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input class="input" type="text" id="name-task" name="name-task" placeholder="Your task" v-model="task_name">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-book"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="due-date" class="label">DUE DATE :</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input type="date" id="due-date" name="due-date" class="input" v-model="due_date">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-calendar"></i>
-                            </span>
-                        </div>
-                    </div>   
-                </form>
-              </section>
-              <footer class="modal-card-foot">
-                <button class="button is-black" @click="addTask()">Create</button>
-                <button class="button" @click="show_modal = !show_modal">Cancel</button>
-              </footer>
-            </div>
-        </div>
-        <!-- modal-add-task -->
-    </div>
-    <!-- script -->
-    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="./data.js"></script>
-</body>
+        <!-- script -->
+        <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="./data.js"></script>
+    </body>

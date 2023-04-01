@@ -278,5 +278,13 @@ var app = new Vue({
         modal_done.classList.add("is-active");
       }
     },
+    showProfile() {
+      const modal_profile = document.querySelector(".profile");
+      modal_profile.classList.add("is-active");
+
+      if (this.status2 == false) {
+        modal_profile.classList.remove("is-active");
+      }
+    },
   },
 });

@@ -23,10 +23,7 @@
                 <!---------------------------- profile member ---------------------------->
                 <div class="profile level column">
                     <div class="level-right pt-4" style="width: 100%;">
-                        <div class="level-item pt-4">
-                            <span class="name-member has-text-black is-size-5-fullhd ">Hi, <%= user.fname %></span>
-                            <div class="profile-box has-background-black mx-5"></div>
-                        </div>
+                        <%- include('Profile') -%>
                     </div>
                 </div>
             </div>
@@ -115,7 +112,7 @@
 
                                 <div class="level-right">
                                     <div class="column">
-                                        <a href="TaskPage.html" class="button is-size-7 has-text-weight-medium">View
+                                        <a href="/Task" class="button is-size-7 has-text-weight-medium">View
                                             All</a>
                                     </div>
                                 </div>
@@ -167,7 +164,7 @@
 
                                 <div class="level-right">
                                     <div class="column">
-                                        <a href="NoteDiary.html" class="button is-size-7 has-text-weight-medium">View
+                                        <a href="/NoteDiary" class="button is-size-7 has-text-weight-medium">View
                                             All</a>
                                     </div>
                                 </div>
@@ -245,7 +242,7 @@
 
                                 <div class="level-right">
                                     <div class="column">
-                                        <a href="SchedulePage.html"
+                                        <a href="/Schedule"
                                             class="button is-size-7 has-text-weight-medium mr-5">View All</a>
                                     </div>
                                 </div>
