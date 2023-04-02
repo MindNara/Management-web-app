@@ -54,8 +54,8 @@
                   </div>
                   <div class="card-content">
                     <div class="media">
-                      <div class="media-content">
-                        <p class="title is-4">{{item.title}}</p>
+                      <div class="media-content" style="width: 100%;">
+                        <p class="title title-note is-4">{{item.title}}</p>
                         <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
                         <p class="subtitle" style="float: left;">{{item.date}}</p>
                       </div>
@@ -82,7 +82,7 @@
             <div class="modal-background" @click="show_modal = !show_modal"></div>
             <div class="modal-card">
               <header class="modal-card-head">
-                <p class="modal-card-title">ADD NOTE-DIARY</p>
+                <p class="modal-card-title has-text-weight-semibold m-0">ADD NOTE-DIARY</p>
                 <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
               </header>
               <section class="modal-card-body">
@@ -112,7 +112,7 @@
                   </div>
                   <div class="field">
                     <label for="date-note" class="label">STORY :</label>
-                    <textarea placeholder="Remember, be nice!" cols="90" rows="20" v-model="data_note"></textarea>
+                    <textarea class="p-5 is-size-5" style="width: 100%;" placeholder="Remember, be nice!" cols="90" rows="10" v-model="data_note"></textarea>
                   </div>
                 </form>
               </section>

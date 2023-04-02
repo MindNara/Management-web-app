@@ -182,8 +182,8 @@
                                         </div>
                                         <div class="card-content">
                                             <div class="media">
-                                                <div class="media-content">
-                                                    <p class="title is-4">{{item.title}}</p>
+                                                <div class="media-content" style="width: 100%;">
+                                                    <p class="title title-note is-4">{{item.title}}</p>
                                                     <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
                                                     <p class="subtitle">{{item.date}}</p>
                                                 </div>
@@ -203,11 +203,16 @@
                     <div class="content-ts columns mr-5" style="height: 51vh;">
                         <div class="calendar-box ml-3 mt-3" style="width: 100%;">
                             <div class="dynaminCalendar calendar">
-                                <header>
-                                    <p class="current-date has-text-black ml-4"></p>
-                                    <div class="icons icons-dynamic mr-2">
-                                        <span id="prev"><i class='bx bxs-chevron-left has-text-black'></i></span>
-                                        <span id="next"><i class='bx bxs-chevron-right has-text-black'></i></span>
+                                <header class="level m-0">
+                                    <div class="level-left">
+                                        <p class="current-date has-text-black ml-4"></p>
+                                    </div>
+                                    <div class="level-right">
+                                        <span id="today" class="todaybtn todayDy-btn" onclick="todayIcon()">Today</span>
+                                        <div class="icons icons-dynamic mr-2">
+                                            <span id="prev"><i class='bx bxs-chevron-left has-text-black'></i></span>
+                                            <span id="next"><i class='bx bxs-chevron-right has-text-black'></i></span>
+                                        </div>
                                     </div>
                                 </header>
                                 <!-- Dynamic Calendar -->

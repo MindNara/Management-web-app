@@ -266,16 +266,24 @@ var app = new Vue({
       const modal_to_do = document.querySelector(".task-to-do");
       modal_to_do.classList.remove("is-active");
 
+      const iconTodo = document.querySelector(".tabs-wrapper .icon-todo");
+      iconTodo.style.transform = "rotate(180deg)";
+
       if (this.status1 == false) {
         modal_to_do.classList.add("is-active");
+        iconTodo.style.transform = "";
       }
     },
     showTaskDone() {
       const modal_done = document.querySelector(".task-done");
       modal_done.classList.remove("is-active");
 
+      const iconDone = document.querySelector(".tabs-wrapper .icon-done");
+      iconDone.style.transform = "rotate(180deg)";
+
       if (this.status2 == false) {
         modal_done.classList.add("is-active");
+        iconDone.style.transform = "";
       }
     },
   },

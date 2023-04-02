@@ -73,7 +73,7 @@
                         <div
                             class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
                             <a class="has-text-white is-size-5" @click="showTaskToDo();">
-                                <span class="icon is-medium" @click="status1 = !status1">
+                                <span class="icon icon-todo is-medium" @click="status1 = !status1">
                                     <i class="fas fa-angle-down"></i>
                                 </span>
                                 <span>To-Do List ( {{task.length}} )</span>
@@ -135,7 +135,7 @@
                         <div
                             class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
                             <a class="has-text-white is-size-5" @click="showTaskDone()">
-                                <span class="icon is-medium" @click="status2 = !status2">
+                                <span class="icon icon-done is-medium" @click="status2 = !status2">
                                     <i class="fas fa-angle-down"></i>
                                 </span>
                                 <span>Done ( {{task_done.length}} )</span>
@@ -194,7 +194,7 @@
                 <div class="modal-background" @click="show_modal = !show_modal"></div>
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">ADD TASKS</p>
+                        <p class="modal-card-title has-text-weight-semibold">ADD TASKS</p>
                         <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
                     </header>
                     <section class="modal-card-body">

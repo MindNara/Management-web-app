@@ -175,6 +175,12 @@ button {
     background: #F6F6F8;
 }
 
+.title-note {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 
 /* -------------- to-do-list -------------- */
@@ -346,6 +352,19 @@ header .icons {
     padding: 2px 5px;
     border-radius: 5px;
     margin: 0 3px;
+}
+
+.fullcalendar .todaybtn, .dynaminCalendar .todaybtn {
+    cursor: pointer;
+    background: rgb(39, 39, 39);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 5px;
+    margin: 0 16px;
+}
+
+.fullcalendar .todaybtn:hover, .dynaminCalendar .todaybtn:hover {
+    background: black;
 }
 
 header .current-date {

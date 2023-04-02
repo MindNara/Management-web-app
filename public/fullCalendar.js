@@ -104,18 +104,20 @@ renderFullCalendar();
 // --------------------- Change Month --------------------- //
 function prevNextIcon() {
 
+
     const prevNextIcon = document.querySelectorAll(".icons-full span");
 
     // checked btn prev & next
     prevNextIcon.forEach(icon => {
 
         icon.addEventListener("click", () => {
+            console.log("prevNextIcon")
             // checked month
             currMonthFull = icon.id == "prev" ? currMonthFull - 1 : currMonthFull + 1;
 
             // checked year
             if (currMonthFull < 1 || currMonthFull > 11) {
-                date = new Date(currYearFull, currMonthFull, new Date().getDate());
+                date = new Date();
                 currYearFull = date.getFullYear();
                 currMonthFull = date.getMonth();
             }

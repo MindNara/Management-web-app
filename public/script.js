@@ -21,14 +21,6 @@ function showDropdown() {
 
     document.getElementById("profileDropdown").classList.toggle("is-active");
 
-    // const dropdrownProfile = document.querySelector(".tab-profile");
-
-    // dropdrownProfile.classList.add("is-active");
-
-    // const closeModal = function () {
-    //     dropdrownProfile.classList.remove("is-active");
-    // };
-    // dropdrownProfile.addEventListener("click", closeModal);
     window.onclick = function (event) {
         if (!event.target.matches('.dropbtn')) {
             var dropdowns = document.getElementsByClassName("tab-profile");
@@ -91,3 +83,38 @@ function addSchedule() {
         alert("Please enter your title.");
     }
 }
+
+
+
+function todayIcon() {
+
+    window.onclick = function (event) {
+        if (event.target.matches('.todayFull-btn')) {
+            // console.log("todayIcon")
+            date = new Date();
+            currYearFull = date.getFullYear();
+            currMonthFull = date.getMonth();
+            renderFullCalendar();
+        } else if (event.target.matches('.todayDy-btn')) {
+            date = new Date();
+            currYearDynamic = date.getFullYear();
+            currMonthDynamic = date.getMonth();
+            renderDynamicCalendar();
+        }
+    }
+
+}
+
+
+
+function navbar() {
+    const currPageUrl = location.href;
+    const menuItem = document.querySelectorAll("a");
+
+    for (let i = 0; i < menuItem.length; i++) {
+        if (menuItem[i].href === currPageUrl) {
+            menuItem[i].className = "nav-item pl-5 pr-5 py-3 mb-5 navbar-active is-active";
+        }
+    }
+}
+navbar()
