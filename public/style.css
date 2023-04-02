@@ -202,9 +202,17 @@ button {
     background: #F6F6F8;
 }
 
+.tabs-content .checkbox input {
+    margin: 10px 0;
+    margin-right: 10px;
+    width: 1rem;
+    height: 1rem;
+}
+
 .tab-profile {
     position: absolute;
-    right: 24; top: 80;
+    right: 24;
+    top: 80;
     border-radius: 10px;
     border: 1px solid #bdbdbd;
     z-index: 1;
@@ -214,6 +222,15 @@ button {
 
 .tab-profile.is-active {
     display: block;
+}
+
+.edit-delete {
+    opacity: 80%;
+}
+
+.edit-delete:hover {
+    opacity: 100%;
+    font-weight: 500;
 }
 
 
@@ -354,7 +371,8 @@ header .icons {
     margin: 0 3px;
 }
 
-.fullcalendar .todaybtn, .dynaminCalendar .todaybtn {
+.fullcalendar .todaybtn,
+.dynaminCalendar .todaybtn {
     cursor: pointer;
     background: rgb(39, 39, 39);
     color: white;
@@ -363,7 +381,8 @@ header .icons {
     margin: 0 16px;
 }
 
-.fullcalendar .todaybtn:hover, .dynaminCalendar .todaybtn:hover {
+.fullcalendar .todaybtn:hover,
+.dynaminCalendar .todaybtn:hover {
     background: black;
 }
 

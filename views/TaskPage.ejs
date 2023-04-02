@@ -111,15 +111,16 @@
                                             <td>{{item.start_date}}</td>
                                             <td>To-Do</td>
                                             <td>
-                                                <a style="float: left;">
+                                                <a class="edit-delete mr-2" style="float: left;">
                                                     <span class="icon has-text-dark" @click="show_modal = !show_modal">
                                                         <i class="fas fa-pen"></i>
                                                     </span>
-                                                    <span class="icon has-text-danger">
-                                                        <i class="fas fa-trash"></i>
+                                                </a>
+                                                <a class="edit-delete">
+                                                    <span class="icon">
+                                                        <i class="fas fa-trash" style="color: rgb(105, 16, 16);"></i>
                                                     </span>
                                                 </a>
-
                                             </td>
                                         </tr>
                                         <tr>
@@ -169,15 +170,16 @@
                                             <td>{{item.start_date}}</td>
                                             <td>Done</td>
                                             <td>
-                                                <a style="float: left;">
+                                                <a class="edit-delete mr-2" style="float: left;">
                                                     <span class="icon has-text-dark" @click="show_modal = !show_modal">
                                                         <i class="fas fa-pen"></i>
                                                     </span>
-                                                    <span class="icon has-text-danger">
-                                                        <i class="fas fa-trash"></i>
+                                                </a>
+                                                <a class="edit-delete">
+                                                    <span class="icon">
+                                                        <i class="fas fa-trash" style="color: rgb(105, 16, 16);"></i>
                                                     </span>
                                                 </a>
-
                                             </td>
                                         </tr>
                                     </tbody>
