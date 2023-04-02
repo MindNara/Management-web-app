@@ -23,7 +23,7 @@
                         </div>
 
                         <div class="level-right pt-5 btn-open">
-                            <button type="submit" class="create-s button is-black" onclick="showModel()">
+                            <button type="submit" class="create-s button is-black" onclick="showModelSchedule()">
                                 <i class="fas fa-solid fa-plus mr-3"></i>
                                 <span>Create Schedule</span>
                             </button>
@@ -53,11 +53,11 @@
                 <!----------------------------------------------- calendar column ----------------------------------------------->
                 <div class="content-calendar column is-7">
 
-                    <div id="calendar" class="calendar" style="height: 100%;">
+                    <div id="calendar" class="calendar" style="width: 100%;">
                         <div class="fullcalendar calendar">
                             <header>
                                 <p class="current-date has-text-black is-size-4"></p>
-                                <div class="icons">
+                                <div class="icons icons-full">
                                     <span id="prev"><i class='bx bxs-chevron-left is-size-4'></i></span>
                                     <span id="next"><i class='bx bxs-chevron-right is-size-4'></i></span>
                                 </div>
@@ -86,17 +86,17 @@
 
                     <!---------------------------- calendar row ---------------------------->
                     <div class="content-c columns" style="height: 50vh;">
-                        <div class="calendar-box mr-5 ml-3 mt-3" style="height: 100%;">
-                            <div class="dynaminCalendar calendar">
+                        <div class="calendar-box mr-5 ml-3 mt-3" style="width: 100%; height: 100%;">
+                            <div class="dynaminCalendar calendar" style="width: 100%; height: auto;">
                                 <header>
                                     <p class="current-date has-text-black ml-4"></p>
-                                    <div class="icons mr-2">
+                                    <div class="icons icons-dynamic mr-2">
                                         <span id="prev"><i class='bx bxs-chevron-left has-text-black'></i></span>
                                         <span id="next"><i class='bx bxs-chevron-right has-text-black'></i></span>
                                     </div>
                                 </header>
                                 <!-- Dynamic Calendar -->
-                                <div class="dinamiccalendar">
+                                <div class="dinamiccalendar pb-1">
                                     <ul class="weeks">
                                         <li>Sun</li>
                                         <li>Mon</li>
@@ -195,6 +195,8 @@
         <!-- script -->
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
-        <script src="./data.js"></script>
-        <script src="./calendar.js"></script>
+        <!-- <script src="./data.js"></script> -->
+        <script src="./dynamicCalendar.js"></script>
+        <script src="./fullCalendar.js"></script>
+        <script src="./script.js"></script>
     </body>

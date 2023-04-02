@@ -3,7 +3,6 @@ const pool = require("../config");
 const router = express.Router();
 
 router.get('/Dashboard', async function (req, res) {
-    console.log("Hello")
 
     const [user, fields] = await pool.query("SELECT * FROM user WHERE user_id = 1");
 

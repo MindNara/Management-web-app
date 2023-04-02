@@ -127,6 +127,7 @@ var app = new Vue({
     status1: false,
     status2: false,
     statusProfile: false,
+    statusNav: false,
     show_modal: false,
     show_modal_card: false,
     content_card: [],
@@ -287,5 +288,13 @@ var app = new Vue({
         modal_profile.classList.remove("is-active");
       }
     },
+    showNavbarActive() {
+      const navbar = document.querySelector(".navbar-active");
+      navbar.classList.add("is-active");
+
+      if (this.statusNav == false) {
+        navbar.classList.remove("is-active");
+      }
+    }
   },
 });
