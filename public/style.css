@@ -84,7 +84,11 @@ button {
     border-radius: 10px;
 }
 
-.nav-item:hover,
+.nav-item:hover {
+    background: #F6F6F8;
+    color: black;
+}
+
 .nav-item.is-active {
     background: black;
     color: white;
