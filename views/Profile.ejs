@@ -7,7 +7,7 @@
     </div>
 
     <div id="profileDropdown" class="tab-profile profile has-background-white px-5 py-2">
-        <a class="has-text-black" onclick="showProfile()">Profile</a>
+        <a class="has-text-black" onclick="showProfile()"><i class="fas fa-user mr-2"></i>Profile</a>
     </div>
 
     <!-- modal-add-task -->
@@ -22,75 +22,82 @@
                 <form id="form">
                     <div class="field is-flex is-align-items-center">
                         <div class="img-profile has-background-black mr-5"></div>
-                        <div class="is-flex is-flex-direction-column has-text-black" style="width: 61%;">
-                            <label class="is-size-6">Username</label>
-                            <span class="has-text-weight-medium is-flex is-align-items-center level">
-                                <label class="is-size-4 has-text-weight-medium level-left">
-                                    <%= user.username %>
-                                </label>
+                        <div class="is-flex is-flex-direction-column has-text-black" style="width: 65%;">
+                            <label class="is-size-6 mb-1">Username</label>
+                            <span class="boxuser">
+                                <input type="text"
+                                    class="user-card px-4 py-3 is-size-4 has-text-weight-medium is-flex is-align-items-center"
+                                    name="username" id="username" value="<%= user.username %>">
+                                <i id="iconUsername" class="icon-user iconUsername fas fa-pen is-size-7"
+                                    style="color: rgb(109, 109, 109); top: 23;" onclick="updateDataUser()"></i>
+                                <div class="file mt-4">
+                                    <label class="file-label">
+                                        <input class="file-input" type="file" name="imgUser">
+                                        <span class="file-cta is-size-7">
+                                            <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
+                                            </span>
+                                            <span class="file-label">
+                                                Choose a file…
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
                             </span>
                         </div>
                     </div>
                     <div class="field mt-3">
                         <div class="is-flex is-flex-direction-column has-text-black">
                             <label class="mb-1">First name</label>
-                            <span
-                                class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center level">
-                                <label class="level-left">
-                                    <%= user.fname %>
-                                </label>
-                                <a href="#" class="level-right">
-                                    <i class="fas fa-pen is-size-7" style="color: rgb(109, 109, 109);"></i>
-                                </a>
+                            <span class="boxuser">
+                                <input type="text"
+                                    class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
+                                    name="fname" id="fname" value="<%= user.fname %>">
+                                <i id="iconFname" class="icon-user iconFname fas fa-pen is-size-7"
+                                    style="color: rgb(109, 109, 109);" onclick="updateDataUser()"></i>
                             </span>
                         </div>
                     </div>
                     <div class="field mt-3">
                         <div class="is-flex is-flex-direction-column has-text-black">
                             <label class="mb-1">Last name</label>
-                            <span
-                                class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center level">
-                                <label class="level-left">
-                                    <%= user.lname %>
-                                </label>
-                                <a href="#" class="level-right">
-                                    <i class="fas fa-pen is-size-7" style="color: rgb(109, 109, 109);"></i>
-                                </a>
+                            <span class="boxuser">
+                                <input type="text"
+                                    class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
+                                    name="lname" id="lname" value="<%= user.lname %>">
+                                <i id="iconLname" class="icon-user iconLname fas fa-pen is-size-7"
+                                    style="color: rgb(109, 109, 109);" onclick="updateDataUser()"></i>
                             </span>
                         </div>
                     </div>
                     <div class="field mt-3">
                         <div class="is-flex is-flex-direction-column has-text-black">
                             <label class="mb-1">Email</label>
-                            <span
-                                class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center level">
-                                <label class="level-left">
-                                    <%= user.email %>
-                                </label>
-                                <a href="#" class="level-right">
-                                    <i class="fas fa-pen is-size-7" style="color: rgb(109, 109, 109);"></i>
-                                </a>
+                            <span class="boxuser">
+                                <input type="text"
+                                    class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
+                                    name="email" id="email" value="<%= user.email %>">
+                                <i id="iconEmail" class="icon-user iconEmail fas fa-pen is-size-7"
+                                    style="color: rgb(109, 109, 109);" onclick="updateDataUser()"></i>
                             </span>
                         </div>
                     </div>
                     <div class="field mt-3">
                         <div class="is-flex is-flex-direction-column has-text-black">
                             <label class="mb-1">Password</label>
-                            <span
-                                class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center level">
-                                <label class="level-left">
-                                    <%= user.password %>
-                                </label>
-                                <a href="#" class="level-right">
-                                    <i class="fas fa-pen is-size-7" style="color: rgb(109, 109, 109);"></i>
-                                </a>
+                            <span class="boxuser">
+                                <input type="text"
+                                    class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
+                                    name="password" id="password" value="<%= user.password %>">
+                                <i id="iconPwd" class="icon-user iconPwd fas fa-pen is-size-7"
+                                    style="color: rgb(109, 109, 109);" onclick="updateDataUser()"></i>
                             </span>
                         </div>
                     </div>
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-black">Edit</button>
+                <button class="button is-black">Update</button>
                 <button class="button btnCancel">Cancel</button>
             </footer>
         </div>

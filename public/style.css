@@ -434,9 +434,31 @@ header .current-date {
     border-radius: 20px;
 }
 
-.user-card {
+.boxuser {
+    position: relative;
+    width: 100%;
+    /* cursor: text; */
+}
+
+.boxuser .user-card {
     background: #f2f2f2;
     width: 100%;
     height: auto;
     border-radius: 10px;
+    border: none;
+    pointer-events: none;
+    font-size: 16px;
+    color: black;
+}
+
+/* .user-card:focus {
+    background: red;
+    color: aqua;
+} */
+
+.boxuser .icon-user {
+    position: absolute;
+    top: 16;
+    right: 20;
+    cursor: pointer;
 }

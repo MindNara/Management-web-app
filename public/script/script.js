@@ -40,11 +40,13 @@ function showProfile() {
     const modelProfile = document.querySelector(".model-profile");
     const closeModalBtn = document.querySelector(".btnDelete");
     const cancleModalBtn = document.querySelector(".btnCancel");
+    const input = document.querySelector(".user-card");
 
     modelProfile.classList.add("is-active");
 
     const closeModal = function () {
         modelProfile.classList.remove("is-active");
+        input.style.pointerEvents = "none";
     };
     closeModalBtn.addEventListener("click", closeModal);
     cancleModalBtn.addEventListener("click", closeModal);
@@ -118,3 +120,46 @@ function navbar() {
     }
 }
 navbar()
+
+
+
+function updateDataUser() {
+
+    const iconUsername = document.getElementById("iconUsername");
+    const iconFname = document.getElementById("iconFname");
+    const iconLname = document.getElementById("iconLname");
+    const iconEmail = document.getElementById("iconEmail");
+    const iconPwd = document.getElementById("iconPwd");
+
+    iconUsername.addEventListener("click", () => {
+        const username = document.getElementById("username");
+        username.style.pointerEvents = "all";
+        username.focus();
+    })
+
+    iconFname.addEventListener("click", () => {
+        const fname = document.getElementById("fname");
+        fname.style.pointerEvents = "all";
+        fname.focus();
+    })
+
+    iconLname.addEventListener("click", () => {
+        const lname = document.getElementById("lname");
+        lname.style.pointerEvents = "all";
+        lname.focus();
+    })
+
+    iconEmail.addEventListener("click", () => {
+        const email = document.getElementById("email");
+        email.style.pointerEvents = "all";
+        email.focus();
+    })
+
+    iconPwd.addEventListener("click", () => {
+        const password = document.getElementById("password");
+        password.style.pointerEvents = "all";
+        password.focus();
+    })
+
+}
+
