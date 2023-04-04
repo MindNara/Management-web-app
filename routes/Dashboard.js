@@ -40,19 +40,19 @@ router.post('/Dashboard', upload.single('user_img'), async function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
 
-    console.log(file);
-
-    if (file === null) {
-        file.filename = '';
-    }
-
     try {
 
-        const [newUser, newUserF] = await pool.query(
-            'UPDATE user SET fname=?, lname=?, email=?, username=?, password=?, image_user=? WHERE user_id = 1',
-            [fname, lname, email, username, password, file.path.substr(6)]
-        )
-
+        if (req.file != undefined) {
+            const [newUser, newUserF] = await pool.query(
+                'UPDATE user SET fname=?, lname=?, email=?, username=?, password=?, image_user=? WHERE user_id = 1',
+                [fname, lname, email, username, password, file.path.substr(6)]
+            )
+        } else {
+            const [newUser, newUserF] = await pool.query(
+                'UPDATE user SET fname=?, lname=?, email=?, username=?, password=? WHERE user_id = 1',
+                [fname, lname, email, username, password]
+            )
+        }
         res.redirect('Dashboard')
 
 
