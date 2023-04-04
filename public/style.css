@@ -99,6 +99,15 @@ button {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 5px;
+    position: relative;
+}
+
+.profile-box img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    z-index: -1;
 }
 
 .task-status .card {
@@ -432,6 +441,13 @@ header .current-date {
     width: 8rem;
     height: 8rem;
     border-radius: 20px;
+}
+
+.img-profile img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    z-index: -1;
 }
 
 .boxuser {

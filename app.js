@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-// const article = require('./management_db')
+const bodyParser = require('body-parser')
 
 const app = express()
 
@@ -10,6 +10,9 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Setup static path
 app.use(express.static(path.join(__dirname, 'public')))
+
+// Encode body
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Config Router
 const homepage = require('./routes/index')

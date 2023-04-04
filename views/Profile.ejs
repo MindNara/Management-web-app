@@ -1,7 +1,8 @@
 <div class="level-item mt-4">
     <div class="is-flex is-align-items-center" style="position: relative;">
         <span class="name-member has-text-black is-size-5-fullhd ">Hi, <%= user.username %></span>
-        <div class="profile-box tabs has-background-black mx-5">
+        <div class="profile-box tabs mx-5">
+            <img src="<%= user.image_user ? user.image_user : '/Images/user_image_default.jpg' %>" alt="user_img">
             <a class="dropbtn" style="width: 100%;" onclick="showDropdown()"></a>
         </div>
     </div>
@@ -18,10 +19,13 @@
                 <p class="modal-card-title has-text-weight-semibold">MY PROFILE</p>
                 <button class="delete btnDelete" aria-label="close"></button>
             </header>
-            <form method="POST" action="/Dashboard" id="form-user">
+            <form method="POST" action="/Dashboard" id="form-user" enctype="multipart/form-data">
                 <section class="modal-card-body px-5">
                     <div class="field is-flex is-align-items-center">
-                        <div class="img-profile has-background-black mr-5"></div>
+                        <div class="img-profile mr-5">
+                            <img src="<%= user.image_user ? user.image_user : '/Images/user_image_default.jpg' %>"
+                                alt="user_img">
+                        </div>
                         <div class="is-flex is-flex-direction-column has-text-black" style="width: 65%;">
                             <label class="is-size-6 mb-1">Username</label>
                             <span class="boxuser">
