@@ -55,7 +55,7 @@ function prevNextIcon() {
 
             // checked year
             if (currMonthDynamic < 1 || currMonthDynamic > 11) {
-                date = new Date(currYearDynamic, currMonthDynamic, new Date().getDate());
+                dateDy = new Date(currYearDynamic, currMonthDynamic, new Date().getDate());
                 currYearDynamic = dateDy.getFullYear();
                 currMonthDynamic = dateDy.getMonth();
             }

@@ -437,7 +437,6 @@ header .current-date {
 .boxuser {
     position: relative;
     width: 100%;
-    /* cursor: text; */
 }
 
 .boxuser .user-card {
@@ -450,11 +449,6 @@ header .current-date {
     font-size: 16px;
     color: black;
 }
-
-/* .user-card:focus {
-    background: red;
-    color: aqua;
-} */
 
 .boxuser .icon-user {
     position: absolute;

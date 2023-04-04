@@ -40,13 +40,17 @@ function showProfile() {
     const modelProfile = document.querySelector(".model-profile");
     const closeModalBtn = document.querySelector(".btnDelete");
     const cancleModalBtn = document.querySelector(".btnCancel");
-    const input = document.querySelector(".user-card");
+    const input = document.querySelectorAll(".user-card");
 
     modelProfile.classList.add("is-active");
 
     const closeModal = function () {
         modelProfile.classList.remove("is-active");
-        input.style.pointerEvents = "none";
+
+        for (let i = 0; i < input.length; i++) {
+            input[i].style.pointerEvents = "none";
+        }
+
     };
     closeModalBtn.addEventListener("click", closeModal);
     cancleModalBtn.addEventListener("click", closeModal);
