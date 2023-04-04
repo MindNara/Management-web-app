@@ -1,27 +1,58 @@
 const express = require("express");
+const path = require("path")
 const pool = require("../config");
 const router = express.Router();
 
-router.get('/Dashboard', async function (req, res) {
+const multer = require('multer')
+var storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, './public/uploads')
+    },
+    filename: function (req, file, callback) {
+        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+})
+const upload = multer({ storage: storage })
 
-    const [user, userFields] = await pool.query("SELECT * FROM user WHERE user_id = 1");
 
-    res.render('Dashboard', {
-        user: user[0]
-    })
+router.get('/Dashboard', upload.single('user_img'), async function (req, res) {
+    try {
+
+        const [user, userF] = await pool.query("SELECT * FROM user WHERE user_id = 1"); // select user detail of user
+
+        res.render('Dashboard', {
+            user: user[0]
+        })
+
+    } catch (err) {
+        console.log(err)
+        return next(err)
+    }
 })
 
-// router.put('/Dashboard/Profile', async function (req, res) {
+router.post('/Dashboard', async function (req, res) {
 
-//     const fname = req.body.fname;
-//     const lname = req.body.lname;
-//     const email = req.body.email;
-//     const password = req.body.password;
-//     const username = req.body.username;
+    const file = req.file;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
 
-//     const [newUser, newUserF] = await pool.query("UPDATE user SET fname=?, lname=?, email=?, username=?, password=?",
-//         [fname, lname, email, username, password]);
+    try {
 
-// })
+        const [newUser, newUserF] = await pool.query(
+            'UPDATE user SET fname=?, lname=?, email=?, username=?, password=?, image_user=? WHERE user_id = 1',
+            [fname, lname, email, username, password, file.path.substr(6)]
+        )
+        res.redirect('Dashboard')
+
+
+    } catch (err) {
+        console.log(err)
+        return next(err)
+    }
+
+})
 
 exports.router = router;
