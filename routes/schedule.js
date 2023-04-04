@@ -1,14 +1,55 @@
 const express = require("express");
 const pool = require("../config");
+const path = require('path')
 const router = express.Router();
+const upload = require('../multer');
+
 
 router.get('/Schedule', async function (req, res) {
 
-    const [user, fields] = await pool.query("SELECT * FROM user WHERE user_id = 1");
+    try {
 
-    res.render('SchedulePage', {
-        user: user[0]
-    })
+        const [user, userF] = await pool.query("SELECT * FROM user WHERE user_id = 1");
+
+        res.render('SchedulePage', {
+            user: user[0]
+        })
+
+    } catch (err) {
+        console.log(err)
+        return next(err)
+    }
+
+})
+
+router.post('/Schedule', upload.single('user_img'), async function (req, res) {
+
+    const file = req.file;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+
+    try {
+
+        if (req.file != undefined) {
+            const [newUser, newUserF] = await pool.query(
+                'UPDATE user SET fname=?, lname=?, email=?, username=?, password=?, image_user=? WHERE user_id = 1',
+                [fname, lname, email, username, password, file.path.substr(6)]
+            )
+        } else {
+            const [newUser, newUserF] = await pool.query(
+                'UPDATE user SET fname=?, lname=?, email=?, username=?, password=? WHERE user_id = 1',
+                [fname, lname, email, username, password]
+            )
+        }
+        res.redirect('Schedule');
+
+    } catch (err) {
+        console.log(err);
+        return next(err);
+    }
 
 })
 
