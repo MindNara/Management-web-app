@@ -5,7 +5,7 @@ const router = express.Router();
 const upload = require('../multer');
 
 
-router.get('/Dashboard', async function (req, res) {
+router.get('/Dashboard', async function (req, res, next) {
 
     try {
 
@@ -22,7 +22,7 @@ router.get('/Dashboard', async function (req, res) {
 
 })
 
-router.post('/Dashboard', upload.single('user_img'), async function (req, res) {
+router.post('/Dashboard', upload.single('user_img'), async function (req, res, next) {
 
     const file = req.file;
     const fname = req.body.fname;
@@ -30,6 +30,7 @@ router.post('/Dashboard', upload.single('user_img'), async function (req, res) {
     const email = req.body.email;
     const username = req.body.username;
     const password = req.body.password;
+    // console.log(username)
 
     try {
 

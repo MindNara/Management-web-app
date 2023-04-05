@@ -61,7 +61,8 @@
                                     <p class="current-date has-text-black is-size-4"></p>
                                 </div>
                                 <div class="level-right">
-                                    <span id="today" id="today-btn" class="todaybtn todayFull-btn" onclick="todayIcon()">Today</span>
+                                    <span id="today" id="today-btn" class="todaybtn todayFull-btn"
+                                        onclick="todayIcon()">Today</span>
                                     <div class="icons icons-full">
                                         <span id="prev"><i class='bx bxs-chevron-left is-size-4'></i></span>
                                         <span id="next"><i class='bx bxs-chevron-right is-size-4'></i></span>
@@ -141,26 +142,13 @@
 
                             <div class="columns" style="height: 32vh; overflow-y: auto; overflow-x: hidden;">
                                 <div class="column mr-3">
-                                    <div class="level schedule-box px-5 mb-4 has-background-black">
-                                        <span id="schedule1" class="has-text-white has-text-weight-light">Today Task
-                                            1</span>
-                                    </div>
-                                    <div class="level schedule-box px-5 mb-4">
-                                        <span id="schedule2" class="has-text-black">Today Task
-                                            2</span>
-                                    </div>
-                                    <div class="level schedule-box px-5 mb-4">
-                                        <span id="schedule3" class="has-text-black">Today Task
-                                            3</span>
-                                    </div>
-                                    <div class="level schedule-box px-5 mb-4">
-                                        <span id="schedule4" class="has-text-black">Today Task
-                                            4</span>
-                                    </div>
-                                    <div class="level schedule-box px-5 mb-4">
-                                        <span id="schedule5" class="has-text-black">Today Task
-                                            5</span>
-                                    </div>
+                                    <% scheduleToday.forEach((item, index)=> {%>
+                                        <div class="level schedule-box px-5 mb-4">
+                                            <span id="schedule1" class="has-text-black">
+                                                <%= item.schedule_act %>
+                                            </span>
+                                        </div>
+                                        <% }) %>
                                 </div>
                             </div>
                         </div>
@@ -172,18 +160,19 @@
             <!-- modal-add-schedule -->
             <div class="modal model-addSchedule">
                 <div class="modal-background"></div>
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title has-text-weight-semibold">ADD SCHEDULE</p>
-                        <button class="delete btn-close" aria-label="close"></button>
-                    </header>
-                    <section class="modal-card-body">
+                <form method="POST" action="/Schedule">
+                    <div class="modal-card">
+                        <header class="modal-card-head">
+                            <p class="modal-card-title has-text-weight-semibold">ADD SCHEDULE</p>
+                            <a class="delete btn-close" aria-label="close"></a>
+                        </header>
                         <!-- Content ... -->
-                        <form id="form">
+                        <section class="modal-card-body">
                             <div class="field">
                                 <label class="label">TITLE :</label>
                                 <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="text" id="title" name="title" placeholder="Your title">
+                                    <input class="input" type="text" name="schedule_act" id="schedule_act"
+                                        placeholder="your title">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-book"></i>
                                     </span>
@@ -192,21 +181,23 @@
                             <div class="field">
                                 <label for="date" class="label">DATE :</label>
                                 <div class="control has-icons-left has-icons-right">
-                                    <input type="date" id="date" name="date" class="input">
+                                    <input type="date" id="schedule_date" name="schedule_date" class="input">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-calendar"></i>
                                     </span>
                                 </div>
                             </div>
-                        </form>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <button onclick="addSchedule()" class="btn-create button is-black">Create</button>
-                        <button class="button btn-cancle">Cancel</button>
-                    </footer>
-                </div>
+                        </section>
+                        <footer class="modal-card-foot">
+                            <button class="btn-create button is-black">Create</button>
+                            <a class="button btn-cancle">Cancel</a>
+                        </footer>
+                    </div>
+                </form>
             </div>
             <!-- modal-add-task -->
+
+            <div id="schedule" data-schedule-all="<%= JSON.stringify(scheduleAll) %>"></div>
 
         </div>
 

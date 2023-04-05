@@ -104,6 +104,8 @@ renderFullCalendar();
 // --------------------- Change Month --------------------- //
 function prevNextIcon() {
 
+    const scheduleAll = JSON.parse(document.getElementById('schedule').dataset.scheduleAll);
+
     const prevNextIcon = document.querySelectorAll(".icons-full span");
 
     // checked btn prev & next
@@ -129,35 +131,36 @@ prevNextIcon();
 
 
 
+
 // --------------------- Show Array --------------------- //
-function showArray() {
+// function showArray() {
 
-    array.forEach((item, index) => {
+//     array.forEach((item, index) => {
 
-        let div = document.createElement("div");
-        let schedule1 = document.getElementById("schedule1");
-        let todayDate = new Date();
-        let todaySchedule = item["date"];
+//         let div = document.createElement("div");
+//         let schedule1 = document.getElementById("schedule1");
+//         let todayDate = new Date();
+//         let todaySchedule = item["date"];
 
-        if (todaySchedule == todayDate.getFullYear() + '-' + ((todayDate.getMonth() + 1) < 10 ? '0' : '') + (todayDate.getMonth() + 1) + '-' + (todayDate.getDate() < 10 ? '0' : '') + todayDate.getDate()) {
-            schedule1.innerHTML = item["title"];
+//         if (todaySchedule == todayDate.getFullYear() + '-' + ((todayDate.getMonth() + 1) < 10 ? '0' : '') + (todayDate.getMonth() + 1) + '-' + (todayDate.getDate() < 10 ? '0' : '') + todayDate.getDate()) {
+//             schedule1.innerHTML = item["title"];
 
-            let date = item["date"];
-            let title = item["title"];
-            let tdDate = document.getElementById(date);
+//             let date = item["date"];
+//             let title = item["title"];
+//             let tdDate = document.getElementById(date);
 
-            div.innerHTML = title;
-            tdDate.appendChild(div);
-            div.classList.add("boxtext");
-        } else {
-            let date = item["date"];
-            let title = item["title"];
-            let idDate = document.getElementById(date);
+//             div.innerHTML = title;
+//             tdDate.appendChild(div);
+//             div.classList.add("boxtext");
+//         } else {
+//             let date = item["date"];
+//             let title = item["title"];
+//             let idDate = document.getElementById(date);
 
-            div.innerHTML = title;
-            idDate.appendChild(div);
-            div.classList.add("boxtext");
-        }
-    })
-}
-showArray();
+//             div.innerHTML = title;
+//             idDate.appendChild(div);
+//             div.classList.add("boxtext");
+//         }
+//     })
+// }
+// showArray();

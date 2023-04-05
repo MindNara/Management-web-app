@@ -58,40 +58,6 @@ function showProfile() {
 
 
 
-// --------------------- Add Schedule --------------------- //
-function addSchedule() {
-
-    const modal = document.querySelector(".modal");
-    let text = document.getElementById("title");
-    let date = document.getElementById("date");
-
-    let tdDate = document.getElementById(date.value);
-    let div = document.createElement("div");
-    div.innerHTML = text.value;
-    div.classList.add("boxtext");
-
-    if (text.value != "" || date.value != "") {
-        tdDate.appendChild(div);
-        modal.classList.remove("is-active");
-
-        // push down array
-        array.push({
-            title: text.value,
-            date: date.value
-        });
-        text.value = "";
-        date.value = "";
-
-        // save down localStorage
-        window.localStorage.setItem("schedule", JSON.stringify(array));
-
-    } else {
-        alert("Please enter your title.");
-    }
-}
-
-
-
 function todayIcon() {
 
     window.onclick = function (event) {
@@ -101,6 +67,7 @@ function todayIcon() {
             currYearFull = date.getFullYear();
             currMonthFull = date.getMonth();
             renderFullCalendar();
+            showSchedule();
         } else if (event.target.matches('.todayDy-btn')) {
             date = new Date();
             currYearDynamic = date.getFullYear();
@@ -183,6 +150,7 @@ function showModel_task() {
     cancleModalBtn.addEventListener("click", closeModal);
 }
 
+
 // function showTaskToDo() {
 //     const modal_to_do = document.querySelector(".task-to-do");
 //     modal_to_do.classList.remove("is-active");
@@ -196,6 +164,7 @@ function showModel_task() {
 //     modal_to_do.addEventListener("click", openModal);
 // }
 
+
 // function showTaskDone() {
 //     const modal_done = document.querySelector(".task-done");
 //     modal_done.classList.remove("is-active");
@@ -208,3 +177,30 @@ function showModel_task() {
 //       iconDone.style.transform = "";
 //     }
 // }
+
+
+// --------------------- Show Schedule --------------------- //
+function showSchedule() {
+
+    const scheduleAll = JSON.parse(document.getElementById('schedule').dataset.scheduleAll);
+    console.log(scheduleAll)
+
+    scheduleAll.forEach((item, index) => {
+
+        console.log('item date ' + index + ' : ' + item.schedule_date);
+
+        const div = document.createElement("div");
+        const date = item.schedule_date;
+        const title = item.schedule_act;
+        const tdDate = document.getElementById(date);
+        console.log('tdDate ' + index + ' : ' + tdDate)
+        div.innerHTML = title;
+        tdDate.appendChild(div);
+        div.classList.add("boxtext");
+
+    })
+
+}
+showSchedule();
+
+
