@@ -72,14 +72,14 @@
                     <div class="tabs-wrapper">
                         <div
                             class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                            <a class="has-text-white is-size-5" @click="showTaskToDo();">
+                            <a class="has-text-white is-size-5" @click="showTaskToDo()">
                                 <span class="icon icon-todo is-medium" @click="status1 = !status1">
                                     <i class="fas fa-angle-down"></i>
                                 </span>
                                 <span>To-Do List ( {{task.length}} )</span>
                             </a>
                             <a class="has-text-white is-size-5">
-                                <span class="icon" style="float: right;" @click="show_modal = !show_modal">
+                                <span class="icon" style="float: right;"  onclick="showModel_task()">
                                     <i class="fas fa-solid fa-plus"></i>
                                 </span>
                             </a>
@@ -192,12 +192,12 @@
             </div>
 
             <!-- modal-add-task -->
-            <div class="modal" v-bind:class="{'is-active':show_modal}">
+            <div class="modal model-task" v-bind:class="{'is-active':show_modal}">
                 <div class="modal-background" @click="show_modal = !show_modal"></div>
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title has-text-weight-semibold">ADD TASKS</p>
-                        <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
+                        <button class="delete btn-close" aria-label="close" @click="show_modal = !show_modal"></button>
                     </header>
                     <section class="modal-card-body">
                         <!-- Content ... -->
@@ -225,7 +225,7 @@
                     </section>
                     <footer class="modal-card-foot">
                         <button class="button is-black" @click="addTask()">Create</button>
-                        <button class="button" @click="show_modal = !show_modal">Cancel</button>
+                        <button class="button btn-cancle" @click="show_modal = !show_modal">Cancel</button>
                     </footer>
                 </div>
             </div>
