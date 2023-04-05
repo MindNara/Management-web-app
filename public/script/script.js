@@ -167,3 +167,44 @@ function updateDataUser() {
 
 }
 
+function showModel_task() {
+    const modalTask = document.querySelector(".model-task");
+    const closeModalBtn = document.querySelector(".btn-close");
+    const cancleModalBtn = document.querySelector(".btn-cancle");
+
+    // show model
+    modalTask.classList.add("is-active");
+
+    // close model
+    const closeModal = function () {
+        modalTask.classList.remove("is-active");
+    };
+    closeModalBtn.addEventListener("click", closeModal);
+    cancleModalBtn.addEventListener("click", closeModal);
+}
+
+// function showTaskToDo() {
+//     const modal_to_do = document.querySelector(".task-to-do");
+//     modal_to_do.classList.remove("is-active");
+
+//     const iconTodo = document.querySelector(".tabs-wrapper .icon-todo");
+//     iconTodo.style.transform = "rotate(180deg)";
+
+//     const openModal = function () {
+//         modal_to_do.classList.add("is-active");
+//     };
+//     modal_to_do.addEventListener("click", openModal);
+// }
+
+// function showTaskDone() {
+//     const modal_done = document.querySelector(".task-done");
+//     modal_done.classList.remove("is-active");
+
+//     const iconDone = document.querySelector(".tabs-wrapper .icon-done");
+//     iconDone.style.transform = "rotate(180deg)";
+
+//     if (this.status2 == false) {
+//       modal_done.classList.add("is-active");
+//       iconDone.style.transform = "";
+//     }
+// }
