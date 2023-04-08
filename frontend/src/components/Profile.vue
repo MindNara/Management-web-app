@@ -19,7 +19,7 @@
             <div class="modal-card" style="width: 30rem;">
                 <header class="modal-card-head">
                     <p class="modal-card-title has-text-weight-semibold">MY PROFILE</p>
-                    <button class="delete btnDelete" aria-label="close"></button>
+                    <button class="delete btnDelete" aria-label="close" @click="showModel = !showModel"></button>
                 </header>
                 <form method="POST" action="/Dashboard" id="form-user" enctype="multipart/form-data">
                     <section class="modal-card-body px-5">
@@ -104,7 +104,7 @@
 
                     <footer class="modal-card-foot">
                         <button class="button is-black mr-3" type="submit">Update</button>
-                        <a class="button btnCancel">Cancel</a>
+                        <a class="button btnCancel" @click="showModel = !showModel">Cancel</a>
                     </footer>
                 </form>
             </div>

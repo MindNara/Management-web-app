@@ -68,11 +68,11 @@
                 <!-- table to-do list -->
                 <div class="tabs-wrapper">
                     <div class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                        <a class="has-text-white is-size-5" @click="showTaskToDo()" >
+                        <a class="has-text-white is-size-5" @click="showTaskToDo()">
                             <span class="icon icon-todo is-medium" @click="status1 = !status1">
                                 <i class="fas fa-angle-down"></i>
                             </span>
-                            <span>To-Do List ( )</span>
+                            <span>To-Do List ( {{ }} )</span>
                         </a>
                         <a class="has-text-white is-size-5">
                             <span class="icon" style="float: right;" @click="show_modal = !show_modal">
@@ -95,29 +95,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>{{}}</td>
-                                        <td>
-                                            <label class="checkbox">
-                                                <input type="checkbox">
-                                                {{}}
-                                            </label>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>To-Do</td>
-                                        <td>
-                                            <a class="edit-delete mr-2" style="float: left;">
-                                                <span class="icon has-text-dark">
-                                                    <i class="fas fa-pen"></i>
-                                                </span>
-                                            </a>
-                                            <a class="edit-delete">
-                                                <span class="icon">
-                                                    <i class="fas fa-trash" style="color: rgb(105, 16, 16);"></i>
-                                                </span>
-                                            </a>
-                                        </td>
+                                        <tr v-for="task in filteredTasksToDo" :key="task.id">
+                                            <td>{{ task.list_id }}</td>
+                                            <td>
+                                                <label class="checkbox">
+                                                    <input type="checkbox">
+                                                    {{ task.list_act }}
+                                                </label>
+                                            </td>
+                                            <td>{{ task.list_date }}</td>
+                                            <td>{{ task.list_create_date }}</td>
+                                            <td>To-Do</td>
+                                            <td>
+                                                <a class="edit-delete mr-2" style="float: left;">
+                                                    <span class="icon has-text-dark">
+                                                        <i class="fas fa-pen"></i>
+                                                    </span>
+                                                </a>
+                                                <a class="edit-delete">
+                                                    <span class="icon">
+                                                        <i class="fas fa-trash" style="color: rgb(105, 16, 16);"></i>
+                                                    </span>
+                                                </a>
+                                            </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -129,7 +129,7 @@
                 <!-- table done -->
                 <div class="tabs-wrapper mt-5">
                     <div class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                        <a class="has-text-white is-size-5" @click="showTaskDone()" >
+                        <a class="has-text-white is-size-5" @click="showTaskDone()">
                             <span class="icon icon-done is-medium" @click="status2 = !status2">
                                 <i class="fas fa-angle-down"></i>
                             </span>
@@ -185,12 +185,12 @@
         </div>
 
         <!-- modal-add-task -->
-        <div class="modal model-task" v-bind:class="{'is-active':show_modal}">
+        <div class="modal model-task" v-bind:class="{ 'is-active': show_modal }">
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title has-text-weight-semibold">ADD TASKS</p>
-                    <button class="delete btn-close" aria-label="close"  @click="show_modal = !show_modal"></button>
+                    <button class="delete btn-close" aria-label="close" @click="show_modal = !show_modal"></button>
                 </header>
                 <section class="modal-card-body">
                     <!-- Content ... -->
@@ -218,7 +218,7 @@
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-black">Create</button>
-                    <button class="button btn-cancle"  @click="show_modal = !show_modal">Cancel</button>
+                    <button class="button btn-cancle" @click="show_modal = !show_modal">Cancel</button>
                 </footer>
             </div>
         </div>
@@ -247,7 +247,7 @@ export default {
         axios.get("http://localhost:3000/Task")
             .then((response) => {
                 this.tasks = response.data;
-                console.log(this.tasks)
+                console.log(this.tasks.task)
             })
             .catch((err) => {
                 console.log(err);
@@ -275,7 +275,12 @@ export default {
                 modal_done.classList.add("is-active");
             }
         },
-    }
+    },
+    computed: {
+        filteredTasksToDo() {
+            return this.tasks.task.filter(task => task.list_status === 0);
+        }
+    },
 }
 
 </script>
