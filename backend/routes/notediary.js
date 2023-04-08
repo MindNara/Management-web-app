@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("../backend/config");
+const pool = require("../config");
 const router = express.Router();
 
 router.get('/NoteDiary', async function (req, res) {

@@ -1,20 +1,20 @@
 <template>
     <div class="level-item mt-4">
-        <div class="is-flex is-align-items-center" style="position: relative;">
+        <div class="is-flex is-align-items-center">
             <span class="name-member has-text-black is-size-5-fullhd ">Hi, </span>
             <div class="profile-box tabs mx-5">
                 <img src="../assets/user_image_default.jpg">
                 <!-- <img src="<%= user.image_user ? user.image_user : '/Images/user_image_default.jpg' %>" alt="user_img"> -->
-                <a class="dropbtn" style="width: 100%;" onclick="showDropdown()"></a>
+                <a class="dropbtn" style="width: 100%;" @click="showDropdown = !showDropdown"></a>
             </div>
         </div>
 
-        <div id="profileDropdown" class="tab-profile profile has-background-white px-5 py-2">
-            <a class="has-text-black" onclick="showProfile()"><i class="fas fa-user mr-2"></i>Profile</a>
+        <div id="profileDropdown" class="tab-profile profile has-background-white px-5 py-2" :class="{'is-active' : showDropdown}">
+            <a class="has-text-black" @click="showModel = !showModel; showDropdown = !showDropdown"><i class="fas fa-user mr-2"></i>Profile</a>
         </div>
 
         <!-- modal-add-task -->
-        <div class="modal model-profile">
+        <div class="modal model-profile" :class="{'is-active' : showModel}">
             <div class="modal-background"></div>
             <div class="modal-card" style="width: 30rem;">
                 <header class="modal-card-head">
@@ -123,6 +123,8 @@ export default {
       email: '',
       password: '',
       file: null,
+      showDropdown: false,
+      showModel: false,
     }
   },
 }

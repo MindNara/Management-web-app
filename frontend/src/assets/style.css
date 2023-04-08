@@ -97,6 +97,10 @@ button {
     font-weight: 300;
 }
 
+.profile {
+    position: relative;
+}
+
 .profile .profile-box {
     width: 2.5rem;
     height: 2.5rem;
@@ -222,8 +226,9 @@ button {
 
 .tab-profile {
     position: absolute;
-    right: 24;
-    top: 80;
+    right: 2.1rem;
+    top: 5.8rem;
+    width: 8rem;
     border-radius: 10px;
     border: 1px solid #bdbdbd;
     z-index: 1;

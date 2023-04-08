@@ -237,22 +237,22 @@ export default {
         return {
             tasks: null,
             task_name: '',
-            due_Date: '',
+            due_date: '',
             show_modal: false,
             status1: false,
             status2: false,
         }
     },
-    // created() { // run ตอนหน้า load ใช้ axios ยิง method get ไปที่ backend server ข้อมูลที่ได้จะเป็น json มา
-    //     axios.get("http://localhost:3000/Task")
-    //         .then((response) => {
-    //             this.tasks = response.data;
-    //             console.log(this.tasks)
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // },
+    created() { // run ตอนหน้า load ใช้ axios ยิง method get ไปที่ backend server ข้อมูลที่ได้จะเป็น json มา
+        axios.get("http://localhost:3000/Task")
+            .then((response) => {
+                this.tasks = response.data;
+                console.log(this.tasks)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    },
     components: {
         Navbar,
         Logo,

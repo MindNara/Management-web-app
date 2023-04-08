@@ -1,8 +1,8 @@
 const express = require("express");
-const pool = require("../backend/config");
+const pool = require("../config");
 const path = require('path')
 const router = express.Router();
-const upload = require('../backend/multer');
+const upload = require('../multer');
 
 
 router.get('/Schedule', async function (req, res, next) {

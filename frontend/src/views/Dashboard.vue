@@ -298,7 +298,6 @@
 import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
-// import Scripts from '../stores/scripts.js'
 
 export default {
     data() {

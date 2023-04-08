@@ -11,7 +11,7 @@ router.get("/Task", async function (req, res, next) {
             task: task,
             user: user[0]
         })
-    } 
+    }
     catch (err) {
         return next(err)
     }
