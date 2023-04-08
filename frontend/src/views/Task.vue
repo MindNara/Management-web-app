@@ -72,7 +72,7 @@
                             <span class="icon icon-todo is-medium" @click="status1 = !status1">
                                 <i class="fas fa-angle-down"></i>
                             </span>
-                            <span>To-Do List ( {{ }} )</span>
+                            <span>To-Do List ( {{ filteredTasksToDo.length }} )</span>
                         </a>
                         <a class="has-text-white is-size-5">
                             <span class="icon" style="float: right;" @click="show_modal = !show_modal">
