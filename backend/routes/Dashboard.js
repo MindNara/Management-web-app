@@ -9,10 +9,10 @@ router.get('/Dashboard', async function (req, res, next) {
 
     try {
 
-        const [user, userF] = await pool.query("SELECT * FROM user WHERE user_id = 1"); // select user detail of user
+        const [user, userF] = await pool.query("SELECT * FROM user WHERE user_id = 1");
 
-        res.render('Dashboard', {
-            user: user[0]
+        res.json({
+            user: user[0],
         })
 
     } catch (err) {

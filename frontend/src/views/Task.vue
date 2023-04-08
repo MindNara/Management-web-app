@@ -95,29 +95,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <tr v-for="task in filteredTasksToDo" :key="task.id">
-                                            <td>{{ task.list_id }}</td>
-                                            <td>
-                                                <label class="checkbox">
-                                                    <input type="checkbox">
-                                                    {{ task.list_act }}
-                                                </label>
-                                            </td>
-                                            <td>{{ task.list_date }}</td>
-                                            <td>{{ task.list_create_date }}</td>
-                                            <td>To-Do</td>
-                                            <td>
-                                                <a class="edit-delete mr-2" style="float: left;">
-                                                    <span class="icon has-text-dark">
-                                                        <i class="fas fa-pen"></i>
-                                                    </span>
-                                                </a>
-                                                <a class="edit-delete">
-                                                    <span class="icon">
-                                                        <i class="fas fa-trash" style="color: rgb(105, 16, 16);"></i>
-                                                    </span>
-                                                </a>
-                                            </td>
+                                    <tr v-for="task in filteredTasksToDo" :key="task.id">
+                                        <td>{{ task.list_id }}</td>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                {{ task.list_act }}
+                                            </label>
+                                        </td>
+                                        <td>{{ task.list_date }}</td>
+                                        <td>{{ task.list_create_date }}</td>
+                                        <td>To-Do</td>
+                                        <td>
+                                            <a class="edit-delete mr-2" style="float: left;">
+                                                <span class="icon has-text-dark">
+                                                    <i class="fas fa-pen"></i>
+                                                </span>
+                                            </a>
+                                            <a class="edit-delete">
+                                                <span class="icon">
+                                                    <i class="fas fa-trash" style="color: rgb(105, 16, 16);"></i>
+                                                </span>
+                                            </a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

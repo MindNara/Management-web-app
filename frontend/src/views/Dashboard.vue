@@ -306,7 +306,7 @@ import Profile from '../components/Profile.vue'
 export default {
     data() {
         return {
-
+            
         }
     },
     components: {

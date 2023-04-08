@@ -475,7 +475,7 @@ header .current-date {
 
 .boxuser .icon-user {
     position: absolute;
-    top: 16;
-    right: 20;
+    top: 16px;
+    right: 20px;
     cursor: pointer;
 }
