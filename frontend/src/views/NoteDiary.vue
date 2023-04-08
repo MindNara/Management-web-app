@@ -1,0 +1,168 @@
+<template>
+  <div class="container.is-fullhd" id="app">
+
+      <div class="columns" style="height: 12vh;">
+        <div class="column is-2">
+          <Logo />
+        </div>
+
+        <div class="column is-6">
+          <div class="pt-5">
+            <span class="is-size-2-fullhd is-size-3-widescreen has-text-weight-medium has-text-black">My Notes</span>
+          </div>
+        </div>
+
+        <div class="profile level column">
+          <div class="level-right pt-4" style="width: 100%;">
+            <Profile />
+          </div>
+        </div>
+      </div>
+
+      <div class="container-content columns" style="height: 88vh;">
+
+        <div class="column is-2">
+          <Navbar />
+        </div>
+        <div class="content column pr-5" style="overflow-x: hidden; overflow-y: scroll;">
+          <div>
+            <button class="button is-black is is-normal has-text-weight-normal">
+              <span class="icon">
+                <i class="fas fa-solid fa-plus"></i>
+              </span>
+              <span>Create Note</span>
+            </button>
+          </div>
+
+          <div class="columns mt-4 is-multiline columns is-variable is-2">
+            <div class="column is-one-third">
+              <div class="card">
+                <div>
+                  <div class="card-image">
+                    <figure class="image is-2by1">
+                      
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-content" style="width: 100%;">
+                        <p class="title title-note is-4"></p>
+                        <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                        <p class="subtitle" style="float: left;"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <a href="#" class="edit-delete card-footer-item">
+                    <span class="icon has-text-black">
+                      <i class="fas fa-pen mr-3"></i>
+                      <p>Edit</p>
+                    </span>
+                  </a>
+                  <a href="#" class="edit-delete card-footer-item">
+                    <span class="icon has-text-black">
+                      <i class="fas fa-trash mr-3" style="color: rgb(105, 16, 16);"></i>
+                      <p style="color: rgb(105, 16, 16);">Delete</p>
+                    </span>
+                  </a>
+                </footer>
+              </div>
+            </div>
+          </div>
+          <!-- modal-add-note -->
+          <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title has-text-weight-semibold m-0">ADD NOTE-DIARY</p>
+                <button class="delete" aria-label="close"></button>
+              </header>
+              <section class="modal-card-body">
+                <!-- Content ... -->
+                <form id="form">
+                  <div class="field">
+                    <label class="label">TOPIC :</label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input class="input" type="text" id="name-note" name="name-note" v-model="name_note">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-book"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="image-note" class="label">IMAGE :</label>
+                    <input type="file" id="image-note" name="image-note">
+                  </div>
+                  <div class="field">
+                    <label for="date-note" class="label">DATE :</label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input type="date" id="date-note" name="date-note" class="input" v-model="date_note">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-calendar"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="date-note" class="label">STORY :</label>
+                    <textarea class="p-5 is-size-5" style="width: 100%;" placeholder="Remember, be nice!" cols="90" rows="10" v-model="data_note"></textarea>
+                  </div>
+                </form>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-black" @click="addNote()">Create</button>
+                <button class="button" @click="show_modal = !show_modal">Cancel</button>
+              </footer>
+            </div>
+          </div>
+          <!-- modal-add-note -->
+
+          <!-- modal-open-card -->
+          <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title">MY DIARY</p>
+                <button class="delete" aria-label="close"></button>
+              </header>
+              <section class="modal-card-body">
+                <!-- Content ... -->
+                <figure class="image is-5by3">
+                  
+                </figure>
+                <p class="title">{{}}</p>
+                <p class="content">{{}}</p>
+                <p class="content">{{}} #mydiary</p>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-black">OK</button>
+              </footer>
+            </div>
+          </div>
+          <!-- modal-open-card -->
+        </div>
+      </div>
+    </div>
+</template>
+
+<script>
+import Logo from '../components/Logo.vue'
+import Navbar from '../components/Navbar.vue'
+import Profile from '../components/Profile.vue'
+
+export default {
+  data() {
+    return {
+      name_note: '',
+      date_note: '',
+      data_note: ''
+    }
+  },
+  components: {
+    Navbar,
+    Logo,
+    Profile
+  }
+}
+
+</script>

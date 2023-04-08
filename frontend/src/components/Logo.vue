@@ -1,0 +1,10 @@
+<template>
+
+    <div class="navbar-brand pt-3 pl-5 mt-3">
+        <a class="navbar-item" href="/">
+            <img class="mr-2" src="../assets/Icons/logo-100.png">
+            <span class="is-size-3-fullhd is-size-4-widescreen has-text-weight-bold has-text-black">LOGO</span>
+        </a>
+    </div>
+
+</template>
