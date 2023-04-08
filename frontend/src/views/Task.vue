@@ -68,14 +68,14 @@
                 <!-- table to-do list -->
                 <div class="tabs-wrapper">
                     <div class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                        <a class="has-text-white is-size-5">
-                            <span class="icon icon-todo is-medium">
+                        <a class="has-text-white is-size-5" @click="showTaskToDo()" >
+                            <span class="icon icon-todo is-medium" @click="status1 = !status1">
                                 <i class="fas fa-angle-down"></i>
                             </span>
                             <span>To-Do List ( )</span>
                         </a>
                         <a class="has-text-white is-size-5">
-                            <span class="icon" style="float: right;">
+                            <span class="icon" style="float: right;" @click="show_modal = !show_modal">
                                 <i class="fas fa-solid fa-plus"></i>
                             </span>
                         </a>
@@ -129,8 +129,8 @@
                 <!-- table done -->
                 <div class="tabs-wrapper mt-5">
                     <div class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                        <a class="has-text-white is-size-5">
-                            <span class="icon icon-done is-medium">
+                        <a class="has-text-white is-size-5" @click="showTaskDone()" >
+                            <span class="icon icon-done is-medium" @click="status2 = !status2">
                                 <i class="fas fa-angle-down"></i>
                             </span>
                             <span>Done ( {{}} )</span>
@@ -185,12 +185,12 @@
         </div>
 
         <!-- modal-add-task -->
-        <div class="modal model-task">
+        <div class="modal model-task" v-bind:class="{'is-active':show_modal}">
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title has-text-weight-semibold">ADD TASKS</p>
-                    <button class="delete btn-close" aria-label="close"></button>
+                    <button class="delete btn-close" aria-label="close"  @click="show_modal = !show_modal"></button>
                 </header>
                 <section class="modal-card-body">
                     <!-- Content ... -->
@@ -218,7 +218,7 @@
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-black">Create</button>
-                    <button class="button btn-cancle">Cancel</button>
+                    <button class="button btn-cancle"  @click="show_modal = !show_modal">Cancel</button>
                 </footer>
             </div>
         </div>
@@ -238,22 +238,43 @@ export default {
             tasks: null,
             task_name: '',
             due_Date: '',
+            show_modal: false,
+            status1: false,
+            status2: false,
         }
     },
-    created() { // run ตอนหน้า load ใช้ axios ยิง method get ไปที่ backend server ข้อมูลที่ได้จะเป็น json มา
-        axios.get("http://localhost:3000/Task")
-            .then((response) => {
-                this.tasks = response.data;
-                console.log(this.tasks)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    },
+    // created() { // run ตอนหน้า load ใช้ axios ยิง method get ไปที่ backend server ข้อมูลที่ได้จะเป็น json มา
+    //     axios.get("http://localhost:3000/Task")
+    //         .then((response) => {
+    //             this.tasks = response.data;
+    //             console.log(this.tasks)
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // },
     components: {
         Navbar,
         Logo,
         Profile
+    },
+    methods: {
+        showTaskToDo() {
+            const modal_to_do = document.querySelector(".task-to-do");
+            modal_to_do.classList.remove("is-active");
+
+            if (this.status1 == false) {
+                modal_to_do.classList.add("is-active");
+            }
+        },
+        showTaskDone() {
+            const modal_done = document.querySelector(".task-done");
+            modal_done.classList.remove("is-active");
+
+            if (this.status2 == false) {
+                modal_done.classList.add("is-active");
+            }
+        },
     }
 }
 
