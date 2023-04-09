@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="level-right pt-5 btn-open">
-                        <button type="submit" class="create-s button is-black" onclick="showModel()">
+                        <button type="submit" class="create-s button is-black" @click="showModel = !showModel">
                             <i class="fas fa-solid fa-plus mr-3"></i>
                             <span>Create Schedule</span>
                         </button>
@@ -138,13 +138,12 @@
 
                         <div class="columns" style="height: 32vh; overflow-y: auto; overflow-x: hidden;">
                             <div class="column mr-3">
-                                <!-- <% scheduleToday.forEach((item, index)=> {%> -->
-                                <div class="level schedule-box px-5 mb-4">
+                                <div class="level schedule-box px-5 mb-4" v-for="schedule in schedulesToday"
+                                    :key="schedule.id">
                                     <span id="schedule1" class="has-text-black">
-                                        <!-- <%= item.schedule_act %> -->
+                                        {{ schedule.schedule_act }}
                                     </span>
                                 </div>
-                                <!-- <% }) %> -->
                             </div>
                         </div>
                     </div>
@@ -154,13 +153,13 @@
         </div>
 
         <!-- modal-add-schedule -->
-        <div class="modal model-addSchedule">
+        <div class="modal model-addSchedule" :class="{ 'is-active': showModel }">
             <div class="modal-background"></div>
             <form method="POST" action="/Schedule">
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title has-text-weight-semibold">ADD SCHEDULE</p>
-                        <a class="delete btn-close" aria-label="close"></a>
+                        <a class="delete btn-close" aria-label="close" @click="showModel = !showModel"></a>
                     </header>
                     <!-- Content ... -->
                     <section class="modal-card-body">
@@ -186,8 +185,8 @@
                         </div>
                     </section>
                     <footer class="modal-card-foot">
-                        <button class="btn-create button is-black">Create</button>
-                        <a class="button btn-cancle">Cancel</a>
+                        <button class="btn-create button is-black" type="button" @click="createSchedule()">Create</button>
+                        <a class="button btn-cancle" @click="showModel = !showModel">Cancel</a>
                     </footer>
                 </div>
             </form>
@@ -203,11 +202,15 @@
 import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
+import axios from "axios";
 
 export default {
     data() {
         const date = new Date();
         return {
+            schedulesToday: null,
+            schedulesAll: null,
+            showModel: false,
             schedule_act: '',
             schedule_date: '',
             date: date,
@@ -225,7 +228,16 @@ export default {
         Profile
     },
     created() {
-
+        axios.get("http://localhost:3000/Schedule")
+            .then((response) => {
+                this.schedulesToday = response.data.scheduleToday;
+                this.schedulesAll = response.data.scheduleAll;
+                // console.log(this.schedulesToday)
+                // console.log(this.schedulesAll)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     },
     mounted() {
         const today = new Date();
@@ -314,6 +326,26 @@ export default {
             this.renderFullCalendar();
         },
 
+        createSchedule() {
+            var formData = new FormData();
+            formData.append("schedule_act", this.schedule_act);
+            formData.append("schedule_date", this.schedule_date);
+            console.log(formData)
+
+            axios
+                .post("http://localhost:3000/Schedule", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then((response) => {
+                    console.log(response);
+                    this.$router.push({ path: "/Schedule" });
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        },
 
     }
 }

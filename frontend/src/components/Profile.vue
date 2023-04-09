@@ -3,8 +3,8 @@
         <div class="is-flex is-align-items-center">
             <span class="name-member has-text-black is-size-5-fullhd ">Hi, {{ username }} </span>
             <div class="profile-box tabs mx-5">
-                <img src="../assets/user_image_default.jpg">
-                <!-- <img src="<%= user.image_user ? user.image_user : '/Images/user_image_default.jpg' %>" alt="user_img"> -->
+                <img :src="'http://localhost:3000/' + img_user ? 'http://localhost:3000/' + img_user : '../assets/user_image_default.jpg'"
+                    alt="user_img">
                 <a class="dropbtn" style="width: 100%;" @click="showDropdown = !showDropdown"></a>
             </div>
         </div>
@@ -102,7 +102,7 @@
 
                     <footer class="modal-card-foot">
                         <button class="button is-black mr-3" type="submit">Update</button>
-                        <a class="button btnCancel" @click="showModel = !showModel">Cancel</a>
+                        <button class="button btnCancel" @click="showModel = !showModel">Cancel</button>
                     </footer>
                 </form>
             </div>

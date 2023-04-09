@@ -199,7 +199,7 @@
                                     <div class="level-left">
                                         <p class="current-date has-text-black ml-4"></p>
                                     </div>
-                                    <div class="level-right">
+                                    <div class="level-right mr-2">
                                         <span class="todaybtn todayDy-btn" @click="goToToday">Today</span>
                                         <div class="icons icons-dynamic mr-2">
                                             <span @click="goToPreviousMonth"><i
