@@ -102,7 +102,7 @@
 
                     <footer class="modal-card-foot">
                         <button class="button is-black mr-3" type="submit">Update</button>
-                        <button class="button btnCancel" @click="showModel = !showModel">Cancel</button>
+                        <a class="button btnCancel" @click="showModel = !showModel">Cancel</a>
                     </footer>
                 </form>
             </div>

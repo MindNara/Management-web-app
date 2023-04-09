@@ -87,7 +87,7 @@
             <div class="content-schedule column is-3">
 
                 <!---------------------------- Dynamic Calendar ---------------------------->
-                <div class="content-c columns mr-1" style="height: 50vh;">
+                <div class="content-c columns mr-1 mb-5" style="height: auto;">
                     <div class="calendar-box mr-5 ml-3 mt-3" style="width: 100%; height: 100%;">
                         <div class="dynaminCalendar calendar" style="width: 100%; height: auto;">
                             <header class="level m-0">
@@ -138,12 +138,19 @@
 
                         <div class="columns" style="height: 32vh; overflow-y: auto; overflow-x: hidden;">
                             <div class="column mr-3">
-                                <div class="level schedule-box px-5 mb-4" v-for="schedule in schedulesToday"
-                                    :key="schedule.id">
-                                    <span id="schedule1" class="has-text-black">
-                                        {{ schedule.schedule_act }}
-                                    </span>
+                                <div v-for="schedule in schedulesToday" :key="schedule.id">
+                                    <div class="level schedule-box px-5 mb-4 has-background-black"
+                                        v-if="schedule === schedulesToday[0]">
+                                        <span id="schedule1" class="has-text-white has-text-weight-light">
+                                            {{ schedule.schedule_act }}
+                                        </span>
+                                    </div>
+                                    <div class="level schedule-box px-5 mb-4" v-else>
+                                        <span id="schedule2" class="has-text-black">
+                                            {{ schedule.schedule_act }}</span>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

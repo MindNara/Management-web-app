@@ -135,7 +135,7 @@ button {
 .calendar-box .calendar {
     background: #F6F6F8;
     border-radius: 20px;
-    height: 92%;
+    height: auto;
 }
 
 .card-content i {
@@ -428,8 +428,8 @@ header .current-date {
     background: rgba(158, 158, 158, 0.199);
 }
 
-.fullcalendar .icons #prev i:hover,
-.fullcalendar .icons #next i:hover {
+.fullcalendar .icons span i:hover,
+.fullcalendar .icons span i:hover {
     background: rgb(0, 0, 0);
     color: white;
     padding: 2px 5px;

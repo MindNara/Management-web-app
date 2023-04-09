@@ -51,7 +51,8 @@
                                         <div class="card-content is-flex is-justify-content-center is-align-items-center">
                                             <i class='bx bx-task'></i>
                                             <div class="text">
-                                                <span class="is-size-2-fullhd is-size-3-widescreen">{{ }}</span>
+                                                <span class="is-size-2-fullhd is-size-3-widescreen">{{
+                                                    filteredTasksDone.length ? filteredTasksDone.length : '0' }}</span>
                                                 <p class="is-size-5-fullhd is-size-6-widescreen">Task Done</p>
                                             </div>
                                         </div>
@@ -64,7 +65,9 @@
                                         <div class="card-content is-flex is-justify-content-center is-align-items-center">
                                             <i class='bx bx-task-x'></i>
                                             <div class="text">
-                                                <span class="is-size-2-fullhd is-size-3-widescreen"></span>
+                                                <span class="is-size-2-fullhd is-size-3-widescreen">{{
+                                                    filteredTasksNotStart.length ? filteredTasksNotStart.length : '0'
+                                                }}</span>
                                                 <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
                                             </div>
                                         </div>
@@ -77,7 +80,8 @@
                                         <div class="card-content is-flex is-justify-content-center is-align-items-center">
                                             <i class='bx bx-note'></i>
                                             <div class="text">
-                                                <span class="is-size-2-fullhd is-size-3-widescreen"></span>
+                                                <span class="is-size-2-fullhd is-size-3-widescreen">{{ notes.length ?
+                                                    notes.length : '0' }}</span>
                                                 <p class="is-size-5-fullhd is-size-6-widescreen">Notes</p>
                                             </div>
                                         </div>
@@ -114,22 +118,23 @@
                             <!----------------- today tasks card ----------------->
                             <div class="columns" style="height: 30vh;">
                                 <div class="clumns" style="width: 100%;">
-                                    <div class="column">
+                                    <div class="column" v-for="task in filteredTasksToday" :key="task.id">
                                         <div class="level task-box p-3">
                                             <div class="level-left">
                                                 <div class="level-item">
-                                                    <a class="has-text-black"><i
-                                                            class='bx bx-check-circle mx-4 is-size-3'></i></a>
-                                                    <span class="is-size-5 has-text-weight-medium"></span>
+                                                    <i class='bx bx-check-circle mx-4 is-size-3 has-text-black'
+                                                        style="cursor: pointer;"></i>
+                                                    <span class="is-size-5 has-text-weight-medium">
+                                                        {{ task.list_act }}</span>
                                                 </div>
                                             </div>
 
                                             <div class="level-right">
                                                 <div class="level-item">
-                                                    <span class="date mr-6">{{ }}</span>
+                                                    <span class="date mr-6">{{ task.list_date }}</span>
                                                     <span
-                                                        class="btn-status has-background-black has-text-white has-text-weight-light mx-4">In
-                                                        Progress</span>
+                                                        class="btn-status has-background-black has-text-white has-text-weight-light mx-4">
+                                                        In Progress</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -165,18 +170,18 @@
                             <!----------------- notes card ----------------->
                             <div class="columns mt-4 is-multiline" style="height: 33vh;">
 
-                                <div class="column is-one-third">
+                                <div class="column is-one-third" v-for="note in notes" :key="note.noted_id">
                                     <div class="card">
                                         <div class="card-image">
                                             <figure class="image is-2by1">
-                                                <!-- <img :src="item.image" alt="Placeholder image"> -->
+                                                <img :src="note.image" alt="Placeholder image">
                                             </figure>
                                         </div>
                                         <div class="card-content">
                                             <div class="media">
                                                 <div class="media-content" style="width: 100%;">
-                                                    <p class="title title-note is-4"></p>
-                                                    <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                                                    <p class="title title-note is-4">{{ note.noted_title }}</p>
+                                                    <!-- <p class="subtitle is-6">{{ note.noted_content }}</p> -->
                                                     <p class="subtitle"></p>
                                                 </div>
                                             </div>
@@ -193,7 +198,7 @@
 
                     <!---------------------------- calendar row ---------------------------->
                     <div class="content-ts columns mr-5" style="height: 51vh;">
-                        <div class="calendar-box ml-3 mt-3" style="width: 100%;">
+                        <div class="calendar-box ml-3 mt-3" style="width: 100%; height: auto;">
                             <div class="dynaminCalendar calendar">
                                 <header class="level m-0">
                                     <div class="level-left">
@@ -250,19 +255,16 @@
 
                             <div class="columns" style="height: 33vh;">
                                 <div class="column mr-5">
-                                    <div class="level schedule-box px-5 mb-4 has-background-black">
-                                        <span id="schedule1" class="has-text-white has-text-weight-light">Today Task
-                                            1</span>
-                                    </div>
-
-                                    <div class="level schedule-box px-5 mb-4">
-                                        <span id="schedule2" class="has-text-black has-text-weight-light">Today Task
-                                            2</span>
-                                    </div>
-
-                                    <div class="level schedule-box px-5 mb-4">
-                                        <span id="schedule3" class="has-text-black has-text-weight-light">Today Task
-                                            3</span>
+                                    <div v-for="schedule in schedulesToday" :key="schedule.id">
+                                        <div class="level schedule-box px-5 mb-4 has-background-black"
+                                            v-if="schedule === schedulesToday[0]">
+                                            <span id="schedule1" class="has-text-white has-text-weight-light">
+                                                {{ schedule.schedule_act }}</span>
+                                        </div>
+                                        <div class="level schedule-box px-5 mb-4" v-else>
+                                            <span id="schedule2" class="has-text-black">
+                                                {{ schedule.schedule_act }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -304,11 +306,15 @@
 import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
+import axios from "axios";
 
 export default {
     data() {
         const date = new Date();
         return {
+            schedulesToday: null,
+            tasks: null,
+            notes: null,
             date: date,
             currYear: date.getFullYear(),
             currMonth: date.getMonth(),
@@ -322,6 +328,18 @@ export default {
         Navbar,
         Logo,
         Profile,
+    },
+    created() {
+        axios.get("http://localhost:3000/Dashboard")
+            .then((response) => {
+                this.schedulesToday = response.data.scheduleToday;
+                this.tasks = response.data.task;
+                this.notes = response.data.note;
+                console.log(this.notes)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     },
     mounted() {
         const today = new Date();
@@ -390,6 +408,23 @@ export default {
         },
 
 
-    }
+    },
+    computed: {
+        filteredTasksToday() {
+            let ts = Date.now();
+            let date_ob = new Date(ts);
+            let date = date_ob.getDate();
+            let month = date_ob.getMonth() + 1;
+            let year = date_ob.getFullYear();
+            let todayDate = year + "-" + (month < 10 ? '0' : '') + month + "-" + (date < 10 ? '0' : '') + date;
+            return this.tasks.filter(task => task.list_status === 0 && task.list_date === todayDate);
+        },
+        filteredTasksDone() {
+            return this.tasks.filter(task => task.list_status === 1);
+        },
+        filteredTasksNotStart() {
+            return this.tasks.filter(task => task.list_status === 0);
+        },
+    },
 }
 </script>
