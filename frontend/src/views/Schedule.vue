@@ -56,11 +56,10 @@
                                 <p class="current-date has-text-black is-size-4"></p>
                             </div>
                             <div class="level-right">
-                                <span id="today today-btn" class="todaybtn todayFull-btn"
-                                    onclick="todayIcon()">Today</span>
+                                <span id="today today-btn" class="todaybtn todayFull-btn" @click="goToToday">Today</span>
                                 <div class="icons icons-full">
-                                    <span id="prev"><i class='bx bxs-chevron-left is-size-4'></i></span>
-                                    <span id="next"><i class='bx bxs-chevron-right is-size-4'></i></span>
+                                    <span @click="goToPreviousMonth"><i class='bx bxs-chevron-left is-size-4'></i></span>
+                                    <span @click="goToNextMonth"><i class='bx bxs-chevron-right is-size-4'></i></span>
                                 </div>
                             </div>
 
@@ -96,10 +95,12 @@
                                     <p class="current-date has-text-black ml-4"></p>
                                 </div>
                                 <div class="level-right">
-                                    <span id="today" class="todaybtn todayDy-btn" onclick="todayIcon()">Today</span>
+                                    <span class="todaybtn todayDy-btn" @click="goToToday">Today</span>
                                     <div class="icons icons-dynamic mr-2">
-                                        <span id="prev"><i class='bx bxs-chevron-left has-text-black'></i></span>
-                                        <span id="next"><i class='bx bxs-chevron-right has-text-black'></i></span>
+                                        <span @click="goToPreviousMonth"><i
+                                                class='bx bxs-chevron-left has-text-black'></i></span>
+                                        <span @click="goToNextMonth"><i
+                                                class='bx bxs-chevron-right has-text-black'></i></span>
                                     </div>
                                 </div>
                             </header>
@@ -138,12 +139,12 @@
                         <div class="columns" style="height: 32vh; overflow-y: auto; overflow-x: hidden;">
                             <div class="column mr-3">
                                 <!-- <% scheduleToday.forEach((item, index)=> {%> -->
-                                    <div class="level schedule-box px-5 mb-4">
-                                        <span id="schedule1" class="has-text-black">
-                                            <!-- <%= item.schedule_act %> -->
-                                        </span>
-                                    </div>
-                                    <!-- <% }) %> -->
+                                <div class="level schedule-box px-5 mb-4">
+                                    <span id="schedule1" class="has-text-black">
+                                        <!-- <%= item.schedule_act %> -->
+                                    </span>
+                                </div>
+                                <!-- <% }) %> -->
                             </div>
                         </div>
                     </div>
@@ -176,7 +177,8 @@
                         <div class="field">
                             <label for="date" class="label">DATE :</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input type="date" id="schedule_date" name="schedule_date" class="input" v-model="schedule_date">
+                                <input type="date" id="schedule_date" name="schedule_date" class="input"
+                                    v-model="schedule_date">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-calendar"></i>
                                 </span>
@@ -203,16 +205,116 @@ import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 
 export default {
-  data() {
-    return {
-        schedule_act: '',
-        schedule_date: '',
+    data() {
+        const date = new Date();
+        return {
+            schedule_act: '',
+            schedule_date: '',
+            date: date,
+            currYear: date.getFullYear(),
+            currMonth: date.getMonth(),
+            months: [
+                "January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"
+            ],
+        }
+    },
+    components: {
+        Navbar,
+        Logo,
+        Profile
+    },
+    created() {
+
+    },
+    mounted() {
+        const today = new Date();
+        this.currentYear = today.getFullYear();
+        this.currentMonth = today.getMonth();
+        this.renderFullCalendar();
+    },
+    methods: {
+        renderFullCalendar() {
+
+            const fullcalendar = document.querySelector(".fullcalendar .days"),
+                currentDate_full = document.querySelector(".fullcalendar .current-date"),
+                dynamicCalendar = document.querySelector(".dynaminCalendar .days"),
+                currentDate_dynamic = document.querySelector(".dynaminCalendar .current-date");
+
+            let firstDayofMonth = new Date(this.currYear, this.currMonth, 1).getDay(),
+                lastDateofMonth = new Date(this.currYear, this.currMonth + 1, 0).getDate(),
+                lastDayofMonth = new Date(this.currYear, this.currMonth, lastDateofMonth).getDay(),
+                lastDateofLastMonth = new Date(this.currYear, this.currMonth, 0).getDate();
+
+            let numday = 0;
+            let tdTag = "";
+            let liTag = "";
+
+            tdTag += `<tr>`;
+            for (let i = (firstDayofMonth - 1); i >= 0; i--) { // create date of last month
+                let dateofLastMonth = lastDateofLastMonth - i;
+                tdTag += `<td class="inactive" id="${this.currYear + "-" + (this.currMonth < 10 ? "0" : "") + (this.currMonth) + "-" + ((dateofLastMonth) < 10 ? "0" : "") + (dateofLastMonth)}" >${dateofLastMonth}</td>`;
+                numday++;
+                liTag += `<li class="inactive">${dateofLastMonth}</li>`;
+            }
+
+            for (let i = 1; i <= lastDateofMonth; i++) { // create date of current month
+
+                // add class in <td></td>
+                let isToday = i == this.date.getDate() && this.currMonth == new Date().getMonth() && this.currYear == new Date().getFullYear() ? "active" : "";
+
+                tdTag += `<td class="${isToday}" id="${this.currYear + "-" + ((this.currMonth + 1) < 10 ? "0" : "") + (this.currMonth + 1) + "-" + ((i) < 10 ? "0" : "") + (i)}" >${i}</td>`;
+                numday++;
+
+                if (numday > 6) {
+                    tdTag += `</tr>`;
+                    numday = 0;
+                }
+
+                liTag += `<li class="${isToday}">${i}</li>`;
+            }
+
+            for (let i = (lastDayofMonth + 1); i < 7; i++) { // create date of next month
+                let dateofNextMonth = i - lastDayofMonth;
+                tdTag += `<td class="inactive" id="${this.currYear + "-" + ((this.currMonth + 2) < 10 ? "0" : "") + (this.currMonth + 2) + "-" + ((dateofNextMonth) < 10 ? "0" : "") + (dateofNextMonth)}" >${dateofNextMonth}</td>`
+                numday++;
+                liTag += `<li class="inactive">${dateofNextMonth}</li>`
+            }
+
+            currentDate_full.innerText = `${this.months[this.currMonth]} ${this.currYear}`;
+            fullcalendar.innerHTML = tdTag;
+
+            currentDate_dynamic.innerText = `${this.months[this.currMonth]} ${this.currYear}`;
+            dynamicCalendar.innerHTML = liTag;
+
+        },
+
+        goToToday() {
+            const today = new Date();
+            this.currYear = today.getFullYear();
+            this.currMonth = today.getMonth();
+            this.renderFullCalendar();
+        },
+
+        goToPreviousMonth() {
+            this.currMonth--;
+            if (this.currMonth < 0) {
+                this.currYear--;
+                this.currMonth = 11;
+            }
+            this.renderFullCalendar();
+        },
+
+        goToNextMonth() {
+            this.currMonth += 1;
+            if (this.currMonth > 11) {
+                this.currMonth = 0;
+                this.currYear += 1;
+            }
+            this.renderFullCalendar();
+        },
+
+
     }
-  },
-  components: {
-    Navbar,
-    Logo,
-    Profile
-  }
 }
 </script>

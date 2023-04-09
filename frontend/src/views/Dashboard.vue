@@ -200,10 +200,12 @@
                                         <p class="current-date has-text-black ml-4"></p>
                                     </div>
                                     <div class="level-right">
-                                        <span id="today" class="todaybtn todayDy-btn">Today</span>
+                                        <span class="todaybtn todayDy-btn" @click="goToToday">Today</span>
                                         <div class="icons icons-dynamic mr-2">
-                                            <span id="prev"><i class='bx bxs-chevron-left has-text-black'></i></span>
-                                            <span id="next"><i class='bx bxs-chevron-right has-text-black'></i></span>
+                                            <span @click="goToPreviousMonth"><i
+                                                    class='bx bxs-chevron-left has-text-black'></i></span>
+                                            <span @click="goToNextMonth"><i
+                                                    class='bx bxs-chevron-right has-text-black'></i></span>
                                         </div>
                                     </div>
                                 </header>
@@ -305,8 +307,15 @@ import Profile from '../components/Profile.vue'
 
 export default {
     data() {
+        const date = new Date();
         return {
-            
+            date: date,
+            currYear: date.getFullYear(),
+            currMonth: date.getMonth(),
+            months: [
+                "January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"
+            ],
         }
     },
     components: {
@@ -314,13 +323,22 @@ export default {
         Logo,
         Profile,
     },
+    mounted() {
+        const today = new Date();
+        this.currentYear = today.getFullYear();
+        this.currentMonth = today.getMonth();
+        this.renderCalendar();
+    },
     methods: {
-        renderDynamicCalendar() {
+        renderCalendar() {
 
-            let firstDayofMonth = new Date(currYearDynamic, currMonthDynamic, 1).getDay(), // first day of current month = 3
-                lastDateofMonth = new Date(currYearDynamic, currMonthDynamic + 1, 0).getDate(), // last date of current month = 31
-                lastDayofMonth = new Date(currYearDynamic, currMonthDynamic, lastDateofMonth).getDay(), // last day of current month = 5
-                lastDateofLastMonth = new Date(currYearDynamic, currMonthDynamic, 0).getDate(); // last date of last month = 28
+            const dynamicCalendar = document.querySelector(".dynaminCalendar .days"),
+                currentDate_dynamic = document.querySelector(".dynaminCalendar .current-date");
+
+            let firstDayofMonth = new Date(this.currYear, this.currMonth, 1).getDay(),
+                lastDateofMonth = new Date(this.currYear, this.currMonth + 1, 0).getDate(),
+                lastDayofMonth = new Date(this.currYear, this.currMonth, lastDateofMonth).getDay(),
+                lastDateofLastMonth = new Date(this.currYear, this.currMonth, 0).getDate();
 
             let liTag = "";
 
@@ -330,7 +348,9 @@ export default {
             }
 
             for (let i = 1; i <= lastDateofMonth; i++) { // create date of current month
-                let isToday = i == dateDy.getDate() && currMonthDynamic == new Date().getMonth() && currYearDynamic == new Date().getFullYear() ? "active" : "";
+
+                // add class in <td></td>
+                let isToday = i == this.date.getDate() && this.currMonth == new Date().getMonth() && this.currYear == new Date().getFullYear() ? "active" : "";
                 liTag += `<li class="${isToday}">${i}</li>`;
             }
 
@@ -339,10 +359,37 @@ export default {
                 liTag += `<li class="inactive">${dateofNextMonth}</li>`
             }
 
-            currentDate_dynamic.innerText = `${months[currMonthDynamic]} ${currYearDynamic}`;
+            currentDate_dynamic.innerText = `${this.months[this.currMonth]} ${this.currYear}`;
             dynamicCalendar.innerHTML = liTag;
 
-        }
+        },
+
+        goToToday() {
+            const today = new Date();
+            this.currYear = today.getFullYear();
+            this.currMonth = today.getMonth();
+            this.renderCalendar();
+        },
+
+        goToPreviousMonth() {
+            this.currMonth--;
+            if (this.currMonth < 0) {
+                this.currYear--;
+                this.currMonth = 11;
+            }
+            this.renderCalendar();
+        },
+
+        goToNextMonth() {
+            this.currMonth += 1;
+            if (this.currMonth > 11) {
+                this.currMonth = 0;
+                this.currYear += 1;
+            }
+            this.renderCalendar();
+        },
+
+
     }
 }
 </script>
