@@ -45,7 +45,7 @@
                                 class="card-content is-flex is-justify-content-center is-align-items-center has-text-black">
                                 <i class='bx bx-task'></i>
                                 <div class="text">
-                                    <span class="is-size-2-fullhd is-size-3-widescreen"></span>
+                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{ filteredTasksDone.length }}</span>
                                     <p class="is-size-5-fullhd is-size-6-widescreen">Task Done</p>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                 class="card-content is-flex is-justify-content-center is-align-items-center has-text-black">
                                 <i class='bx bx-task-x'></i>
                                 <div class="text">
-                                    <span class="is-size-2-fullhd is-size-3-widescreen"></span>
+                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{ filteredTasksToDo.length }}</span>
                                     <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
                                 </div>
                             </div>
