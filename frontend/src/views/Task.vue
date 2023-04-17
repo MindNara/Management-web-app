@@ -95,8 +95,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="task in filteredTasksToDo" :key="task.id">
-                                        <td>{{ task.list_id }}</td>
+                                    <tr v-for="(task, index) in filteredTasksToDo" :key="index">
+                                        <td>{{ index + 1 }}</td>
                                         <td>
                                             <label class="checkbox">
                                                 <input type="checkbox">
@@ -151,8 +151,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="task in filteredTasksDone" :key="task.id">
-                                        <td>{{task.list_id}}</td>
+                                    <tr v-for="(task, index) in filteredTasksDone" :key="index">
+                                        <td>{{index + 1}}</td>
                                         <td>
                                             <label class="checkbox">
                                                 <input type="checkbox" checked>
