@@ -133,7 +133,7 @@
                             <span class="icon icon-done is-medium" @click="status2 = !status2">
                                 <i class="fas fa-angle-down"></i>
                             </span>
-                            <span>Done ( {{}} )</span>
+                            <span>Done ( {{ filteredTasksDone.length }} )</span>
                         </a>
                     </div>
 
@@ -151,16 +151,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>{{}}</td>
+                                    <tr v-for="task in filteredTasksDone" :key="task.id">
+                                        <td>{{task.list_id}}</td>
                                         <td>
                                             <label class="checkbox">
                                                 <input type="checkbox" checked>
-
+                                                {{ task.list_act }}
                                             </label>
                                         </td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{task.list_date}}</td>
+                                        <td>{{task.list_create_date }}</td>
                                         <td>Done</td>
                                         <td>
                                             <a class="edit-delete mr-2" style="float: left;">
@@ -279,6 +279,9 @@ export default {
     computed: {
         filteredTasksToDo() {
             return this.tasks.task.filter(task => task.list_status === 0);
+        },
+        filteredTasksDone() {
+            return this.tasks.task.filter(task => task.list_status === 1);
         }
     },
 }
