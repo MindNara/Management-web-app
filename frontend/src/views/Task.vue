@@ -108,7 +108,7 @@
                                         <td>To-Do</td>
                                         <td>
                                             <a class="edit-delete mr-2" style="float: left;">
-                                                <span class="icon has-text-dark">
+                                                <span class="icon has-text-dark" @click="show_modal_edit = !show_modal_edit">
                                                     <i class="fas fa-pen"></i>
                                                 </span>
                                             </a>
@@ -164,7 +164,7 @@
                                         <td>Done</td>
                                         <td>
                                             <a class="edit-delete mr-2" style="float: left;">
-                                                <span class="icon has-text-dark">
+                                                <span class="icon has-text-dark" @click="show_modal_edit = !show_modal_edit">
                                                     <i class="fas fa-pen"></i>
                                                 </span>
                                             </a>
@@ -185,7 +185,7 @@
         </div>
 
         <!-- modal-add-task -->
-        <div class="modal model-task" v-bind:class="{ 'is-active': show_modal }">
+        <div class="modal" v-bind:class="{ 'is-active': show_modal }">
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
@@ -223,6 +223,46 @@
             </div>
         </div>
         <!-- modal-add-task -->
+
+        <!-- modal-edit-task -->
+        <div class="modal" v-bind:class="{ 'is-active': show_modal_edit }">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title has-text-weight-semibold">EDIT TASKS</p>
+                    <button class="delete btn-close" aria-label="close" @click="show_modal_edit = !show_modal_edit"></button>
+                </header>
+                <section class="modal-card-body">
+                    <!-- Content ... -->
+                    <form id="form">
+                        <div class="field">
+                            <label class="label">NAME TASKS :</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input class="input" type="text" id="name-task" name="name-task" placeholder="Change Task name"
+                                    v-model="task_name">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-book"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="due-date" class="label">DUE DATE :</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input type="date" id="due-date" name="due-date" class="input" v-model="due_date">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-black">Create</button>
+                    <button class="button btn-cancle" @click="show_modal_edit = !show_modal_edit">Cancel</button>
+                </footer>
+            </div>
+        </div>
+        <!-- modal-edit-task -->
     </div>
 </template>
 
@@ -239,6 +279,7 @@ export default {
             task_name: '',
             due_date: '',
             show_modal: false,
+            show_modal_edit: false,
             status1: false,
             status2: false,
         }
