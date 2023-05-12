@@ -462,15 +462,17 @@ header .current-date {
     width: 100%;
 }
 
-.boxuser .user-card {
-    background: #f2f2f2;
+.boxuser input {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
-    border: none;
-    pointer-events: none;
     font-size: 16px;
     color: black;
+    border-radius: 10px;
+    border: none;
+    background: #f2f2f2;
+}
+
+.boxuser input[disabled] {
+    pointer-events: none;
 }
 
 .boxuser .icon-user {
@@ -478,4 +480,5 @@ header .current-date {
     top: 16px;
     right: 20px;
     cursor: pointer;
+    z-index: 1;
 }

@@ -21,93 +21,97 @@
             <div class="modal-card" style="width: 30rem;">
                 <header class="modal-card-head">
                     <p class="modal-card-title has-text-weight-semibold">MY PROFILE</p>
-                    <button class="delete btnDelete" aria-label="close" @click="showModel = !showModel"></button>
+                    <button class="delete btnDelete" aria-label="close"
+                        @click="showModel = !showModel; closeEditingInput()"></button>
                 </header>
-                <form method="POST" action="/Dashboard" id="form-user" enctype="multipart/form-data">
-                    <section class="modal-card-body px-5">
-                        <div class="field is-flex is-align-items-center">
-                            <div class="img-profile mr-5">
-                                <img :src="'http://localhost:3000/' + img_user ? 'http://localhost:3000/' + img_user : '../assets/user_image_default.jpg'"
-                                    alt="user_img">
-                            </div>
-                            <div class="is-flex is-flex-direction-column has-text-black is-size-6" style="width: 65%;">
-                                <label class="is-size-6 has-text-grey-dark">Username</label>
-                                <span class="boxuser">
-                                    <h1 class="pb-2 is-size-3 has-text-weight-medium">{{ username }}</h1>
-                                    <div class="file">
-                                        <label class="file-label">
-                                            <input class="file-input" type="file" name="user_img" id="file" ref="file">
-                                            <span class="file-cta is-size-7">
-                                                <span class="file-icon">
-                                                    <i class="fas fa-upload"></i>
-                                                </span>
-                                                <span class="file-label">
-                                                    Choose a file…
-                                                </span>
+                <!-- <form method="POST" action="/Dashboard" id="form-user" enctype="multipart/form-data"> -->
+                <section class="modal-card-body px-5">
+                    <div class="field is-flex is-align-items-center">
+                        <div class="img-profile mr-5">
+                            <img :src="'http://localhost:3000/' + img_user ? 'http://localhost:3000/' + img_user : '../assets/user_image_default.jpg'"
+                                alt="user_img">
+                        </div>
+                        <div class="is-flex is-flex-direction-column has-text-black is-size-6" style="width: 65%;">
+                            <label class="is-size-6 has-text-grey-dark">Username</label>
+                            <span class="boxuser">
+                                <h1 class="pb-2 is-size-3 has-text-weight-medium">{{ username }}</h1>
+                                <div class="file">
+                                    <label class="file-label">
+                                        <input class="file-input" type="file" name="user_img" id="file" ref="file">
+                                        <span class="file-cta is-size-7">
+                                            <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
                                             </span>
-                                        </label>
-                                    </div>
-                                </span>
-                            </div>
+                                            <span class="file-label">
+                                                Choose a file…
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </span>
                         </div>
-                        <div class="field mt-3">
-                            <div class="is-flex is-flex-direction-column has-text-black is-size-6">
-                                <label class="mb-1 has-text-grey-dark">First name</label>
-                                <span class="boxuser">
-                                    <input type="text"
-                                        class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
-                                        name="fname" id="fname" v-model="fname">
-                                    <i id="iconFname" class="icon-user iconFname fas fa-pen is-size-7"
-                                        style="color: rgb(109, 109, 109);"></i>
-                                </span>
-                            </div>
+                    </div>
+                    <div class="field mt-3">
+                        <div class="is-flex is-flex-direction-column has-text-black is-size-6">
+                            <label class="mb-1 has-text-grey-dark">First name</label>
+                            <span class="boxuser">
+                                <input type="text"
+                                    class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
+                                    name="fname" id="input-fname" v-model="fname" :disabled="!EditFname">
+                                <a @click="editInput('input-fname')"><i id="iconFname"
+                                        class="icon-user iconLname fas fa-pen is-size-7"
+                                        style="color: rgb(109, 109, 109);"></i></a>
+                            </span>
                         </div>
-                        <div class="field mt-3">
-                            <div class="is-flex is-flex-direction-column has-text-black is-size-6">
-                                <label class="mb-1 has-text-grey-dark">Last name</label>
-                                <span class="boxuser">
-                                    <input type="text"
-                                        class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
-                                        name="lname" id="lname" v-model="lname">
-                                    <i id="iconLname" class="icon-user iconLname fas fa-pen is-size-7"
-                                        style="color: rgb(109, 109, 109);"></i>
-                                </span>
-                            </div>
+                    </div>
+                    <div class="field mt-3">
+                        <div class="is-flex is-flex-direction-column has-text-black is-size-6">
+                            <label class="mb-1 has-text-grey-dark">Last name</label>
+                            <span class="boxuser">
+                                <input type="text"
+                                    class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
+                                    name="lname" id="input-lname" v-model="lname" :disabled="!EditLname">
+                                <a @click="editInput('input-lname')"><i id="iconLname"
+                                        class="icon-user iconLname fas fa-pen is-size-7"
+                                        style="color: rgb(109, 109, 109);"></i></a>
+                            </span>
                         </div>
-                        <div class="field mt-3">
-                            <div class="is-flex is-flex-direction-column has-text-black is-size-6">
-                                <label class="mb-1 has-text-grey-dark">Email</label>
-                                <span class="boxuser">
-                                    <input type="text"
-                                        class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
-                                        name="email" id="email" v-model="email">
-                                    <i id="iconEmail" class="icon-user iconEmail fas fa-pen is-size-7"
-                                        style="color: rgb(109, 109, 109);"></i>
-                                </span>
-                            </div>
+                    </div>
+                    <div class="field mt-3">
+                        <div class="is-flex is-flex-direction-column has-text-black is-size-6">
+                            <label class="mb-1 has-text-grey-dark">Email</label>
+                            <span class="boxuser">
+                                <input type="text"
+                                    class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
+                                    name="email" id="input-email" v-model="email" :disabled="!EditEmail">
+                                <a @click="editInput('input-email')"><i id="iconEmail"
+                                        class="icon-user iconEmail fas fa-pen is-size-7"
+                                        style="color: rgb(109, 109, 109);"></i></a>
+                            </span>
                         </div>
-                        <div class="field mt-3">
-                            <div class="is-flex is-flex-direction-column has-text-black is-size-6">
-                                <label class="mb-1 has-text-grey-dark">Password</label>
-                                <span class="boxuser">
-                                    <input type="text"
-                                        class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
-                                        name="password" id="password" v-model="password">
-                                    <i id="iconPwd" class="icon-user iconPwd fas fa-pen is-size-7"
-                                        style="color: rgb(109, 109, 109);"></i>
-                                </span>
-                            </div>
+                    </div>
+                    <div class="field mt-3">
+                        <div class="is-flex is-flex-direction-column has-text-black is-size-6">
+                            <label class="mb-1 has-text-grey-dark">Password</label>
+                            <span class="boxuser">
+                                <input type="text"
+                                    class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
+                                    name="password" id="input-password" v-model="password" :disabled="!EditPwd">
+                                <a @click="editInput('input-password')"><i id="iconPassword"
+                                        class="icon-user iconPwd fas fa-pen is-size-7"
+                                        style="color: rgb(109, 109, 109);"></i></a>
+                            </span>
                         </div>
-                    </section>
+                    </div>
+                </section>
 
-                    <footer class="modal-card-foot">
-                        <button class="button is-black mr-3" type="submit">Update</button>
-                        <a class="button btnCancel" @click="showModel = !showModel">Cancel</a>
-                    </footer>
-                </form>
+                <footer class="modal-card-foot">
+                    <button class="button is-black mr-3" type="submit">Update</button>
+                    <a class="button btnCancel" @click="showModel = !showModel; closeEditingInput()">Cancel</a>
+                </footer>
+                <!-- </form> -->
             </div>
         </div>
-        <!-- modal-add-task -->
     </div>
 </template>
 
@@ -127,7 +131,10 @@ export default {
             file: null,
             showDropdown: false,
             showModel: false,
-            editProfile: false,
+            EditFname: false,
+            EditLname: false,
+            EditEmail: false,
+            EditPwd: false,
         }
     },
     created() {
@@ -149,7 +156,37 @@ export default {
             });
     },
     methods: {
+        editInput(field) {
+            console.log(field);
+            if (field === 'input-fname') {
+                this.EditFname = true;
+                const input = document.getElementById('input-fname');
+                input.focus();
+            } else if (field === 'input-lname') {
+                this.EditLname = true;
+                const input = document.getElementById('input-lname');
+                input.focus();
+            } else if (field === 'input-email') {
+                this.EditEmail = true;
+                const input = document.getElementById('input-email');
+                input.focus();
+            } else if (field === 'input-password') {
+                this.EditPwd = true;
+                const input = document.getElementById('input-password');
+                input.focus();
+            }
+        },
 
+        closeEditingInput() {
+            this.EditFname = false;
+            this.EditLname = false;
+            this.EditEmail = false;
+            this.EditPwd = false;
+        },
+
+        submit() {
+
+        },
     },
 }
 </script>
