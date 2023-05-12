@@ -107,6 +107,7 @@
                 </form>
             </div>
         </div>
+        <!-- modal-add-task -->
     </div>
 </template>
 
