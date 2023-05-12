@@ -26,6 +26,7 @@
                                 <div class="control has-icons-left has-icons-right">
                                     <input class="input" type="text" id="user" name="user" placeholder="Enter your username"
                                         v-model="username">
+                                    <!-- <input v-model="username" class="input" type="text" /> -->
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-user"></i>
                                     </span>
@@ -36,14 +37,17 @@
                                 <div class="control has-icons-left has-icons-right">
                                     <input type="password" id="password" name="password" class="input"
                                         placeholder="Enter your password" v-model="password">
+                                    <!-- <input v-model="password" class="input" type="password" /> -->
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
                                 </div>
                             </div>
                             <div class="buttons is-centered">
-                                <button type="button"
-                                    class="button is-black is-outlined is-rounded is-black is is-large has-text-weight-bold">LOGIN</button>
+                                <!-- <button class="button is-black is-outlined is-rounded is-black is is-large has-text-weight-bold" @click="submit">
+                                    LOGIN
+                                </button> -->
+                                <button class="button is-primary is-fullwidth" @click="submit">Login</button>
                             </div>
                         </form>
                     </div>
@@ -54,14 +58,35 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
     data() {
         return {
             username: '',
             password: '',
+            error: ''
         }
     },
+    methods: {
+        submit () {
+            const data = {
+                username: this.username,
+                password: this.password
+            }
+            axios.post('http://localhost:3000/Login', data)
+            .then(res => {
+                const token = res.data.token                                
+                localStorage.setItem('token', token)
+                this.$emit('auth-change')
+                // this.$router.push({path: '/Dashboard'})
+            })
+            .catch(error => {
+                this.error = error.response.data
+                console.log(error.response.data)
+            })
+        }
+    }
 }
 
 </script>
