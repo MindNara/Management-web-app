@@ -25,7 +25,7 @@
 
                 <a href="/" class="nav-item pl-5 pr-5 py-3 mb-5" :class="{'navbar-active is-active': isActive('/')}">
                     <i class='bx bx-log-in mr-4 is-size-4-fullhd is-size-5-widescreen'></i>
-                    <span class="is-size-5-fullhd is-size-6-widescreen">Logout</span>
+                    <span class="is-size-5-fullhd is-size-6-widescreen" @click="logout">Logout</span>
                 </a>
 
             </div>
@@ -34,10 +34,37 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
+    data() {
+        return {
+            user: null,
+        };
+    },
+    mounted() {
+        this.onAuthChange();
+    },
     methods: {
         isActive(url) {
             return url === window.location.pathname;
+        },
+        onAuthChange () {
+            const token = localStorage.getItem('token')
+            if (token) {
+                this.getUser()
+            }
+        },
+        getUser () {
+            const token = localStorage.getItem('token')
+            axios.get('/user/me').then(res => {
+                this.user = res.data
+            })
+        },
+        logout(){
+            localStorage.removeItem('token')
+            this.user = null
+            this.$router.push('/')
         }
     }
 }

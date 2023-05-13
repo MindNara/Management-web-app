@@ -76,7 +76,7 @@ export default {
             // const fetchingData = await axios.post("http://localhost:3000/Login", {
             // username: this.username,
             // password: this.password
-            const data = {
+            const data = { // data ที่ผู้ใช้กรอกเข้ามาอะ
                 username: this.username,
                 password: this.password
             }
