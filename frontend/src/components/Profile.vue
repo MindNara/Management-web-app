@@ -3,7 +3,8 @@
         <div class="is-flex is-align-items-center">
             <span class="name-member has-text-black is-size-5-fullhd ">Hi, {{ username }} </span>
             <div class="profile-box tabs mx-5">
-                <img :src="'http://localhost:3000/' + img_user ? 'http://localhost:3000/' + img_user : '../assets/user_image_default.jpg'"
+                <img v-if="!img_user" src="../assets/user_image_default.jpg" alt="user_img">
+                <img v-else :src="img_user ? 'http://localhost:3000/' + img_user : '../assets/user_image_default.jpg'"
                     alt="user_img">
                 <a class="dropbtn" style="width: 100%;" @click="showDropdown = !showDropdown"></a>
             </div>
@@ -27,7 +28,9 @@
                 <section class="modal-card-body px-5">
                     <div class="field is-flex is-align-items-center">
                         <div class="img-profile mr-5">
-                            <img :src="img_user ? 'http://localhost:3000/' + img_user : 'assets/user_image_default.jpg'"
+                            <img v-if="!img_user" src="../assets/user_image_default.jpg" alt="user_img">
+                            <img v-else
+                                :src="img_user ? 'http://localhost:3000/' + img_user : '../assets/user_image_default.jpg'"
                                 alt="user_img">
                         </div>
                         <div class="is-flex is-flex-direction-column has-text-black is-size-6" style="width: 65%;">
@@ -147,6 +150,7 @@ export default {
                 this.email = this.profiles.user.email;
                 this.password = this.profiles.user.password;
                 this.img_user = this.profiles.user.image_user;
+                console.log(this.img_user);
             })
             .catch((err) => {
                 console.log(err);
