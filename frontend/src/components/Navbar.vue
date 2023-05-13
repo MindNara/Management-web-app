@@ -30,7 +30,7 @@
 
             </div>
         </div>
-        <!-- <router-view @auth-change="onAuthChange" :user="user" /> -->
+        <router-view :key="$route.fullPath" @auth-change="onAuthChange" :user="user" />
     </nav>
 </template>
 
@@ -60,6 +60,7 @@ export default {
             const token = localStorage.getItem('token')
             axios.get('/user/me').then(res => {
                 this.user = res.data
+                console.log(this.user)
             })
         },
         logout(){

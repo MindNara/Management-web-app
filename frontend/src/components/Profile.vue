@@ -121,6 +121,7 @@
 import axios from "axios";
 
 export default {
+    props: ['user'],
     data() {
         return {
             profiles: null,
@@ -151,6 +152,7 @@ export default {
                 this.password = this.profiles.user.password;
                 this.img_user = this.profiles.user.image_user;
                 console.log(this.img_user);
+                console.log("-->" + this.props)
             })
             .catch((err) => {
                 console.log(err);
