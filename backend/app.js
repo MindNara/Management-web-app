@@ -6,6 +6,7 @@ const app = express()
 
 const { logger } = require('./middlewares')
 app.use(logger)
+
 app.use(cors())
 
 // Setup ejs
@@ -17,6 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Encode body
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 const homepage = require('../backend/routes/homepage')
 const dashboard = require('../backend/routes/dashboard')

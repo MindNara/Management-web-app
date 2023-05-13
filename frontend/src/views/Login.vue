@@ -21,6 +21,9 @@
                     <p class="subtitle has-text-centered">Good to see you again </p><br>
                     <div class="card p-5">
                         <!-- <form id="form"> -->
+                            <p v-if="error" class="px-3 py-2 mb-3 has-text-danger-dark has-background-danger-light">
+                                {{ error }}
+                            </p>
                             <div class="field">
                                 <label class="label">username :</label>
                                 <div class="control has-icons-left has-icons-right">
@@ -78,12 +81,12 @@ export default {
                 password: this.password
             }
 
-        axios.post('http://localhost:3000/Login', data)
+        axios.post('http://localhost:3000/Login', data) // ส่งข้อมูลที่พิมมา data ส่งไปที่ path ใน backend
         .then(res => {
           const token = res.data.token                                
           localStorage.setItem('token', token)
           this.$emit('auth-change')
-          this.$router.push({path: '/'})
+          this.$router.push({path: '/Dashboard'}) // save token แล้วมาหน้า Dashboard
         })
         .catch(error => {
           this.error = error.response.data
