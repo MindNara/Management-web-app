@@ -30,6 +30,7 @@
 
             </div>
         </div>
+        <router-view :key="$route.fullPath" @auth-change="onAuthChange" :user="user" />
     </nav>
 </template>
 

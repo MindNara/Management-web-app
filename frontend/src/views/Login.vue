@@ -47,10 +47,10 @@
                                 </div>
                             </div>
                             <div class="buttons is-centered">
-                                <!-- <button class="button is-black is-outlined is-rounded is-black is is-large has-text-weight-bold" @click="submit">
+                                <button class="button is-black is-outlined is-rounded is-black is is-large has-text-weight-bold" @click="submit">
                                     LOGIN
-                                </button> -->
-                                <button class="button is-primary is-fullwidth" @click="submit">Login</button>
+                                </button>
+                                <!-- <button class="button is-primary is-fullwidth" @click="submit">Login</button> -->
                             </div>
                         <!-- </form> -->
                     </div>
