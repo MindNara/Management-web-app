@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '@/plugins/axios'
 
 export default {
     data() {
@@ -81,7 +81,7 @@ export default {
                 password: this.password
             }
 
-        axios.post('http://localhost:3000/Login', data) // ส่งข้อมูลที่พิมมา data ส่งไปที่ path ใน backend
+        axios.post('/Login', data) // ส่งข้อมูลที่พิมมา data ส่งไปที่ path ใน backend
         .then(res => {
           const token = res.data.token                                
           localStorage.setItem('token', token)

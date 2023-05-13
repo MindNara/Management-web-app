@@ -30,12 +30,12 @@
 
             </div>
         </div>
-        <router-view :key="$route.fullPath" @auth-change="onAuthChange" :user="user" />
+        <!-- <router-view @auth-change="onAuthChange" :user="user" /> -->
     </nav>
 </template>
 
 <script>
-import axios from "axios";
+import axios from '@/plugins/axios'
 
 export default {
     data() {
