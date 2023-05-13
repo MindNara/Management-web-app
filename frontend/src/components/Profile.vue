@@ -207,7 +207,7 @@ export default {
             formData.append("email", this.email);
             formData.append("password", this.password);
 
-            axios.post("http://localhost:3000/Dashboard", formData, {
+            axios.post("http://localhost:3000/Profile", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

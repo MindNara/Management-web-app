@@ -28,6 +28,7 @@ const notediary = require('../backend/routes/notediary')
 const task = require('../backend/routes/task')
 const login = require('../backend/routes/login')
 const signup = require('../backend/routes/signup')
+const profile = require('../backend/routes/profile')
 
 app.use(homepage.router)
 app.use(dashboard.router)
@@ -36,6 +37,7 @@ app.use(notediary.router)
 app.use(login.router)
 app.use(signup.router)
 app.use(task.router)
+app.use(profile.router)
 
 app.listen(3000, () => {
     console.log('Start server at http://localhost:3000')

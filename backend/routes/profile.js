@@ -1,14 +1,43 @@
 const express = require("express");
 const pool = require("../config");
+const path = require('path')
 const router = express.Router();
+const upload = require('../multer');
 
-router.get('/' + $router.params, async function (req, res) {
+router.post('/Profile', upload.single('user_img'), async function (req, res, next) {
 
-    // const [user, fields] = await pool.query("SELECT * FROM user WHERE user_id = 1");
+    const file = req.file;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const password = req.body.password;
 
-    // res.render('Profile', {
-    //     user: user[0]
-    // })
+    const conn = await pool.getConnection()
+    await conn.beginTransaction();
+
+    try {
+
+        if (file != undefined) {
+            const [newUser, newUserF] = await conn.query(
+                'UPDATE user SET fname=?, lname=?, email=?, password=?, image_user=? WHERE user_id = 1',
+                [fname, lname, email, password, file.path.substr(6)]
+            )
+        } else {
+            const [newUser, newUserF] = await conn.query(
+                'UPDATE user SET fname=?, lname=?, email=?, password=? WHERE user_id = 1',
+                [fname, lname, email, password]
+            )
+        }
+        await conn.commit();
+        res.json("Update profile success!");
+
+    } catch (err) {
+        await conn.rollback();
+        res.status(400).json(err);
+    } finally {
+        console.log('finally');
+        conn.release();
+    }
 
 })
 
