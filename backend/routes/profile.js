@@ -1,6 +1,5 @@
 const express = require("express");
 const pool = require("../config");
-const path = require('path')
 const router = express.Router();
 const upload = require('../multer');
 
