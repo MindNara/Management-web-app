@@ -24,11 +24,10 @@
                     <button class="delete btnDelete" aria-label="close"
                         @click="showModel = !showModel; closeEditingInput()"></button>
                 </header>
-                <!-- <form method="POST" action="/Dashboard" id="form-user" enctype="multipart/form-data"> -->
                 <section class="modal-card-body px-5">
                     <div class="field is-flex is-align-items-center">
                         <div class="img-profile mr-5">
-                            <img :src="'http://localhost:3000/' + img_user ? 'http://localhost:3000/' + img_user : '../assets/user_image_default.jpg'"
+                            <img :src="img_user ? 'http://localhost:3000/' + img_user : 'assets/user_image_default.jpg'"
                                 alt="user_img">
                         </div>
                         <div class="is-flex is-flex-direction-column has-text-black is-size-6" style="width: 65%;">
@@ -37,7 +36,8 @@
                                 <h1 class="pb-2 is-size-3 has-text-weight-medium">{{ username }}</h1>
                                 <div class="file">
                                     <label class="file-label">
-                                        <input class="file-input" type="file" name="user_img" id="file" ref="file">
+                                        <input class="file-input" type="file" name="user_img" id="file" ref="file"
+                                            @change="handleFileUpload()">
                                         <span class="file-cta is-size-7">
                                             <span class="file-icon">
                                                 <i class="fas fa-upload"></i>
@@ -94,7 +94,7 @@
                         <div class="is-flex is-flex-direction-column has-text-black is-size-6">
                             <label class="mb-1 has-text-grey-dark">Password</label>
                             <span class="boxuser">
-                                <input type="text"
+                                <input type="password"
                                     class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
                                     name="password" id="input-password" v-model="password" :disabled="!EditPwd">
                                 <a @click="editInput('input-password')"><i id="iconPassword"
@@ -106,10 +106,9 @@
                 </section>
 
                 <footer class="modal-card-foot">
-                    <button class="button is-black mr-3" type="submit">Update</button>
+                    <button class="button is-black mr-3" type="submit" @click="submit()">Update</button>
                     <a class="button btnCancel" @click="showModel = !showModel; closeEditingInput()">Cancel</a>
                 </footer>
-                <!-- </form> -->
             </div>
         </div>
     </div>
@@ -138,18 +137,16 @@ export default {
         }
     },
     created() {
-        axios.get("http://localhost:3000" + this.$route.path)
+        axios.get("http://localhost:3000/Dashboard")
             .then((response) => {
                 this.profiles = response.data;
-                if (this.profiles && this.profiles.user) {
-                    this.username = this.profiles.user.username;
-                    this.fname = this.profiles.user.fname;
-                    this.lname = this.profiles.user.lname;
-                    this.email = this.profiles.user.email;
-                    this.password = this.profiles.user.password;
-                    this.img_user = this.profiles.user.image_user;
-                    // console.log(this.img_user)
-                }
+
+                this.username = this.profiles.user.username;
+                this.fname = this.profiles.user.fname;
+                this.lname = this.profiles.user.lname;
+                this.email = this.profiles.user.email;
+                this.password = this.profiles.user.password;
+                this.img_user = this.profiles.user.image_user;
             })
             .catch((err) => {
                 console.log(err);
@@ -173,6 +170,7 @@ export default {
             } else if (field === 'input-password') {
                 this.EditPwd = true;
                 const input = document.getElementById('input-password');
+                input.type = 'text';
                 input.focus();
             }
         },
@@ -182,10 +180,39 @@ export default {
             this.EditLname = false;
             this.EditEmail = false;
             this.EditPwd = false;
+
+            this.username = this.profiles.user.username;
+            this.fname = this.profiles.user.fname;
+            this.lname = this.profiles.user.lname;
+            this.email = this.profiles.user.email;
+            this.password = this.profiles.user.password;
+            this.img_user = this.profiles.user.image_user;
+
+            document.getElementById('input-password').type = 'password';
+        },
+
+        handleFileUpload() {
+            this.file = this.$refs.file.files[0];
         },
 
         submit() {
+            var formData = new FormData();
+            formData.append("user_img", this.file);
+            formData.append("fname", this.fname);
+            formData.append("lname", this.lname);
+            formData.append("email", this.email);
+            formData.append("password", this.password);
 
+            axios.post("http://localhost:3000/Dashboard", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }).then((response) => {
+                console.log(response);
+                document.location.reload();
+            }).catch((error) => {
+                console.log(error.message);
+            });
         },
     },
 }

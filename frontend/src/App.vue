@@ -1,6 +1,6 @@
 <template>
   <!-- <router-view :key="$route.fullPath" /> -->
-  <router-view :key="$route.fullPath" @auth-change="onAuthChange" :user="user"/>
+  <router-view :key="$route.fullPath" @auth-change="onAuthChange" :user="user" />
 </template>
 
 <script>

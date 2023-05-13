@@ -34,34 +34,40 @@ router.get('/Dashboard', async function (req, res, next) {
 
 })
 
+
 router.post('/Dashboard', upload.single('user_img'), async function (req, res, next) {
 
     const file = req.file;
     const fname = req.body.fname;
     const lname = req.body.lname;
     const email = req.body.email;
-    const username = req.body.username;
     const password = req.body.password;
-    // console.log(username)
+
+    const conn = await pool.getConnection()
+    await conn.beginTransaction();
 
     try {
 
-        if (req.file != undefined) {
-            const [newUser, newUserF] = await pool.query(
-                'UPDATE user SET fname=?, lname=?, email=?, username=?, password=?, image_user=? WHERE user_id = 1',
-                [fname, lname, email, username, password, file.path.substr(6)]
+        if (file != undefined) {
+            const [newUser, newUserF] = await conn.query(
+                'UPDATE user SET fname=?, lname=?, email=?, password=?, image_user=? WHERE user_id = 1',
+                [fname, lname, email, password, file.path.substr(6)]
             )
         } else {
-            const [newUser, newUserF] = await pool.query(
-                'UPDATE user SET fname=?, lname=?, email=?, username=?, password=? WHERE user_id = 1',
-                [fname, lname, email, username, password]
+            const [newUser, newUserF] = await conn.query(
+                'UPDATE user SET fname=?, lname=?, email=?, password=? WHERE user_id = 1',
+                [fname, lname, email, password]
             )
         }
-        res.redirect('Dashboard');
+        await conn.commit();
+        res.json("Update profile success!");
 
     } catch (err) {
-        console.log(err);
-        return next(err);
+        await conn.rollback();
+        res.status(400).json(err);
+    } finally {
+        console.log('finally');
+        conn.release();
     }
 
 })
