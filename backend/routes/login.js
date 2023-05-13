@@ -19,6 +19,9 @@ router.post('/Login', async (req, res, next) => {
     }
     const username = req.body.username
     const password = req.body.password
+
+    console.log(req.body)
+    console.log(password)
  
     const conn = await pool.getConnection()
     await conn.beginTransaction()

@@ -20,7 +20,7 @@
                     <p class="title is-2 has-text-centered">LOGIN ACCOUNT</p>
                     <p class="subtitle has-text-centered">Good to see you again </p><br>
                     <div class="card p-5">
-                        <form id="form">
+                        <!-- <form id="form"> -->
                             <div class="field">
                                 <label class="label">username :</label>
                                 <div class="control has-icons-left has-icons-right">
@@ -49,7 +49,7 @@
                                 </button> -->
                                 <button class="button is-primary is-fullwidth" @click="submit">Login</button>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
@@ -63,30 +63,34 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            username: '',
-            password: '',
+            username: 'mindnara',
+            password: 'Aa123456',
             error: ''
         }
     },
     methods: {
-        submit () {
+        submit () { 
+            // const fetchingData = await axios.post("http://localhost:3000/Login", {
+            // username: this.username,
+            // password: this.password
             const data = {
                 username: this.username,
                 password: this.password
             }
-            axios.post('http://localhost:3000/Login', data)
-            .then(res => {
-                const token = res.data.token                                
-                localStorage.setItem('token', token)
-                this.$emit('auth-change')
-                // this.$router.push({path: '/Dashboard'})
-            })
-            .catch(error => {
-                this.error = error.response.data
-                console.log(error.response.data)
-            })
-        }
+
+        axios.post('http://localhost:3000/Login', data)
+        .then(res => {
+          const token = res.data.token                                
+          localStorage.setItem('token', token)
+          this.$emit('auth-change')
+          this.$router.push({path: '/'})
+        })
+        .catch(error => {
+          this.error = error.response.data
+          console.log(error.response.data)
+        })
     }
+  }
 }
 
 </script>

@@ -27,8 +27,7 @@ async function isLoggedIn(req, res, next) {
 
     // Set user
     const [users] = await pool.query(
-        'SELECT id, username, first_name, last_name, email, picture, mobile, join_date, role ' + 
-        'FROM users WHERE id = ?', [token.user_id] // => เอา token ของ user.id ไป query ทำให้ทุก route มันเข้าถึง req ของ user ได้หมด ข้อมูล user ไปหน้าอื่นหมด
+        'SELECT user_id, fname, lname, email, username, image_user FROM user WHERE user_id = ?', [token.user_id] // => เอา token ของ user.id ไป query ทำให้ทุก route มันเข้าถึง req ของ user ได้หมด ข้อมูล user ไปหน้าอื่นหมด
     )
     req.user = users[0]
 
