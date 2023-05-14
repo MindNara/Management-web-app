@@ -15,7 +15,7 @@ router.post('/Login', async (req, res, next) => {
     try {
         await loginSchema.validateAsync(req.body, { abortEarly: false })
     } catch (err) {
-        return res.status(400).send(err)
+        return res.status(400).send("Enter your username or password")
     }
     const username = req.body.username
     const password = req.body.password
