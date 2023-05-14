@@ -30,7 +30,7 @@ router.post('/Login', async (req, res, next) => {
         // Check if username is correct
        const [users] = await conn.query('SELECT * FROM user WHERE username=?',[username])
        const user = users[0]
-       if (!user) {    
+       if (!user) {
         throw new Error('Incorrect username or password')
         } 
        // Check if password is correct

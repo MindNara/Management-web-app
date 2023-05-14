@@ -3,6 +3,26 @@ const pool = require("../config");
 const router = express.Router();
 const upload = require('../multer');
 
+// router.get('/Profile/:userId'), async function (req, res, next) {
+
+//     const user_id = req.params.userId;
+
+//     try {
+
+//         const [user, userF] = await pool.query("SELECT * FROM user WHERE user_id = ?",
+//             [user_id]);
+
+//         res.json({
+//             user: user[0],
+//         })
+
+//     } catch (err) {
+//         console.log(err)
+//         return next(err)
+//     }
+
+// }
+
 router.post('/Profile', upload.single('user_img'), async function (req, res, next) {
 
     const file = req.file;

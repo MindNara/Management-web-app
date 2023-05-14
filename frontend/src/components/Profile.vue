@@ -1,11 +1,13 @@
 <template>
     <div class="level-item mt-4">
         <div class="is-flex is-align-items-center">
-            <span class="name-member has-text-black is-size-5-fullhd ">Hi, {{ username }} </span>
+            <span class="name-member has-text-black is-size-5-fullhd ">Hi, {{ user.username }} </span>
             <div class="profile-box tabs mx-5">
-                <img v-if="!img_user" src="../assets/user_image_default.jpg" alt="user_img">
-                <img v-else :src="img_user ? 'http://localhost:3000/' + img_user : '../assets/user_image_default.jpg'"
-                    alt="user_img">
+                <img v-if="!user.image_user
+                    " src="../assets/user_image_default.jpg" alt="user_img">
+                <img v-else :src="user.image_user
+                    ? 'http://localhost:3000/' + user.image_user
+                    : '../assets/user_image_default.jpg'" alt="user_img">
                 <a class="dropbtn" style="width: 100%;" @click="showDropdown = !showDropdown"></a>
             </div>
         </div>
@@ -28,15 +30,16 @@
                 <section class="modal-card-body px-5">
                     <div class="field is-flex is-align-items-center">
                         <div class="img-profile mr-5">
-                            <img v-if="!img_user" src="../assets/user_image_default.jpg" alt="user_img">
-                            <img v-else
-                                :src="img_user ? 'http://localhost:3000/' + img_user : '../assets/user_image_default.jpg'"
-                                alt="user_img">
+                            <img v-if="!user.image_user
+                                " src="../assets/user_image_default.jpg" alt="user_img">
+                            <img v-else :src="user.image_user
+                                ? 'http://localhost:3000/' + user.image_user
+                                : '../assets/user_image_default.jpg'" alt="user_img">
                         </div>
                         <div class="is-flex is-flex-direction-column has-text-black is-size-6" style="width: 65%;">
                             <label class="is-size-6 has-text-grey-dark">Username</label>
                             <span class="boxuser">
-                                <h1 class="pb-2 is-size-3 has-text-weight-medium">{{ username }}</h1>
+                                <h1 class="pb-2 is-size-3 has-text-weight-medium">{{ user.username }}</h1>
                                 <div class="file">
                                     <label class="file-label">
                                         <input class="file-input" type="file" name="user_img" id="file" ref="file"
@@ -60,7 +63,7 @@
                             <span class="boxuser">
                                 <input type="text"
                                     class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
-                                    name="fname" id="input-fname" v-model="fname" :disabled="!EditFname">
+                                    name="fname" id="input-fname" v-model="user.fname" :disabled="!EditFname">
                                 <a @click="editInput('input-fname')"><i id="iconFname"
                                         class="icon-user iconLname fas fa-pen is-size-7"
                                         style="color: rgb(109, 109, 109);"></i></a>
@@ -73,7 +76,7 @@
                             <span class="boxuser">
                                 <input type="text"
                                     class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
-                                    name="lname" id="input-lname" v-model="lname" :disabled="!EditLname">
+                                    name="lname" id="input-lname" v-model="user.lname" :disabled="!EditLname">
                                 <a @click="editInput('input-lname')"><i id="iconLname"
                                         class="icon-user iconLname fas fa-pen is-size-7"
                                         style="color: rgb(109, 109, 109);"></i></a>
@@ -86,7 +89,7 @@
                             <span class="boxuser">
                                 <input type="text"
                                     class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
-                                    name="email" id="input-email" v-model="email" :disabled="!EditEmail">
+                                    name="email" id="input-email" v-model="user.email" :disabled="!EditEmail">
                                 <a @click="editInput('input-email')"><i id="iconEmail"
                                         class="icon-user iconEmail fas fa-pen is-size-7"
                                         style="color: rgb(109, 109, 109);"></i></a>
@@ -99,7 +102,7 @@
                             <span class="boxuser">
                                 <input type="password"
                                     class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
-                                    name="password" id="input-password" v-model="password" :disabled="!EditPwd">
+                                    name="password" id="input-password" v-model="user.password" :disabled="!EditPwd">
                                 <a @click="editInput('input-password')"><i id="iconPassword"
                                         class="icon-user iconPwd fas fa-pen is-size-7"
                                         style="color: rgb(109, 109, 109);"></i></a>
@@ -123,10 +126,8 @@ import { useUserStore } from '@/stores/counter'
 import { watchEffect, ref } from 'vue'
 
 export default {
-    props: ['user'],
     data() {
         return {
-            // user: null,
             profiles: null,
             username: '',
             fname: '',
@@ -141,45 +142,19 @@ export default {
             EditLname: false,
             EditEmail: false,
             EditPwd: false,
-            // user: null,
         }
     },
     setup() {
         const userStore = useUserStore();
-        const user = ref(null);
+        const user = ref({});
 
-        // ถ้ามีการเปลี่ยนแปลงค่าจะเข้ามาทำในนี้
         watchEffect(async () => {
             await userStore.getUser();
-
-            // user.value like this.user => vue3
             user.value = userStore.user;
-
-            // ถ้าใช้ข้างใน setup => user.value.fname
             console.log('user:', user.value);
         });
 
         return { user };
-    },
-    created() {
-        axios.get("/Dashboard")
-            .then((response) => {
-                this.profiles = response.data;
-
-                this.username = this.profiles.user.username;
-                this.fname = this.profiles.user.fname;
-                this.lname = this.profiles.user.lname;
-                this.email = this.profiles.user.email;
-                this.password = this.profiles.user.password;
-                this.img_user = this.profiles.user.image_user;
-                // const id = this.user.user_id
-                // console.log(this.img_user);
-                // console.log(this.user.fname)
-                // console.log(id)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     },
     methods: {
         getUser() {
@@ -215,12 +190,12 @@ export default {
             this.EditEmail = false;
             this.EditPwd = false;
 
-            this.username = this.profiles.user.username;
-            this.fname = this.profiles.user.fname;
-            this.lname = this.profiles.user.lname;
-            this.email = this.profiles.user.email;
-            this.password = this.profiles.user.password;
-            this.img_user = this.profiles.user.image_user;
+            // this.username = this.user.username;
+            // this.fname = this.user.fname;
+            // this.lname = this.user.lname;
+            // this.email = this.user.email;
+            // this.password = this.user.password;
+            // this.img_user = this.user.image_user;
 
             document.getElementById('input-password').type = 'password';
         },
@@ -232,10 +207,10 @@ export default {
         submit() {
             var formData = new FormData();
             formData.append("user_img", this.file);
-            formData.append("fname", this.fname);
-            formData.append("lname", this.lname);
-            formData.append("email", this.email);
-            formData.append("password", this.password);
+            formData.append("fname", this.user.fname);
+            formData.append("lname", this.user.lname);
+            formData.append("email", this.user.email);
+            formData.append("password", this.user.password);
 
             axios.post("/Profile", formData, {
                 headers: {

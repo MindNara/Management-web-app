@@ -8,7 +8,6 @@ const upload = require('../multer');
 router.get('/Dashboard/:userId', async function (req, res, next) {
 
     const user_id = req.params.userId;
-    console.log(user_id)
 
     try {
 
@@ -21,9 +20,6 @@ router.get('/Dashboard/:userId', async function (req, res, next) {
         const [scheduleToday, tadayF] = await pool.query("SELECT DATE_FORMAT(schedule_date, '%Y-%m-%d') AS schedule_date, schedule_act FROM schedule WHERE user_id = ? AND schedule_date = ?",
             [user_id, todayDate]);
 
-        const [user, userF] = await pool.query("SELECT * FROM user WHERE user_id = ?",
-            [user_id]);
-
         const [task, fields] = await pool.query("SELECT list_id, DATE_FORMAT(list_date, '%Y-%m-%d') as list_create_date, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date, list_act, list_status, user_id FROM to_do_list JOIN user USING(user_id) WHERE user.user_id = ?",
             [user_id]);
 
@@ -31,7 +27,6 @@ router.get('/Dashboard/:userId', async function (req, res, next) {
             [user_id]);
 
         res.json({
-            user: user[0],
             scheduleToday: scheduleToday,
             task: task,
             note: note,
