@@ -4,6 +4,16 @@ const Joi = require('joi')
 const bcrypt = require('bcrypt')
 const router = express.Router();
 
+// check password
+const passwordValidator = (value, helpers) => {
+    if (value.length < 8) {
+        throw new Joi.ValidationError('Password must contain at least 8 characters')
+    }
+    if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+        throw new Joi.ValidationError('Password must be harder')
+    }
+    return value
+}
 
 // check username
 const usernameValidator = async (value, helpers) => {
@@ -23,7 +33,7 @@ const signupSchema = Joi.object({
     lname: Joi.string().required().max(150),
     email: Joi.string().required().email(),
     username: Joi.string().required().min(5).max(20).external(usernameValidator),
-    password: Joi.string().required().min(8)
+    password: Joi.string().required().custom(passwordValidator),
 })
 
 router.post('/Signup', async (req, res, next) => {
@@ -39,7 +49,8 @@ router.post('/Signup', async (req, res, next) => {
     const lname = req.body.lname
     const email = req.body.email
     const username = req.body.username
-    const password = req.body.password
+    // const password = req.body.password
+    const password = await bcrypt.hash(req.body.password, 5)
 
     const conn = await pool.getConnection()
     await conn.beginTransaction();

@@ -119,6 +119,8 @@
 
 <script>
 import axios from '@/plugins/axios'
+import { useUserStore } from '@/stores/counter'
+import { watchEffect, ref } from 'vue'
 
 export default {
     props: ['user'],
@@ -142,12 +144,23 @@ export default {
             // user: null,
         }
     },
-    // mounted() {
-    //     const token = localStorage.getItem("token");
-    //     if (token) {
-    //         this.getUser();
-    //     }
-    // },
+    setup() {
+        const userStore = useUserStore();
+        const user = ref(null);
+
+        // ถ้ามีการเปลี่ยนแปลงค่าจะเข้ามาทำในนี้
+        watchEffect(async () => {
+            await userStore.getUser();
+
+            // user.value like this.user => vue3
+            user.value = userStore.user;
+
+            // ถ้าใช้ข้างใน setup => user.value.fname
+            console.log('user:', user.value);
+        });
+
+        return { user };
+    },
     created() {
         axios.get("/Dashboard")
             .then((response) => {
@@ -163,8 +176,6 @@ export default {
                 // console.log(this.img_user);
                 // console.log(this.user.fname)
                 // console.log(id)
-
-                
             })
             .catch((err) => {
                 console.log(err);

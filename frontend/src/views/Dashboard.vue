@@ -307,9 +307,10 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
+import { useUserStore } from '@/stores/counter'
+import { watchEffect, ref } from 'vue'
 
 export default {
-    props: ['user'],
     data() {
         const date = new Date();
         return {
@@ -325,19 +326,37 @@ export default {
             ],
         }
     },
+    setup() {
+        const userStore = useUserStore();
+        const user = ref(null);
+
+        // ถ้ามีการเปลี่ยนแปลงค่าจะเข้ามาทำในนี้
+        watchEffect(async () => {
+            await userStore.getUser();
+
+            // user.value like this.user => vue3
+            user.value = userStore.user;
+
+            // ถ้าใช้ข้างใน setup => user.value.fname
+            // console.log('user:', user.value.fname);
+        });
+
+        return { user };
+    },
     components: {
         Navbar,
         Logo,
         Profile,
     },
     created() {
-        axios.get("http://localhost:3000/Dashboard")
+        axios.get("http://localhost:3000/Dashboard", this.user.user_id)
             .then((response) => {
                 this.schedulesToday = response.data.scheduleToday;
                 this.tasks = response.data.task;
                 this.notes = response.data.note;
-                console.log(this.notes)
-                console.log(this.user)
+
+                // ถ้าใช้ข้างนอก setup => this.user
+                console.log('user:', this.user);
             })
             .catch((err) => {
                 console.log(err);
@@ -408,7 +427,6 @@ export default {
             }
             this.renderCalendar();
         },
-
 
     },
     computed: {

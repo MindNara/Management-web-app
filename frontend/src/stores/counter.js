@@ -1,12 +1,27 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
+import axios from '@/plugins/axios';
 
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+export const useUserStore = defineStore({
+  id: 'user',
+  // เก็บตัวแปร
+  state: () => ({
+    user: null,
+  }),
 
-  return { count, doubleCount, increment }
-})
+  // เป็น method ที่ใช้ดึงข้อมูล user
+  actions: {
+    async getUser() {
+      try {
+        const token = localStorage.getItem("token");
+        // console.log('token:', token);
+        if (token) {
+          const response = await axios.get("/user/me", { headers: { Authorization: "Bearer " + token } })
+          this.user = response.data;
+          // console.log('user:', this.user);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
+});

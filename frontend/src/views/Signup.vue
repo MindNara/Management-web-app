@@ -23,57 +23,81 @@
                             <div class="control has-icons-left has-icons-right">
                                 <label class="label" for="fname">firstname :</label>
                                 <input class="input" type="text" id="fname" name="fname" placeholder="Enter your firstname"
-                                    v-model="state.form.fname" :class="{ 'is-danger': rules.form.fname.$error }">
+                                    v-model="state.form.fname" :class="{ 'is-danger': v$.form.fname.$error }"
+                                    @input="v$.form.fname.$touch()">
                             </div>
-                            <template v-if="rules.form.fname.$error">
-                                <p class="help is-danger" v-if="!rules.form.fname.required">This field is required</p>
-                                <p class="help is-danger" v-if="!rules.form.fname.maxLength">be at least 5 letters</p>
-                            </template>
+                            <div v-if="v$.form.fname.$error">
+                                <p class=" help is-danger" v-if="!v$.form.fname.required">This field is required</p>
+                                <p class="help is-danger" v-if="!v$.form.fname.maxLength">cannot be more than 150
+                                    letters
+                                </p>
+                            </div>
                         </div>
                         <div class="field">
                             <div class="control has-icons-left has-icons-right">
                                 <label for="lname" class="label">lastname :</label>
                                 <input type="text" id="lname" name="lname" class="input" placeholder="Enter your lastname"
-                                    v-model="state.form.lname" :class="{ 'is-danger': rules.form.lname.$error }">
+                                    v-model="state.form.lname" :class="{ 'is-danger': v$.form.lname.$error }"
+                                    @input="v$.form.lname.$touch()">
                             </div>
-
+                            <div v-if="v$.form.lname.$error">
+                                <p class=" help is-danger" v-if="!v$.form.lname.required">This field is required</p>
+                                <p class="help is-danger" v-if="!v$.form.lname.maxLength">cannot be more than 150
+                                    letters
+                                </p>
+                            </div>
                         </div>
                         <div class="field">
                             <label for="email" class="label">email :</label>
                             <div class="control has-icons-left has-icons-right">
                                 <input type="email" id="email" name="email" class="input" placeholder="Enter your email"
-                                    v-model="state.form.email" :class="{ 'is-danger': rules.form.email.$error }">
+                                    v-model="state.form.email" :class="{ 'is-danger': v$.form.email.$error }"
+                                    @input="v$.form.email.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-envelope"></i>
                                 </span>
+                            </div>
+                            <div v-if="v$.form.email.$error">
+                                <p class=" help is-danger" v-if="!v$.form.email.required">This field is required</p>
+                                <p class="help is-danger" v-if="!v$.form.email.email">Invalid Email</p>
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">username :</label>
                             <div class="control has-icons-left has-icons-right">
                                 <input class="input" type="text" id="user" name="user" placeholder="Enter your username"
-                                    v-model="state.form.username" :class="{ 'is-danger': rules.form.username.$error }">
+                                    v-model="state.form.username" :class="{ 'is-danger': v$.form.username.$error }"
+                                    @input="v$.form.username.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-user"></i>
                                 </span>
                             </div>
-                            <template v-if="rules.form.username.$error">
-                                <p class="help is-danger" v-if="!rules.form.username.required">This field is required</p>
-                                <p class="help is-danger" v-if="!rules.form.username.minLength">Username must be at least 5
-                                    characters</p>
-                                <p class="help is-danger" v-if="!rules.form.username.maxLength">Username cannot be more than
-                                    20 characters</p>
-                            </template>
+                            <div v-if="v$.form.username.$error">
+                                <p class="help is-danger" v-if="!v$.form.username.required">This field is required
+                                </p>
+                                <p class="help is-danger" v-if="!v$.form.username.minLength">
+                                    must be at least 5 characters</p>
+                                <p class="help is-danger" v-if="!v$.form.username.maxLength">
+                                    cannot be more than 20 characters</p>
+                            </div>
                         </div>
                         <div class="field">
                             <label for="password" class="label">password :</label>
                             <div class="control has-icons-left has-icons-right">
                                 <input type="password" id="password" name="password" class="input"
                                     placeholder="Enter your password" v-model="state.form.password"
-                                    :class="{ 'is-danger': rules.form.password.$error }">
+                                    :class="{ 'is-danger': v$.form.password.$error }" @input="v$.form.password.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-lock"></i>
                                 </span>
+                            </div>
+                            <div v-if="v$.form.password.$error">
+                                <p class="help is-danger" v-if="!v$.form.password.required">This field is required
+                                </p>
+                                <p class="help is-danger" v-if="!v$.form.password.minLength">
+                                    must be at least 8 characters</p>
+                                <p class="help is-danger" v-if="!v$.form.password.complex">
+                                    enter password in english only</p>
                             </div>
                         </div>
                         <div class="buttons is-centered">
@@ -90,7 +114,7 @@
 
 <script>
 import axios from 'axios'
-import { reactive, watchEffect } from 'vue'
+import { reactive } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, maxLength } from '@vuelidate/validators'
 
@@ -108,7 +132,6 @@ export default {
                 fname: '',
                 lname: '',
                 email: '',
-                phone: '',
                 username: '',
                 password: '',
             }
@@ -117,24 +140,24 @@ export default {
         const rules = {
             form: {
                 fname: {
-                    required,
+                    required: required,
                     maxLength: maxLength(150),
                 },
                 lname: {
-                    required,
+                    required: required,
                     maxLength: maxLength(150),
                 },
                 email: {
-                    required,
+                    required: required,
                     email
                 },
                 username: {
-                    required,
+                    required: required,
                     minLength: minLength(5),
                     maxLength: maxLength(20),
                 },
                 password: {
-                    required,
+                    required: required,
                     minLength: minLength(8),
                     complex: complexPassword
                 },
@@ -149,6 +172,8 @@ export default {
         submit() {
             this.v$.$touch();
             console.log(this.v$.$invalid)
+            console.log(this.v$.form.fname.required)
+            console.log(this.v$.form.fname.maxLength)
 
             if (!this.v$.$invalid) {
                 let formData = {
