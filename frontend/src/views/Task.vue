@@ -234,11 +234,11 @@
                 </header>
                 <section class="modal-card-body">
                     <!-- Content ... -->
-                    <form id="form">
+                    <form id="form-edit">
                         <div class="field">
                             <label class="label">NAME TASKS :</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input" type="text" id="name-task" name="name-task" placeholder="Change Task name"
+                                <input class="input" type="text" id="name-task-edit" name="name-task-edit" placeholder="Change Task name"
                                     v-model="task_name">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-book"></i>
@@ -248,7 +248,7 @@
                         <div class="field">
                             <label for="due-date" class="label">DUE DATE :</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input type="date" id="due-date" name="due-date" class="input" v-model="due_date">
+                                <input type="date" id="due-date-edit" name="due-date-edit" class="input" v-model="due_date">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-calendar"></i>
                                 </span>
@@ -271,6 +271,7 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from "axios";
+// import axios from '@/plugins/axios'
 
 export default {
     data() {

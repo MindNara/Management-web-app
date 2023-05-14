@@ -118,12 +118,13 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from '@/plugins/axios'
 
 export default {
     props: ['user'],
     data() {
         return {
+            // user: null,
             profiles: null,
             username: '',
             fname: '',
@@ -138,10 +139,17 @@ export default {
             EditLname: false,
             EditEmail: false,
             EditPwd: false,
+            // user: null,
         }
     },
+    // mounted() {
+    //     const token = localStorage.getItem("token");
+    //     if (token) {
+    //         this.getUser();
+    //     }
+    // },
     created() {
-        axios.get("http://localhost:3000/Dashboard")
+        axios.get("/Dashboard")
             .then((response) => {
                 this.profiles = response.data;
 
@@ -151,14 +159,23 @@ export default {
                 this.email = this.profiles.user.email;
                 this.password = this.profiles.user.password;
                 this.img_user = this.profiles.user.image_user;
-                console.log(this.img_user);
-                console.log("-->" + this.props)
+                // const id = this.user.user_id
+                // console.log(this.img_user);
+                // console.log(this.user.fname)
+                // console.log(id)
+
+                
             })
             .catch((err) => {
                 console.log(err);
             });
     },
     methods: {
+        getUser() {
+            axios.get("/user/me").then((res) => {
+                this.user = res.data;
+            });
+        },
         editInput(field) {
             console.log(field);
             if (field === 'input-fname') {
@@ -209,7 +226,7 @@ export default {
             formData.append("email", this.email);
             formData.append("password", this.password);
 
-            axios.post("http://localhost:3000/Profile", formData, {
+            axios.post("/Profile", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
