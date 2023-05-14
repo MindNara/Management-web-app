@@ -181,7 +181,7 @@
                                             <div class="media">
                                                 <div class="media-content" style="width: 100%;">
                                                     <p class="title title-note is-4">{{ note.noted_title }}</p>
-                                                    <!-- <p class="subtitle is-6">{{ note.noted_content }}</p> -->
+                                                    <p class="subtitle is-6">{{ note.noted_content }}</p>
                                                     <p class="subtitle"></p>
                                                 </div>
                                             </div>
@@ -314,9 +314,6 @@ export default {
     data() {
         const date = new Date();
         return {
-            schedulesToday: null,
-            tasks: null,
-            notes: null,
             date: date,
             currYear: date.getFullYear(),
             currMonth: date.getMonth(),
@@ -329,6 +326,9 @@ export default {
     setup() {
         const userStore = useUserStore();
         const user = ref(null);
+        const schedulesToday = ref(null);
+        const tasks = ref(null);
+        const notes = ref(null);
 
         // ถ้ามีการเปลี่ยนแปลงค่าจะเข้ามาทำในนี้
         watchEffect(async () => {
@@ -339,29 +339,43 @@ export default {
 
             // ถ้าใช้ข้างใน setup => user.value.fname
             // console.log('user:', user.value.fname);
+
+            axios.get(`http://localhost:3000/Dashboard/` + user.value.user_id)
+                .then((response) => {
+                    schedulesToday.value = response.data.scheduleToday;
+                    tasks.value = response.data.task;
+                    notes.value = response.data.note;
+
+                    console.log(schedulesToday.value)
+                    console.log(tasks.value)
+                    console.log(notes.value)
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         });
 
-        return { user };
+        return { user, schedulesToday, tasks, notes };
     },
     components: {
         Navbar,
         Logo,
         Profile,
     },
-    created() {
-        axios.get("http://localhost:3000/Dashboard", this.user.user_id)
-            .then((response) => {
-                this.schedulesToday = response.data.scheduleToday;
-                this.tasks = response.data.task;
-                this.notes = response.data.note;
+    // created() {
+    //     axios.get(`http://localhost:3000/Dashboard/` + this.user.user_id)
+    //         .then((response) => {
+    //             this.schedulesToday = response.data.scheduleToday;
+    //             this.tasks = response.data.task;
+    //             this.notes = response.data.note;
 
-                // ถ้าใช้ข้างนอก setup => this.user
-                console.log('user:', this.user);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    },
+    //             // ถ้าใช้ข้างนอก setup => this.user
+    //             console.log('user:', this.user.user_id);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // },
     mounted() {
         const today = new Date();
         this.currentYear = today.getFullYear();
