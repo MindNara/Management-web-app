@@ -3,26 +3,6 @@ const pool = require("../config");
 const router = express.Router();
 const upload = require('../multer');
 
-// router.get('/Profile/:userId'), async function (req, res, next) {
-
-//     const user_id = req.params.userId;
-
-//     try {
-
-//         const [user, userF] = await pool.query("SELECT * FROM user WHERE user_id = ?",
-//             [user_id]);
-
-//         res.json({
-//             user: user[0],
-//         })
-
-//     } catch (err) {
-//         console.log(err)
-//         return next(err)
-//     }
-
-// }
-
 router.post('/Profile', upload.single('user_img'), async function (req, res, next) {
 
     const file = req.file;
@@ -30,6 +10,7 @@ router.post('/Profile', upload.single('user_img'), async function (req, res, nex
     const lname = req.body.lname;
     const email = req.body.email;
     const password = req.body.password;
+    const user_id = req.body.user_id;
 
     const conn = await pool.getConnection()
     await conn.beginTransaction();
@@ -38,13 +19,13 @@ router.post('/Profile', upload.single('user_img'), async function (req, res, nex
 
         if (file != undefined) {
             const [newUser, newUserF] = await conn.query(
-                'UPDATE user SET fname=?, lname=?, email=?, password=?, image_user=? WHERE user_id = 1',
-                [fname, lname, email, password, file.path.substr(6)]
+                'UPDATE user SET fname=?, lname=?, email=?, password=?, image_user=? WHERE user_id = ?',
+                [fname, lname, email, password, file.path.substr(6), user_id]
             )
         } else {
             const [newUser, newUserF] = await conn.query(
-                'UPDATE user SET fname=?, lname=?, email=?, password=? WHERE user_id = 1',
-                [fname, lname, email, password]
+                'UPDATE user SET fname=?, lname=?, email=?, password=? WHERE user_id = ?',
+                [fname, lname, email, password, user_id]
             )
         }
         await conn.commit();

@@ -6,7 +6,6 @@ import Signup from '../views/Signup.vue'
 import Task from '../views/Task.vue'
 import Notediary from '../views/NoteDiary.vue'
 import Schedule from '../views/Schedule.vue'
-// import { Homepage, Dashboard, Login, Logout } from '../views/index'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

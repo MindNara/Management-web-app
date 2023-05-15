@@ -211,6 +211,7 @@ export default {
             formData.append("lname", this.user.lname);
             formData.append("email", this.user.email);
             formData.append("password", this.user.password);
+            formData.append("user_id", this.user.user_id);
 
             axios.post("/Profile", formData, {
                 headers: {
