@@ -1,5 +1,6 @@
 const express = require("express");
 const pool = require("../config");
+const bcrypt = require('bcrypt')
 const router = express.Router();
 const upload = require('../multer');
 
@@ -9,7 +10,7 @@ router.post('/Profile', upload.single('user_img'), async function (req, res, nex
     const fname = req.body.fname;
     const lname = req.body.lname;
     const email = req.body.email;
-    const password = req.body.password;
+    const password = await bcrypt.hash(req.body.password, 5)
     const user_id = req.body.user_id;
 
     const conn = await pool.getConnection()

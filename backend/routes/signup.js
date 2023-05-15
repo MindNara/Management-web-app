@@ -49,7 +49,6 @@ router.post('/Signup', async (req, res, next) => {
     const lname = req.body.lname
     const email = req.body.email
     const username = req.body.username
-    // const password = req.body.password
     const password = await bcrypt.hash(req.body.password, 5)
 
     const conn = await pool.getConnection()
