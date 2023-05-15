@@ -26,12 +26,9 @@
                                     v-model="state.form.fname" :class="{ 'is-danger': v$.form.fname.$error }"
                                     @input="v$.form.fname.$touch()">
                             </div>
-                            <div v-if="v$.form.fname.$error">
-                                <p class=" help is-danger" v-if="!v$.form.fname.required">This field is required</p>
-                                <p class="help is-danger" v-if="!v$.form.fname.maxLength">cannot be more than 150
-                                    letters
-                                </p>
-                            </div>
+                            <span v-if="v$.form.fname.$error">
+                                <p class="help is-danger">{{ v$.form.fname.$errors[0].$message }}</p>
+                            </span>
                         </div>
                         <div class="field">
                             <div class="control has-icons-left has-icons-right">
@@ -40,12 +37,9 @@
                                     v-model="state.form.lname" :class="{ 'is-danger': v$.form.lname.$error }"
                                     @input="v$.form.lname.$touch()">
                             </div>
-                            <div v-if="v$.form.lname.$error">
-                                <p class=" help is-danger" v-if="!v$.form.lname.required">This field is required</p>
-                                <p class="help is-danger" v-if="!v$.form.lname.maxLength">cannot be more than 150
-                                    letters
-                                </p>
-                            </div>
+                            <span v-if="v$.form.lname.$error">
+                                <p class="help is-danger">{{ v$.form.lname.$errors[0].$message }}</p>
+                            </span>
                         </div>
                         <div class="field">
                             <label for="email" class="label">email :</label>
@@ -57,10 +51,9 @@
                                     <i class="fas fa-envelope"></i>
                                 </span>
                             </div>
-                            <div v-if="v$.form.email.$error">
-                                <p class=" help is-danger" v-if="!v$.form.email.required">This field is required</p>
-                                <p class="help is-danger" v-if="!v$.form.email.email">Invalid Email</p>
-                            </div>
+                            <span v-if="v$.form.email.$error">
+                                <p class="help is-danger">{{ v$.form.email.$errors[0].$message }}</p>
+                            </span>
                         </div>
                         <div class="field">
                             <label class="label">username :</label>
@@ -72,14 +65,9 @@
                                     <i class="fas fa-user"></i>
                                 </span>
                             </div>
-                            <div v-if="v$.form.username.$error">
-                                <p class="help is-danger" v-if="!v$.form.username.required">This field is required
-                                </p>
-                                <p class="help is-danger" v-if="!v$.form.username.minLength">
-                                    must be at least 5 characters</p>
-                                <p class="help is-danger" v-if="!v$.form.username.maxLength">
-                                    cannot be more than 20 characters</p>
-                            </div>
+                            <span v-if="v$.form.username.$error">
+                                <p class="help is-danger">{{ v$.form.username.$errors[0].$message }}</p>
+                            </span>
                         </div>
                         <div class="field">
                             <label for="password" class="label">password :</label>
@@ -91,14 +79,9 @@
                                     <i class="fas fa-lock"></i>
                                 </span>
                             </div>
-                            <div v-if="v$.form.password.$error">
-                                <p class="help is-danger" v-if="!v$.form.password.required">This field is required
-                                </p>
-                                <p class="help is-danger" v-if="!v$.form.password.minLength">
-                                    must be at least 8 characters</p>
-                                <p class="help is-danger" v-if="!v$.form.password.complex">
-                                    enter password in english only</p>
-                            </div>
+                            <span v-if="v$.form.password.$error">
+                                <p class="help is-danger">{{ v$.form.password.$errors[0].$message }}</p>
+                            </span>
                         </div>
                         <div class="buttons is-centered">
                             <button @click="submit()" type="button"
@@ -114,9 +97,9 @@
 
 <script>
 import axios from 'axios'
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import useVuelidate from '@vuelidate/core'
-import { required, email, minLength, maxLength } from '@vuelidate/validators'
+import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 
 function complexPassword(value) {
     if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
@@ -137,36 +120,38 @@ export default {
             }
         })
 
-        const rules = {
-            form: {
-                fname: {
-                    required: required,
-                    maxLength: maxLength(150),
-                },
-                lname: {
-                    required: required,
-                    maxLength: maxLength(150),
-                },
-                email: {
-                    required: required,
-                    email
-                },
-                username: {
-                    required: required,
-                    minLength: minLength(5),
-                    maxLength: maxLength(20),
-                },
-                password: {
-                    required: required,
-                    minLength: minLength(8),
-                    complex: complexPassword
-                },
+        const rules = computed(() => {
+            return {
+                form: {
+                    fname: {
+                        required: required,
+                        maxLength: maxLength(150),
+                    },
+                    lname: {
+                        required: required,
+                        maxLength: maxLength(150),
+                    },
+                    email: {
+                        required: required,
+                        email
+                    },
+                    username: {
+                        required: required,
+                        minLength: minLength(5),
+                        maxLength: maxLength(20),
+                    },
+                    password: {
+                        required: required,
+                        minLength: minLength(8),
+                        complex: helpers.withMessage('The password in English consists of A-Z, a-z and 0-9', complexPassword)
+                    },
+                }
             }
-        }
+        })
 
         const v$ = useVuelidate(rules, state);
 
-        return { state, rules, v$ };
+        return { state, v$ };
     },
     methods: {
         submit() {
