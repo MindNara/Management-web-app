@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const router = express.Router();
 const upload = require('../multer');
 
-router.post('/Profile', upload.single('user_img'), async function (req, res, next) {
+router.put('/Profile', upload.single('user_img'), async function (req, res, next) {
 
     const file = req.file;
     const fname = req.body.fname;
