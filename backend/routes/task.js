@@ -6,7 +6,7 @@ const Joi = require('joi');
 const schemaInsert = Joi.object({ // สร้าง Joi มา check data ที่เข้ามาว่าครบยัง
     list_date: Joi.date().greater('now').required(),
     list_act: Joi.string().required(),
-})
+}).unknown()
 
 router.get("/Task/:userId", async function (req, res, next) {
     try {
@@ -22,7 +22,7 @@ router.get("/Task/:userId", async function (req, res, next) {
 });
 
 
-router.post("/Task/add/:userId", async (req, res, next) => {
+router.post("/Task/add", async (req, res, next) => {
     try {
         await schemaInsert.validateAsync(req.body, { abortEarly: false}) // เอา joi ที่เราสร้างไว้มาเช็ค data ที่ได้มาจาก req.body บางครั้งมาจาก query ก็ต้องใช้ req.query
     } catch (error) {
@@ -32,9 +32,10 @@ router.post("/Task/add/:userId", async (req, res, next) => {
     const conn = await pool.getConnection() // สร้าง transaction ก่อนจะไปทำการลบ
     await conn.beginTransaction();
 
-    const user_id = req.params.userId
+    
     const list_act = req.body.list_act
     const list_date = req.body.list_date
+    const user_id = req.body.user_id
 
     console.log(user_id)
     console.log(list_act)
@@ -56,8 +57,9 @@ router.post("/Task/add/:userId", async (req, res, next) => {
     }
 })
 
-// router.delete("/Task/:userId", async(req, res, next) => {
-//     const user_id = req.params.userId
+// router.delete("/Task/:taskId", async(req, res, next) => {
+//     const task_id = req.params.taskId
+//     console.log(taskId)
 
 // })
 

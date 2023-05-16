@@ -88,8 +88,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Task Name</th>
-                                        <th>Due Date</th>
                                         <th>Create Date</th>
+                                        <th>Due Date</th>
                                         <th>Status</th>
                                         <th></th>
                                     </tr>
@@ -103,8 +103,8 @@
                                                 {{ task.list_act }}
                                             </label>
                                         </td>
-                                        <td>{{ task.list_date }}</td>
                                         <td>{{ task.list_create_date }}</td>
+                                        <td>{{ task.list_date }}</td>
                                         <td>To-Do</td>
                                         <td>
                                             <a class="edit-delete mr-2" style="float: left;">
@@ -144,8 +144,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Task Name</th>
-                                        <th>Due Date</th>
                                         <th>Create Date</th>
+                                        <th>Due Date</th>
                                         <th>Status</th>
                                         <th></th>
                                     </tr>
@@ -159,8 +159,8 @@
                                                 {{ task.list_act }}
                                             </label>
                                         </td>
-                                        <td>{{task.list_date}}</td>
                                         <td>{{task.list_create_date }}</td>
+                                        <td>{{task.list_date}}</td>
                                         <td>Done</td>
                                         <td>
                                             <a class="edit-delete mr-2" style="float: left;">
@@ -270,16 +270,19 @@
 import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
-// import axios from "axios";
 import axios from '@/plugins/axios'
 import { useUserStore } from '@/stores/counter'
-import { watchEffect, ref, registerRuntimeCompiler } from 'vue'
+import { watchEffect, ref } from 'vue'
+// import { reactive, computed } from 'vue'
+// import useVuelidate from '@vuelidate/core'
+// import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 
 export default {
     data() {
         return {
             task_name: '',
             due_date: '',
+            user_id: '',
             show_modal: false,
             show_modal_edit: false,
             status1: false,
@@ -341,10 +344,11 @@ export default {
         submitAddtask(){
             const data = {
                 list_act: this.task_name,
-                list_date: this.due_date
+                list_date: this.due_date,
+                user_id: this.user.user_id
             }
             console.log(this.user.user_id)
-            axios.post("/Task/add/" + this.user.user_id, data)
+            axios.post("/Task/add", data)
             .then((response) => {
                 this.$router.push({path: "/Task"})
                 document.location.reload();
