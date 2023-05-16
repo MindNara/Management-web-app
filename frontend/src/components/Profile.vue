@@ -139,7 +139,7 @@
 <script>
 import axios from '@/plugins/axios'
 import { useUserStore } from '@/stores/counter'
-import { reactive, computed, ref, watchEffect, toRefs, onMounted, onUpdated } from 'vue'
+import { reactive, onMounted } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 
@@ -186,7 +186,6 @@ export default {
             user.email = userStore.user.email;
             user.image_user = userStore.user.image_user;
         };
-
         onMounted(getUserData);
 
         const rules = {
@@ -267,14 +266,13 @@ export default {
         },
 
         submit() {
-            console.log(this.password)
             var formData = new FormData();
             formData.append("user_img", this.file);
-            formData.append("fname", this.fname);
-            formData.append("lname", this.lname);
-            formData.append("email", this.email);
-            formData.append("password", this.password);
-            formData.append("user_id", this.user_id);
+            formData.append("fname", this.user.fname);
+            formData.append("lname", this.user.lname);
+            formData.append("email", this.user.email);
+            formData.append("password", this.user.password);
+            formData.append("user_id", this.user.user_id);
 
             axios.post("/Profile", formData, {
                 headers: {
