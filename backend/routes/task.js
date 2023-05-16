@@ -57,10 +57,38 @@ router.post("/Task/add", async (req, res, next) => {
     }
 })
 
-// router.delete("/Task/:taskId", async(req, res, next) => {
-//     const task_id = req.params.taskId
-//     console.log(taskId)
+router.delete("/Task/delete/:taskId", async(req, res, next) => {
+    const list_id = req.params.taskId
+    // const user_id = req.body.user_id
+    console.log(list_id)
+    // console.log(user_id)
 
-// })
+    const conn = await pool.getConnection() // สร้าง transaction ก่อนจะไปทำการลบ
+    await conn.beginTransaction();
+
+    const [datalist] = await pool.query('SELECT * FROM to_do_list WHERE list_id =?', [list_id]) // ดึงข้อมูลออกมาเก็บไว้เพื่อไปใช้ในตอน check ว่ามี listid นี้ไหม
+    
+    if (datalist.length === 0){ // เช็คว่า params ที่เข้ามามีใน id ไหม
+        return res.status(404).send({ // ส่ง status และ message
+            "message" : "ไม่พบ Task ที่ต้องการลบ",
+        })
+    }
+
+    try {
+        const [todo] = await pool.query('DELETE FROM to_do_list WHERE list_id =?', [list_id]) // ลบ todo
+        
+        await conn.commit() // ต้อง commit ด้วยเพื่อให้ทำคำสั่ง sql
+        res.send({ // สำเร็จส่งออก
+            "message" : `ลบ ToDo '${datalist[0].list_act}' สำเร็จ`,
+        })
+
+    } catch (error) { // ทำไม่สำเร็จก้จะเข้านี่ 
+        conn.rollback() // ต้องมี rollbacke ด้วยเวลาทำ transaction
+        res.status(404)
+    }finally{
+        conn.release() // ตอนจบควรมีนี่ด้วยมันจะได้หยุดจริงๆ ห้ามลืม
+    }
+
+})
 
 exports.router = router;
