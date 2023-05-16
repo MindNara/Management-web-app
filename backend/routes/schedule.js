@@ -1,14 +1,12 @@
 const express = require("express");
 const pool = require("../config");
-const path = require('path')
 const router = express.Router();
-const upload = require('../multer');
 
 
 router.get('/Schedule/:userId', async function (req, res, next) {
 
     const user_id = req.params.userId;
-    console.log(user_id)
+    // console.log(user_id)
 
     try {
 
@@ -39,21 +37,33 @@ router.get('/Schedule/:userId', async function (req, res, next) {
 
 router.post('/Schedule', async function (req, res, next) {
 
-    const title = req.body;
-    const date = req.body;
-    console.log(title);
-    console.log(date);
+    const schedule_act = req.body.schedule_act;
+    const schedule_date = req.body.schedule_date;
+    const user_id = req.body.user_id;
+    console.log({
+        'user_id': user_id,
+        'schedule_act': schedule_act,
+        'schedule_date': schedule_date,
+    });
 
-    // try {
+    const conn = await pool.getConnection()
+    await conn.beginTransaction();
 
-    //     const schedule = await pool.query('INSERT INTO schedule(schedule_date, schedule_act, user_id) VALUES(?, ?, 1)',
-    //         [date, title]);
-    //     res.json("success!")
+    try {
 
-    // } catch (err) {
-    //     console.log(err)
-    //     return next(err)
-    // }
+        const schedule = await conn.query('INSERT INTO schedule(schedule_date, schedule_act, user_id) VALUES(?, ?, ?)',
+            [schedule_date, schedule_act, user_id]);
+
+        conn.commit()
+        console.log('Create schedule success!');
+
+    } catch (err) {
+        await conn.rollback();
+        res.status(400).json(err);
+    } finally {
+        console.log('finally');
+        conn.release();
+    }
 
 })
 

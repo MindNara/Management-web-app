@@ -166,7 +166,8 @@
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title has-text-weight-semibold">ADD SCHEDULE</p>
-                        <a class="delete btn-close" aria-label="close" @click="showModel = !showModel"></a>
+                        <a class="delete btn-close" aria-label="close"
+                            @click="showModel = !showModel; closeEditingInput()"></a>
                     </header>
                     <!-- Content ... -->
                     <section class="modal-card-body">
@@ -174,26 +175,34 @@
                             <label class="label">TITLE :</label>
                             <div class="control has-icons-left has-icons-right">
                                 <input class="input" type="text" name="schedule_act" id="schedule_act"
-                                    placeholder="your title" v-model="schedule_act">
+                                    placeholder="your title" v-model="schedule.schedule_act"
+                                    :class="{ 'is-danger': v$.schedule_act.$error }" @input="v$.schedule_act.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-book"></i>
                                 </span>
                             </div>
+                            <span v-if="v$.schedule_act.$error">
+                                <p class="help is-danger">{{ v$.schedule_act.$errors[0].$message }}</p>
+                            </span>
                         </div>
                         <div class="field">
                             <label for="date" class="label">DATE :</label>
                             <div class="control has-icons-left has-icons-right">
                                 <input type="date" id="schedule_date" name="schedule_date" class="input"
-                                    v-model="schedule_date">
+                                    v-model="schedule.schedule_date" :class="{ 'is-danger': v$.schedule_date.$error }"
+                                    @input="v$.schedule_date.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-calendar"></i>
                                 </span>
                             </div>
+                            <span v-if="v$.schedule_date.$error">
+                                <p class="help is-danger">{{ v$.schedule_date.$errors[0].$message }}</p>
+                            </span>
                         </div>
                     </section>
                     <footer class="modal-card-foot">
                         <button class="btn-create button is-black" type="button" @click="createSchedule()">Create</button>
-                        <a class="button btn-cancle" @click="showModel = !showModel">Cancel</a>
+                        <a class="button btn-cancle" @click="showModel = !showModel; closeEditingInput()">Cancel</a>
                     </footer>
                 </div>
             </form>
@@ -207,9 +216,9 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from "axios";
-import { reactive, computed, ref, onMounted } from 'vue'
+import { reactive, ref, onMounted, computed } from 'vue'
 import useVuelidate from '@vuelidate/core'
-import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 import { useUserStore } from '@/stores/counter'
 
 export default {
@@ -267,7 +276,7 @@ export default {
 
         const v$ = useVuelidate(rules, schedule);
 
-        return { schedule, schedulesToday, schedulesAll, v$ };
+        return { schedule, schedulesToday, schedulesAll, v$, user_id };
     },
     components: {
         Navbar,
@@ -281,6 +290,40 @@ export default {
         this.renderFullCalendar();
     },
     methods: {
+        closeEditingInput() {
+
+            this.schedule.schedule_act = '';
+            this.schedule.schedule_date = '';
+
+        },
+
+        createSchedule() {
+            // this.v$.$touch();
+
+            // console.log(this.v$.$invalid)
+            // if (!this.v$.$invalid) {
+            console.log('Add Schedule')
+            let formData = {
+                schedule_act: this.schedule.schedule_act,
+                schedule_date: this.schedule.schedule_date,
+                user_id: this.user_id,
+            }
+
+            axios.post("http://localhost:3000/Schedule", formData)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((err) => {
+                    if (err.response && err.response.data && err.response.data.details && err.response.data.details.message) {
+                        alert(err.response.data.details.message);
+                    } else {
+                        alert("Create schedule failed");
+                    }
+                })
+            document.location.reload();
+            // }
+        },
+
         renderFullCalendar() {
 
             const fullcalendar = document.querySelector(".fullcalendar .days"),
@@ -359,27 +402,6 @@ export default {
                 this.currYear += 1;
             }
             this.renderFullCalendar();
-        },
-
-        createSchedule() {
-            var formData = new FormData();
-            formData.append("schedule_act", this.schedule_act);
-            formData.append("schedule_date", this.schedule_date);
-            console.log(formData)
-
-            axios
-                .post("http://localhost:3000/Schedule", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                })
-                .then((response) => {
-                    console.log(response);
-                    this.$router.push({ path: "/Schedule" });
-                })
-                .catch((error) => {
-                    console.log(error.message);
-                });
         },
 
     }
