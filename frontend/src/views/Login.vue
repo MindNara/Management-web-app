@@ -66,8 +66,8 @@ import axios from '@/plugins/axios'
 export default {
     data() {
         return {
-            username: 'mindnara',
-            password: 'Aa123456',
+            username: '',
+            password: '',
             error: ''
         }
     },
