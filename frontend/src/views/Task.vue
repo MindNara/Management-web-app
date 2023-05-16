@@ -108,7 +108,7 @@
                                         <td>To-Do</td>
                                         <td>
                                             <a class="edit-delete mr-2" style="float: left;">
-                                                <span class="icon has-text-dark" @click="show_modal_edit = !show_modal_edit">
+                                                <span class="icon has-text-dark" @click="openmodal(task.list_id)">
                                                     <i class="fas fa-pen"></i>
                                                 </span>
                                             </a>
@@ -164,7 +164,7 @@
                                         <td>Done</td>
                                         <td>
                                             <a class="edit-delete mr-2" style="float: left;">
-                                                <span class="icon has-text-dark" @click="show_modal_edit = !show_modal_edit">
+                                                <span class="icon has-text-dark" @click="openmodal(task.list_id)">
                                                     <i class="fas fa-pen"></i>
                                                 </span>
                                             </a>
@@ -227,7 +227,7 @@
         <!-- modal-edit-task -->
         <div class="modal" v-bind:class="{ 'is-active': show_modal_edit }">
             <div class="modal-background"></div>
-            <div class="modal-card">
+            <div class="modal-card" v-for="(content, index) in content_task" :key="index">
                 <header class="modal-card-head">
                     <p class="modal-card-title has-text-weight-semibold">EDIT TASKS</p>
                     <button class="delete btn-close" aria-label="close" @click="show_modal_edit = !show_modal_edit"></button>
@@ -236,10 +236,10 @@
                     <!-- Content ... -->
                     <form id="form-edit">
                         <div class="field">
-                            <label class="label">NAME TASKS :</label>
+                            <label class="label">NAME TASKS : </label>
                             <div class="control has-icons-left has-icons-right">
                                 <input class="input" type="text" id="name-task-edit" name="name-task-edit" placeholder="Change Task name"
-                                    v-model="task_name">
+                                    v-model="task_name_edit">{{ content.list_act }}
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-book"></i>
                                 </span>
@@ -248,7 +248,7 @@
                         <div class="field">
                             <label for="due-date" class="label">DUE DATE :</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input type="date" id="due-date-edit" name="due-date-edit" class="input" v-model="due_date">
+                                <input type="date" id="due-date-edit" name="due-date-edit" class="input" v-model="due_date_edit">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-calendar"></i>
                                 </span>
@@ -289,6 +289,9 @@ export default {
             show_modal_edit: false,
             status1: false,
             status2: false,
+            content_task: '',
+            task_name_edit: '',
+            due_date_edit: '',
         }
     },
     setup() {
@@ -342,6 +345,22 @@ export default {
             if (this.status2 == false) {
                 modal_done.classList.add("is-active");
             }
+        },
+        openmodal(task_id) { // เปิด modal-edit
+            this.content_task = [];
+            axios.get("/Task/detail/" + task_id)
+            .then((response) => {
+                this.content_task = response.data.content_task; //จะเข้าไปใน content_task เลย
+                this.task_name_edit = this.content_task[0].list_act
+                this.due_date_edit = this.content_task[0].list_date
+                console.log(this.content_task) // พอจะใช้ก้ this.content_task[0].list_act ได้เลย
+                console.log(task_id)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            this.show_modal_edit = !this.show_modal_edit;
+            
         },
         submitAddtask(){
             const data = {
