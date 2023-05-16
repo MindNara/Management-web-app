@@ -239,7 +239,7 @@
                             <label class="label">NAME TASKS : </label>
                             <div class="control has-icons-left has-icons-right">
                                 <input class="input" type="text" id="name-task-edit" name="name-task-edit" placeholder="Change Task name"
-                                    v-model="task_name_edit">{{ content.list_act }}
+                                    v-model="task_name_edit">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-book"></i>
                                 </span>
@@ -271,8 +271,10 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
+import { reactive, ref, onMounted } from 'vue'
+import useVuelidate from '@vuelidate/core'
+import { required} from '@vuelidate/validators'
 import { useUserStore } from '@/stores/counter'
-import { watchEffect, ref } from 'vue'
 // import { reactive, computed } from 'vue'
 // import useVuelidate from '@vuelidate/core'
 // import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
@@ -282,47 +284,65 @@ export default {
         return {
             list_id: '',
             list_act: '',
-            task_name: '',
-            due_date: '',
+            // task_name: '',
+            // due_date: '',
             user_id: '',
             show_modal: false,
             show_modal_edit: false,
             status1: false,
             status2: false,
             content_task: '',
-            task_name_edit: '',
-            due_date_edit: '',
+            // task_name_edit: '',
+            // due_date_edit: '',
         }
     },
     setup() {
+
         const userStore = useUserStore();
-        const user = ref(null);
-        // const schedulesToday = ref(null);
+        const user_id = ref('');
         const tasks = ref(null);
-        // const notes = ref(null);
 
-        // ถ้ามีการเปลี่ยนแปลงค่าจะเข้ามาทำในนี้
-        watchEffect(async () => {
+        const task = reactive({
+            task_name: '',
+            due_date: '',
+            task_name_edit: '',
+            due_date_edit: '',
+        })
+
+        const getTask = async () => {
             await userStore.getUser();
+            user_id.value = userStore.user.user_id;
+            // console.log('user_id: ' + user_id.value)
 
-            // user.value like this.user => vue3
-            user.value = userStore.user;
-
-            // ถ้าใช้ข้างใน setup => user.value.fname
-            // console.log('user:', user.value.fname);
-
-            axios.get("/Task/" + user.value.user_id)
+            axios.get("/Task/" + user_id.value)
             .then((response) => {
-                console.log(user.value.user_id)
+                console.log(user_id.value)
                 tasks.value = response.data;
                 console.log(tasks.value)
             })
             .catch((err) => {
                 console.log(err);
             });
-        });
+        };
+        onMounted(getTask);
 
-        return { user, tasks };
+        const rules = {
+            task_name: {
+                required: required,
+            },
+            due_date: {
+                required: required,
+            },
+            task_name_edit: {
+                required: required,
+            },
+            due_date_edit: {
+                required: required,
+            },
+        }
+        const v$ = useVuelidate(rules, task);
+
+        return { user_id, tasks, v$ };
     },
     components: {
         Navbar,
@@ -381,9 +401,9 @@ export default {
             const data = {
                 list_act: this.task_name,
                 list_date: this.due_date,
-                user_id: this.user.user_id
+                user_id: this.user_id
             }
-            console.log(this.user.user_id)
+            console.log(this.user_id)
             axios.post("/Task/add", data)
             .then((response) => {
                 this.$router.push({path: "/Task"})
