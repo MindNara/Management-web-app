@@ -60,6 +60,7 @@ router.post('/Signup', async (req, res, next) => {
         )
         conn.commit()
         console.log('Sign Up success!');
+        
     } catch (err) {
         await conn.rollback();
         res.status(400).json(err);
