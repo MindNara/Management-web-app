@@ -91,4 +91,16 @@ router.delete("/Task/delete/:taskId", async(req, res, next) => {
 
 })
 
+router.get("/Task/detail/:taskId", async function (req, res, next) {
+    try {
+        const list_id = req.params.taskId
+        const [content_task] = await pool.query("SELECT *, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date FROM to_do_list WHERE list_id =?", [list_id]);
+        res.json({
+            content_task: content_task,
+        })
+    }
+    catch (err) {
+        return next(err)
+    }
+});
 exports.router = router;
