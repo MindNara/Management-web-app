@@ -8,22 +8,19 @@ const router = express.Router();
 //     list_act: Joi.string().required(),
 // }).unknown() // ถ้าไม่ใส่มันจะ error เพราะใน body มี due_date แต่เราไม่ได้ check ในนี้อะเลยต้องใส่ไว้
 
-router.get("/Task", async function (req, res, next) {
+router.get("/Task/:userId", async function (req, res, next) {
     try {
-
-        // const [user, userF] = await pool.query("SELECT * FROM user WHERE user_id = 1");
-        const [task] = await pool.query("SELECT list_id, DATE_FORMAT(list_create_date, '%Y-%m-%d') as list_create_date, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date, list_act, list_status, user_id FROM to_do_list JOIN user USING(user_id) WHERE user.user_id = 1");
-
+        const user_id = req.params.userId
+        const [task] = await pool.query("SELECT list_id, DATE_FORMAT(list_create_date, '%Y-%m-%d') as list_create_date, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date, list_act, list_status, user_id FROM to_do_list JOIN user USING(user_id) WHERE user.user_id =?", [user_id]);
         res.json({
             task: task,
-            // user: user[0],
         })
-
     }
     catch (err) {
         return next(err)
     }
 });
+
 
 // router.post("/Task/add", async (req, res, next) => {
 //     try {

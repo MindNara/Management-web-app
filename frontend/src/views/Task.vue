@@ -270,13 +270,14 @@
 import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
-import axios from "axios";
-// import axios from '@/plugins/axios'
+// import axios from "axios";
+import axios from '@/plugins/axios'
+import { useUserStore } from '@/stores/counter'
+import { watchEffect, ref, registerRuntimeCompiler } from 'vue'
 
 export default {
     data() {
         return {
-            tasks: null,
             task_name: '',
             due_date: '',
             show_modal: false,
@@ -285,15 +286,35 @@ export default {
             status2: false,
         }
     },
-    created() { // run ตอนหน้า load ใช้ axios ยิง method get ไปที่ backend server ข้อมูลที่ได้จะเป็น json มา
-        axios.get("http://localhost:3000/Task")
+    setup() {
+        const userStore = useUserStore();
+        const user = ref(null);
+        // const schedulesToday = ref(null);
+        const tasks = ref(null);
+        // const notes = ref(null);
+
+        // ถ้ามีการเปลี่ยนแปลงค่าจะเข้ามาทำในนี้
+        watchEffect(async () => {
+            await userStore.getUser();
+
+            // user.value like this.user => vue3
+            user.value = userStore.user;
+
+            // ถ้าใช้ข้างใน setup => user.value.fname
+            // console.log('user:', user.value.fname);
+
+            axios.get("/Task/" + user.value.user_id)
             .then((response) => {
-                this.tasks = response.data;
-                console.log(this.tasks.task)
+                console.log(user.value.user_id)
+                tasks.value = response.data;
+                console.log(tasks.value)
             })
             .catch((err) => {
                 console.log(err);
             });
+        });
+
+        return { user, tasks };
     },
     components: {
         Navbar,
@@ -320,10 +341,18 @@ export default {
     },
     computed: {
         filteredTasksToDo() {
-            return this.tasks.task.filter(task => task.list_status === 0);
+            if (this.tasks !== null || this.task !== undefined){
+                return this.tasks.task.filter(task => task.list_status === 0); // check ว่า list_status ไหน === 0
+            }
+            return [] // ถ้าไม่กำหนดเงื่อนไขมันจะ error ควรเช้คค่าก่อนว่า null หรือ undefined ไหม
+            
         },
         filteredTasksDone() {
-            return this.tasks.task.filter(task => task.list_status === 1);
+            if (this.tasks !== null || this.task !== undefined){
+                return this.tasks.task.filter(task => task.list_status === 1);
+            }
+            return []
+            
         }
     },
 }
