@@ -311,7 +311,7 @@ export default {
     setup() {
 
         const userStore = useUserStore();
-        const user_id = ref('');
+        const user_id = ref(''); // สร้างมาเก็บตัวแปร user_id ที่ได้มาจากตอน userStore
         const tasks = ref(null);
 
         const task_todo = reactive({
@@ -319,14 +319,14 @@ export default {
             due_date: '',
             task_name_edit: '',
             due_date_edit: '',
-        })
+        }) // พอมันอยู่ในนี้แล้วตัวแปรข้างในเป็น object task_todo เวลาจะใช้ตัวแปรข้างในก้ต้อง task_todo.task_name ยังงี้
 
         const getTask = async () => {
             await userStore.getUser();
-            user_id.value = userStore.user.user_id;
+            user_id.value = userStore.user.user_id; // เอาค่ามาใส่ใน user_id ที่ได้จาก userStore ใน conunter.js
             // console.log('user_id: ' + user_id.value)
 
-            axios.get("/Task/" + user_id.value)
+            axios.get("/Task/" + user_id.value) // get ค่า task ที่ดึงมาจาก user_id ที่ได้มาอยู่ใน tasks ที่สร้างไว้ 
             .then((response) => {
                 console.log(user_id.value)
                 tasks.value = response.data;
@@ -336,9 +336,9 @@ export default {
                 console.log(err);
             });
         };
-        onMounted(getTask);
+        onMounted(getTask); // มันจะทำทุกครั้งที่เข้าหน้า task มาอะไปทำฟังก์ชั่น getTask
 
-        const rules = {
+        const rules = { // กำหนด validations ที่จะเช้ค
             task_name: {
                 required: required,
             },
@@ -352,9 +352,9 @@ export default {
                 required: required,
             },
         }
-        const v$ = useVuelidate(rules, task_todo);
+        const v$ = useVuelidate(rules, task_todo); // ส่งค่าไปเช้คใน useVuelidate ของ vue ที่ import มา
 
-        return { user_id, tasks, v$, task_todo };
+        return { user_id, tasks, v$, task_todo }; // จะเอาค่าไปใช้ต่อก้ต้อง return ออกไป
     },
     components: {
         Navbar,
