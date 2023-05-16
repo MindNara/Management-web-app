@@ -113,7 +113,7 @@
                                                 </span>
                                             </a>
                                             <a class="edit-delete">
-                                                <span class="icon">
+                                                <span class="icon"  @click="deleteTask(task.list_id, task.list_act)">
                                                     <i class="fas fa-trash" style="color: rgb(105, 16, 16);"></i>
                                                 </span>
                                             </a>
@@ -169,7 +169,7 @@
                                                 </span>
                                             </a>
                                             <a class="edit-delete">
-                                                <span class="icon">
+                                                <span class="icon"  @click="deleteTask(task.list_id, task.list_act)">
                                                     <i class="fas fa-trash" style="color: rgb(105, 16, 16);"></i>
                                                 </span>
                                             </a>
@@ -280,6 +280,8 @@ import { watchEffect, ref } from 'vue'
 export default {
     data() {
         return {
+            list_id: '',
+            list_act: '',
             task_name: '',
             due_date: '',
             user_id: '',
@@ -352,15 +354,27 @@ export default {
             .then((response) => {
                 this.$router.push({path: "/Task"})
                 document.location.reload();
-                
-                // this.commTxt = "";
-                // this.comments.push(response.data);
             })
             .catch((error) => {
                 this.error = error.response.data.message;
             });
-            // .then((res) => this.$router.push({name: 'home'}))
-            // .catch((e) => console.log(e.response.data));
+        },
+        deleteTask(task_id, task_act){
+            this.list_act = task_act
+            this.list_id = task_id
+            const result = confirm(`Are you sure you want to delete \'${this.list_act}\'`);
+
+            if(result){
+                axios.delete("/Task/delete/" + this.list_id)
+                .then((response) => {
+                    this.$router.push({path: "/Task"})
+                    document.location.reload();
+    
+                })
+                .catch((error) => {
+                    this.error = error.response.data.message;
+                });
+            }
         }
     },
     computed: {
