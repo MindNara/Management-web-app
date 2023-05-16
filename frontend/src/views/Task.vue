@@ -257,7 +257,7 @@
                     </form>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-black">Create</button>
+                    <button class="button is-black" @click="editTask(content.list_id)">SAVE</button>
                     <button class="button btn-cancle" @click="show_modal_edit = !show_modal_edit">Cancel</button>
                 </footer>
             </div>
@@ -346,7 +346,7 @@ export default {
                 modal_done.classList.add("is-active");
             }
         },
-        openmodal(task_id) { // เปิด modal-edit
+        openmodal(task_id) { // เปิด modal-edit get data มา
             this.content_task = [];
             axios.get("/Task/detail/" + task_id)
             .then((response) => {
@@ -360,7 +360,22 @@ export default {
                 console.log(err);
             });
             this.show_modal_edit = !this.show_modal_edit;
-            
+        },
+        editTask(task_id){
+            console.log(task_id)
+            const data = {
+                list_act: this.task_name_edit,
+                list_date: this.due_date_edit,
+            }
+            console.log(data)
+             axios.put("/Task/edit/" + task_id, data)
+            .then((response) => {
+                this.$router.push({path: "/Task"})
+                document.location.reload();
+            })
+            .catch((error) => {
+                this.error = error.response.data.message;
+            });
         },
         submitAddtask(){
             const data = {
