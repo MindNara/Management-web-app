@@ -198,9 +198,6 @@
                 </div>
             </form>
         </div>
-        <!-- modal-add-task -->
-
-        <!-- <div id="schedule" data-schedule-all="<%= JSON.stringify(scheduleAll) %>"></div> -->
 
     </div>
 </template>
@@ -210,16 +207,16 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from "axios";
+import { reactive, computed, ref, onMounted } from 'vue'
+import useVuelidate from '@vuelidate/core'
+import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
+import { useUserStore } from '@/stores/counter'
 
 export default {
     data() {
         const date = new Date();
         return {
-            schedulesToday: null,
-            schedulesAll: null,
             showModel: false,
-            schedule_act: '',
-            schedule_date: '',
             date: date,
             currYear: date.getFullYear(),
             currMonth: date.getMonth(),
@@ -229,22 +226,53 @@ export default {
             ],
         }
     },
+    setup() {
+
+        const userStore = useUserStore();
+        const user_id = ref('');
+        const schedulesToday = ref(null);
+        const schedulesAll = ref(null);
+
+        const schedule = reactive({
+            schedule_act: '',
+            schedule_date: '',
+        })
+
+        const getSchedule = async () => {
+            await userStore.getUser();
+            user_id.value = userStore.user.user_id;
+            // console.log('user_id: ' + user_id.value)
+
+            axios.get("http://localhost:3000/Schedule/" + user_id.value)
+                .then((response) => {
+                    schedulesToday.value = response.data.scheduleToday;
+                    schedulesAll.value = response.data.scheduleAll;
+                    console.log(schedulesToday.value);
+                    console.log(schedulesAll.value);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+        onMounted(getSchedule);
+
+        const rules = {
+            schedule_act: {
+                required: required,
+            },
+            schedule_date: {
+                required: required,
+            },
+        }
+
+        const v$ = useVuelidate(rules, schedule);
+
+        return { schedule, schedulesToday, schedulesAll, v$ };
+    },
     components: {
         Navbar,
         Logo,
         Profile
-    },
-    created() {
-        axios.get("http://localhost:3000/Schedule")
-            .then((response) => {
-                this.schedulesToday = response.data.scheduleToday;
-                this.schedulesAll = response.data.scheduleAll;
-                // console.log(this.schedulesToday)
-                // console.log(this.schedulesAll)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     },
     mounted() {
         const today = new Date();
