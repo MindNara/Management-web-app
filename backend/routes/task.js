@@ -8,6 +8,7 @@ const schemaInsert = Joi.object({ // สร้าง Joi มา check data ท�
     list_act: Joi.string().required(),
 }).unknown()
 
+// ดึงข้อมูล task ทั้งหมดของ user นั้นๆ
 router.get("/Task/:userId", async function (req, res, next) {
     try {
         const user_id = req.params.userId
@@ -21,7 +22,7 @@ router.get("/Task/:userId", async function (req, res, next) {
     }
 });
 
-
+// เพิ่มข้อมูล task
 router.post("/Task/add", async (req, res, next) => {
     try {
         await schemaInsert.validateAsync(req.body, { abortEarly: false}) // เอา joi ที่เราสร้างไว้มาเช็ค data ที่ได้มาจาก req.body บางครั้งมาจาก query ก็ต้องใช้ req.query
@@ -57,6 +58,7 @@ router.post("/Task/add", async (req, res, next) => {
     }
 })
 
+// ลบข้อมูล task
 router.delete("/Task/delete/:taskId", async(req, res, next) => {
     const list_id = req.params.taskId
     // const user_id = req.body.user_id
@@ -91,6 +93,7 @@ router.delete("/Task/delete/:taskId", async(req, res, next) => {
 
 })
 
+// ดึงข้อมูล task ที่จะกดแก้ไขมาแสดง
 router.get("/Task/detail/:taskId", async function (req, res, next) {
     try {
         const list_id = req.params.taskId
@@ -103,4 +106,41 @@ router.get("/Task/detail/:taskId", async function (req, res, next) {
         return next(err)
     }
 });
+
+// edit ข้อมูล task
+
+router.put("/Task/edit/:taskId", async function (req, res, next) {
+    const list_id = req.params.taskId
+    try {
+        await schemaInsert.validateAsync(req.body, { abortEarly: false}) // เอา joi ที่เราสร้างไว้มาเช็ค data ที่ได้มาจาก req.body บางครั้งมาจาก query ก็ต้องใช้ req.query
+    } catch (error) {
+        return res.status(400).send(error)
+    }
+
+    const conn = await pool.getConnection() // สร้าง transaction ก่อนจะไปทำการลบ
+    await conn.beginTransaction();
+
+    const list_act = req.body.list_act
+    const list_date = req.body.list_date
+
+    console.log(list_id)
+    console.log(list_act)
+    console.log(list_date)
+
+    try {
+        const [dataEdit] = await pool.query('UPDATE to_do_list SET list_date=?, list_act=? WHERE list_id=?', [list_date, list_act, list_id])
+        
+        await conn.commit()
+        res.send("สำเร็จ")
+    } catch (err) {
+        await conn.rollback();
+        return res.status(500).json(err)
+    } finally {
+        console.log('finally')
+        conn.release();
+    }
+    
+});
+
+
 exports.router = router;
