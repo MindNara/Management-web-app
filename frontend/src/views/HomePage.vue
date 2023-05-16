@@ -38,9 +38,25 @@
                     as
                     you move to catch
                     one ball, Unfortunately, some balls are bound to hit the ground.</p>
-                <!-- <a class="btn" href="/Dashboard"><span>Get Start</span></a> -->
-                <router-link to="/Dashboard"><span class="btn">Get Start</span></router-link>
+                <a class="btn" @click="getStart()"><span>Get Start</span></a>
+                <!-- <a href="/"><span class="btn">Get Start</span></a> -->
             </div>
         </div>
     </div>
 </template>
+
+<script>
+
+export default {
+    data() {
+        return {
+
+        }
+    },
+    methods: {
+
+
+    },
+}
+
+</script>
