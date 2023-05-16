@@ -199,20 +199,26 @@
                             <label class="label">NAME TASKS :</label>
                             <div class="control has-icons-left has-icons-right">
                                 <input class="input" type="text" id="name-task" name="name-task" placeholder="Your task"
-                                    v-model="task_name">
+                                    v-model="task_todo.task_name" @input="v$.task_name.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-book"></i>
                                 </span>
                             </div>
+                            <span v-if="v$.task_name.$error">
+                                <p class="help is-danger" v-if="v$.task_name.required">This field is required</p>
+                            </span>
                         </div>
                         <div class="field">
                             <label for="due-date" class="label">DUE DATE :</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input type="date" id="due-date" name="due-date" class="input" v-model="due_date">
+                                <input type="date" id="due-date" name="due-date" class="input" v-model="task_todo.due_date" @input="v$.due_date.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-calendar"></i>
                                 </span>
                             </div>
+                            <span v-if="v$.due_date.$error">
+                                <p class="help is-danger" v-if="v$.due_date.required">This field is required</p>
+                            </span>
                         </div>
                     </form>
                 </section>
@@ -239,20 +245,26 @@
                             <label class="label">NAME TASKS : </label>
                             <div class="control has-icons-left has-icons-right">
                                 <input class="input" type="text" id="name-task-edit" name="name-task-edit" placeholder="Change Task name"
-                                    v-model="task_name_edit">
+                                    v-model="task_todo.task_name_edit" @input="v$.task_name_edit.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-book"></i>
                                 </span>
                             </div>
+                            <span v-if="v$.task_name_edit.$error">
+                                <p class="help is-danger" v-if="v$.task_name_edit.required">This field is required</p>
+                            </span>
                         </div>
                         <div class="field">
                             <label for="due-date" class="label">DUE DATE :</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input type="date" id="due-date-edit" name="due-date-edit" class="input" v-model="due_date_edit">
+                                <input type="date" id="due-date-edit" name="due-date-edit" class="input" v-model="task_todo.due_date_edit" @input="v$.due_date_edit.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-calendar"></i>
                                 </span>
                             </div>
+                            <span v-if="v$.due_date_edit.$error">
+                                <p class="help is-danger" v-if="v$.due_date_edit.required">This field is required</p>
+                            </span>
                         </div>
                     </form>
                 </section>
@@ -273,7 +285,7 @@ import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
 import { reactive, ref, onMounted } from 'vue'
 import useVuelidate from '@vuelidate/core'
-import { required} from '@vuelidate/validators'
+import { required, minValue} from '@vuelidate/validators'
 import { useUserStore } from '@/stores/counter'
 // import { reactive, computed } from 'vue'
 // import useVuelidate from '@vuelidate/core'
@@ -302,7 +314,7 @@ export default {
         const user_id = ref('');
         const tasks = ref(null);
 
-        const task = reactive({
+        const task_todo = reactive({
             task_name: '',
             due_date: '',
             task_name_edit: '',
@@ -340,9 +352,9 @@ export default {
                 required: required,
             },
         }
-        const v$ = useVuelidate(rules, task);
+        const v$ = useVuelidate(rules, task_todo);
 
-        return { user_id, tasks, v$ };
+        return { user_id, tasks, v$, task_todo };
     },
     components: {
         Navbar,
@@ -371,8 +383,8 @@ export default {
             axios.get("/Task/detail/" + task_id)
             .then((response) => {
                 this.content_task = response.data.content_task; //จะเข้าไปใน content_task เลย
-                this.task_name_edit = this.content_task[0].list_act
-                this.due_date_edit = this.content_task[0].list_date
+                this.task_todo.task_name_edit = this.content_task[0].list_act
+                this.task_todo.due_date_edit = this.content_task[0].list_date
                 console.log(this.content_task) // พอจะใช้ก้ this.content_task[0].list_act ได้เลย
                 console.log(task_id)
             })
@@ -384,8 +396,8 @@ export default {
         editTask(task_id){
             console.log(task_id)
             const data = {
-                list_act: this.task_name_edit,
-                list_date: this.due_date_edit,
+                list_act: this.task_todo.task_name_edit,
+                list_date: this.task_todo.due_date_edit,
             }
             console.log(data)
              axios.put("/Task/edit/" + task_id, data)
@@ -399,8 +411,8 @@ export default {
         },
         submitAddtask(){
             const data = {
-                list_act: this.task_name,
-                list_date: this.due_date,
+                list_act: this.task_todo.task_name,
+                list_date: this.task_todo.due_date,
                 user_id: this.user_id
             }
             console.log(this.user_id)
