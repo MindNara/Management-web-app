@@ -4,7 +4,7 @@ const router = express.Router();
 const Joi = require('joi');
 
 const schemaInsert = Joi.object({ // สร้าง Joi มา check data ที่เข้ามาว่าครบยัง
-    list_date: Joi.date().required(),
+    list_date: Joi.date().greater('now').required(),
     list_act: Joi.string().required(),
 })
 
@@ -55,5 +55,10 @@ router.post("/Task/add/:userId", async (req, res, next) => {
         conn.release()
     }
 })
+
+// router.delete("/Task/:userId", async(req, res, next) => {
+//     const user_id = req.params.userId
+
+// })
 
 exports.router = router;
