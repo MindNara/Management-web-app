@@ -217,7 +217,7 @@
                     </form>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-black">Create</button>
+                    <button class="button is-black" @click="submitAddtask()">Create</button>
                     <button class="button btn-cancle" @click="show_modal = !show_modal">Cancel</button>
                 </footer>
             </div>
@@ -338,6 +338,26 @@ export default {
                 modal_done.classList.add("is-active");
             }
         },
+        submitAddtask(){
+            const data = {
+                list_act: this.task_name,
+                list_date: this.due_date
+            }
+            console.log(this.user.user_id)
+            axios.post("/Task/add/" + this.user.user_id, data)
+            .then((response) => {
+                this.$router.push({path: "/Task"})
+                document.location.reload();
+                
+                // this.commTxt = "";
+                // this.comments.push(response.data);
+            })
+            .catch((error) => {
+                this.error = error.response.data.message;
+            });
+            // .then((res) => this.$router.push({name: 'home'}))
+            // .catch((e) => console.log(e.response.data));
+        }
     },
     computed: {
         filteredTasksToDo() {
