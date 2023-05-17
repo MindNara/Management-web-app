@@ -237,7 +237,6 @@ export default {
     },
     setup() {
 
-        const userStore = useUserStore();
         const user_id = ref('');
         const schedulesToday = ref(null);
         const schedulesAll = ref(null);
@@ -247,23 +246,23 @@ export default {
             schedule_date: '',
         })
 
-        const getSchedule = async () => {
-            await userStore.getUser();
-            user_id.value = userStore.user.user_id;
-            // console.log('user_id: ' + user_id.value)
+        // const getSchedule = async () => {
+        //     await userStore.getUser();
+        //     user_id.value = userStore.user.user_id;
+        //     // console.log('user_id: ' + user_id.value)
 
-            axios.get("http://localhost:3000/Schedule/" + user_id.value)
-                .then((response) => {
-                    schedulesToday.value = response.data.scheduleToday;
-                    schedulesAll.value = response.data.scheduleAll;
-                    console.log(schedulesToday.value);
-                    console.log(schedulesAll.value);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        };
-        onMounted(getSchedule);
+        //     axios.get("http://localhost:3000/Schedule/" + user_id.value)
+        //         .then((response) => {
+        //             schedulesToday.value = response.data.scheduleToday;
+        //             schedulesAll.value = response.data.scheduleAll;
+        //             console.log(schedulesToday.value);
+        //             console.log(schedulesAll.value);
+        //         })
+        //         .catch((err) => {
+        //             console.log(err);
+        //         });
+        // };
+        // onMounted(getSchedule);
 
         const rules = {
             schedule_act: {
@@ -283,6 +282,26 @@ export default {
         Logo,
         Profile
     },
+    async created() {
+
+        const userStore = useUserStore();
+
+        await userStore.getUser();
+        this.user_id = userStore.user.user_id;
+        console.log('user_id: ' + this.user_id)
+
+        await axios.get("http://localhost:3000/Schedule/" + this.user_id)
+            .then((response) => {
+                this.schedulesToday = response.data.scheduleToday;
+                this.schedulesAll = response.data.scheduleAll;
+                console.log(this.schedulesToday);
+                console.log(this.schedulesAll);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+    },
     mounted() {
         const today = new Date();
         this.currentYear = today.getFullYear();
@@ -298,30 +317,29 @@ export default {
         },
 
         createSchedule() {
-            // this.v$.$touch();
+            this.v$.$touch();
 
-            // console.log(this.v$.$invalid)
-            // if (!this.v$.$invalid) {
-            console.log('Add Schedule')
-            let formData = {
-                schedule_act: this.schedule.schedule_act,
-                schedule_date: this.schedule.schedule_date,
-                user_id: this.user_id,
+            console.log(this.v$.$invalid)
+            if (!this.v$.$invalid) {
+                let formData = {
+                    schedule_act: this.schedule.schedule_act,
+                    schedule_date: this.schedule.schedule_date,
+                    user_id: this.user_id,
+                }
+
+                axios.post("http://localhost:3000/Schedule", formData)
+                    .then((response) => {
+                        console.log(response);
+                    })
+                    .catch((err) => {
+                        if (err.response && err.response.data && err.response.data.details && err.response.data.details.message) {
+                            alert(err.response.data.details.message);
+                        } else {
+                            alert("Create schedule failed");
+                        }
+                    })
+                document.location.reload();
             }
-
-            axios.post("http://localhost:3000/Schedule", formData)
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((err) => {
-                    if (err.response && err.response.data && err.response.data.details && err.response.data.details.message) {
-                        alert(err.response.data.details.message);
-                    } else {
-                        alert("Create schedule failed");
-                    }
-                })
-            document.location.reload();
-            // }
         },
 
         renderFullCalendar() {
