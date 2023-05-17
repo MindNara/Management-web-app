@@ -165,28 +165,15 @@ export default {
         }
     },
     setup() {
-        const userStore = useUserStore();
-
         const user = reactive({
             user_id: '',
             username: '',
             fname: '',
             lname: '',
             email: '',
-            password: '********',
+            password: 'AaBb1234',
             image_user: '',
         });
-
-        const getUserData = async () => {
-            await userStore.getUser();
-            user.user_id = userStore.user.user_id;
-            user.username = userStore.user.username;
-            user.fname = userStore.user.fname;
-            user.lname = userStore.user.lname;
-            user.email = userStore.user.email;
-            user.image_user = userStore.user.image_user;
-        };
-        onMounted(getUserData);
 
         const rules = {
             fname: {
@@ -217,6 +204,19 @@ export default {
 
         return { user, v$ };
     },
+    async created() {
+
+        const userStore = useUserStore();
+
+        await userStore.getUser();
+        this.user.user_id = userStore.user.user_id;
+        this.user.username = userStore.user.username;
+        this.user.fname = userStore.user.fname;
+        this.user.lname = userStore.user.lname;
+        this.user.email = userStore.user.email;
+        this.user.image_user = userStore.user.image_user;
+
+    },
     methods: {
         editInput(field) {
             console.log(field);
@@ -241,24 +241,21 @@ export default {
             }
         },
 
-        closeEditingInput() {
+        async closeEditingInput() {
             this.EditFname = false;
             this.EditLname = false;
             this.EditEmail = false;
             this.EditPwd = false;
 
             const userStore = useUserStore();
-            const getUserData = async () => {
-                await userStore.getUser();
-                this.user.fname = userStore.user.fname;
-                this.user.lname = userStore.user.lname;
-                this.user.email = userStore.user.email;
-                this.user.image_user = userStore.user.image_user;
-            };
+            await userStore.getUser();
+            this.user.fname = userStore.user.fname;
+            this.user.lname = userStore.user.lname;
+            this.user.email = userStore.user.email;
+            this.user.image_user = userStore.user.image_user;
 
             document.getElementById('input-password').type = 'password';
             this.user.password = 'AaBb1234';
-            getUserData();
         },
 
         handleFileUpload() {
@@ -266,24 +263,29 @@ export default {
         },
 
         submit() {
-            var formData = new FormData();
-            formData.append("user_img", this.file);
-            formData.append("fname", this.user.fname);
-            formData.append("lname", this.user.lname);
-            formData.append("email", this.user.email);
-            formData.append("password", this.user.password);
-            formData.append("user_id", this.user.user_id);
+            this.v$.$touch();
 
-            axios.put("/Profile", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            }).then((response) => {
-                console.log(response);
-                document.location.reload();
-            }).catch((error) => {
-                console.log(error.message);
-            });
+            console.log(this.v$.$invalid)
+            if (!this.v$.$invalid) {
+                var formData = new FormData();
+                formData.append("user_img", this.file);
+                formData.append("fname", this.user.fname);
+                formData.append("lname", this.user.lname);
+                formData.append("email", this.user.email);
+                formData.append("password", this.user.password);
+                formData.append("user_id", this.user.user_id);
+
+                axios.put("/Profile", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }).then((response) => {
+                    console.log(response);
+                    document.location.reload();
+                }).catch((error) => {
+                    console.log(error.message);
+                });
+            }
         },
     },
 }
