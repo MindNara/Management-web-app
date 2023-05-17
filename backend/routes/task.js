@@ -142,5 +142,35 @@ router.put("/Task/edit/:taskId", async function (req, res, next) {
 
 });
 
+router.put("/Task/addCheck", async function (req, res, next) {
+    const list_id = req.body.list_id
+    const list_status = req.body.list_status
+
+    const conn = await pool.getConnection() // สร้าง transaction ก่อนจะไปทำการลบ
+    await conn.beginTransaction();
+
+
+    console.log("id " + list_id)
+    console.log("status " +list_status)
+
+    try {
+        if(list_status === 0){
+            const [dataEdit] = await pool.query('UPDATE to_do_list SET list_status = 1 WHERE list_id=?', [list_id])
+        }
+        else{
+            const [dataEdit] = await pool.query('UPDATE to_do_list SET list_status = 0 WHERE list_id=?', [list_id])
+        }
+        await conn.commit()
+        res.send("สำเร็จ")
+    } catch (err) {
+        await conn.rollback();
+        return res.status(500).json(err)
+    } finally {
+        console.log('finally')
+        conn.release();
+    }
+
+});
+
 
 exports.router = router;
