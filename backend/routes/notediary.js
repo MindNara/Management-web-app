@@ -27,6 +27,21 @@ router.get('/NoteDiary/:userId', async function (req, res) {
 
 })
 
+// ดึงข้อมูล task ที่จะกดแก้ไขมาแสดง
+router.get("/NoteDiary/detail/:noteId", async function (req, res, next) {
+    const noted_id = req.params.noteId
+    console.log(noted_id)
+    try {
+        const [content_note] = await pool.query("SELECT *, DATE_FORMAT(noted_date, '%Y-%m-%d') as noted_date FROM note_diary WHERE noted_id =?", [noted_id]);
+        res.json({
+            content_note: content_note,
+        })
+    }
+    catch (err) {
+        return next(err)
+    }
+});
+
 // เพิ่ม note_diary
 
 // router.post('/NoteDiary/add', upload.single('note_img'), async function (req, res, next) {
