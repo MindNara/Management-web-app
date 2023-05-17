@@ -45,11 +45,11 @@ router.get("/NoteDiary/detail/:noteId", async function (req, res, next) {
 // เพิ่ม note_diary
 router.post('/NoteDiary/add', upload.single('note_img'), async function (req, res, next) {
 
-    // try {
-    //     await schemaInsert.validateAsync(req.body, { abortEarly: false })
-    // } catch (error) {
-    //     return res.status(400).send(error)
-    // }
+    try {
+        await schemaInsert.validateAsync(req.body, { abortEarly: false })
+    } catch (error) {
+        return res.status(400).send(error)
+    }
 
     const file = req.file;
     const noted_id = req.body.user_id;
