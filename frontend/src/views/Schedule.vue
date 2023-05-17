@@ -200,8 +200,8 @@
                         </span>
                     </div>
                 </section>
-                <footer class="modal-card-foot">
-                    <button class="btn-create button is-black" type="button" @click="createSchedule()">Create</button>
+                <footer class="modal-card-foot level">
+                    <a class="btn-create button is-black" type="button" @click="createSchedule()">Create</a>
                     <a class="button btn-cancle" @click="showModel = !showModel; closeEditingInput()">Cancel</a>
                 </footer>
             </div>
@@ -248,9 +248,18 @@
                     </div>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="btn-create button is-black" type="button"
-                        @click="UpdateSchedule(schedule_edit.schedule_id_edit)">Update</button>
-                    <a class="button btn-cancle" @click="showModelEdit = !showModelEdit;">Cancel</a>
+                    <div class="level" style="width: 100%;">
+                        <div class="level-left">
+                            <a class="btn-create button is-black" type="button"
+                                @click="updateSchedule(schedule_edit.schedule_id_edit)">Update</a>
+                            <a class="button btn-cancle" @click="showModelEdit = !showModelEdit;">Cancel</a>
+                        </div>
+                        <div class="level-right">
+                            <a class="btn-create button has-text-white" type="button" style="background: rgb(138, 22, 22);"
+                                @click="deleteSchedule(schedule_edit.schedule_id_edit, schedule_edit.schedule_act_edit)">Delete</a>
+                        </div>
+                    </div>
+
                 </footer>
             </div>
         </div>
@@ -263,7 +272,7 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from "axios";
-import { reactive, ref, onMounted, computed } from 'vue'
+import { reactive, ref } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { useUserStore } from '@/stores/user'
@@ -393,6 +402,7 @@ export default {
         editSchedule(schedule_id) {
 
             this.showModelEdit = true;
+            // this.schedule.schedule_id = schedule_id;
             console.log('Edit Schedule: ' + schedule_id)
 
             axios.get("http://localhost:3000/Schedule/Detail/" + schedule_id)
@@ -408,7 +418,7 @@ export default {
 
         },
 
-        UpdateSchedule(schedule_id) {
+        updateSchedule(schedule_id) {
             this.vEdit$.$touch();
             // console.log('Update Schedule: ' + schedule_id)
 
@@ -525,6 +535,9 @@ export default {
                     div.innerHTML = title;
                     tdDate.appendChild(div);
                     div.classList.add("boxtext");
+                    div.onclick = () => {
+                        this.editSchedule(item.schedule_id);
+                    };
                 }
             })
 
