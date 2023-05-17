@@ -2,11 +2,15 @@
     <div class="columns is-gapless" id="signup">
         <div class="column is-half">
             <div class="hero is-black is-fullheight">
-                <div class="container has-text-centered">
-                    <br><br><br>
+                <div class="container has-text-centered"
+                    style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <a href="/" class="mb-4" style="display: flex; align-items: center;">
+                        <img class="mr-2" src="../assets/Icons/logo-white-100.png" style="height: 28px;">
+                        <p class="is-size-3-fullhd is-size-4-widescreen has-text-weight-bold has-text-white">LOGO</p>
+                    </a>
                     <p class="title is-1">WELCOME TO YOUR <br> PLANNER !</p>
-                    <p class="subtitle is-4">Plan with us ! for better life :)</p><br>
-                    <img class="img-signup" src="../assets/diary.png" alt="signup"><br><br><br>
+                    <p class="subtitle is-4 mb-6">Plan with us ! for better life :)</p>
+                    <img class="img-signup mb-6" src="../assets/diary.png" alt="signup">
                     <p class="subtitle is-4">Already have an account?</p>
                     <button class="button is-large is-rounded has-text-weight-bold has-text-black"
                         onclick="window.location.href='/Login'">LOGIN</button>
@@ -14,8 +18,9 @@
             </div>
         </div>
         <div class="column is-half ">
-            <div class="hero is-white is-fullheight">
-                <div class="ph-6 pv-4 mt-2 ml-6 mr-6 mb-5">
+            <div class="hero is-white is-fullheight"
+                style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div class="ph-6 pv-4 mt-2 ml-6 mr-6 mb-5" style="width: 80%;">
                     <br>
                     <p class="title is-2 has-text-centered">CREATE ACCOUNT</p>
                     <form id="form">
@@ -83,10 +88,9 @@
                                 <p class="help is-danger">{{ v$.password.$errors[0].$message }}</p>
                             </span>
                         </div>
-                        <div class="buttons is-centered">
+                        <div class="buttons is-centered mt-5">
                             <button @click="submit()" type="button"
-                                class="button is-rounded is-black is is-large has-text-weight-bold">GO
-                                !</button>
+                                class="button is-rounded is-black is is-large has-text-weight-bold">LET GO!</button>
                         </div>
                     </form>
                 </div>

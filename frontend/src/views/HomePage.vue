@@ -8,11 +8,11 @@
                 <div class="level-left">
                     <div class="level-item">
                         <div class="navbar-brand">
-                            <a class="navbar-item" href="#">
+                            <div class="navbar-item">
                                 <img class="mr-2" src="../assets/Icons/logo-100.png">
                                 <span
                                     class="is-size-3-fullhd is-size-4-widescreen has-text-weight-bold has-text-black">LOGO</span>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
