@@ -171,35 +171,39 @@ button {
     padding: 0.5rem 1rem;
 }
 
-.schedule-box {
+.schedule-box, .schedule-box-dashboard {
     height: 4rem;
     border-radius: 10px;
     background: #F6F6F8;
+    color: black;
+    font-size: 18px;
 }
 
-/* .schedule-box:hover {
+.schedule-box-dashboard .scheduleDate {
     background: black;
     color: #F6F6F8;
-} */
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 8px 12px;
+}
+
+.schedule-box-dashboard:hover {
+    background: black;
+    color: #F6F6F8;
+    cursor: pointer;
+}
 
 .schedule-box .icon-edit {
     color: black;
 }
 
-/* .schedule-box .icon-edit:hover {
-    color: #F6F6F8;
-} */
-
 .schedule-box .icon-delete {
     color: rgb(105, 16, 16);
 }
 
-/* .schedule-box .icon-delete:hover {
-    color: rgb(187, 70, 70);
-} */
-
 .schedule-box span {
     font-size: 18px;
+    color: black;
 }
 
 .note-box .card {
