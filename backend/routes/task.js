@@ -142,6 +142,7 @@ router.put("/Task/edit/:taskId", async function (req, res, next) {
 
 });
 
+// update checkbox ของ task
 router.put("/Task/addCheck", async function (req, res, next) {
     const list_id = req.body.list_id
     const list_status = req.body.list_status

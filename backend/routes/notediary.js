@@ -2,14 +2,13 @@ const express = require("express");
 const pool = require("../config");
 const router = express.Router();
 
-router.get('/NoteDiary', async function (req, res) {
-
+router.get('/NoteDiary/:userId', async function (req, res) {
+    const user_id = req.params.userId
     try {
-
-        const [user, userF] = await pool.query("SELECT * FROM user WHERE user_id = 1");
+        const [note] = await pool.query("SELECT * FROM note_diary WHERE user_id =?", [user_id]);
 
         res.json({
-            user: user[0],
+            notes: note,
         })
 
     } catch (err) {

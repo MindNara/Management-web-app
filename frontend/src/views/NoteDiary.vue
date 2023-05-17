@@ -35,20 +35,20 @@
           </div>
 
           <div class="columns mt-4 is-multiline columns is-variable is-2">
-            <div class="column is-one-third">
+            <div class="column is-one-third" v-for="note in note.notes" :key="note.noted_id">
               <div class="card">
                 <div>
                   <div class="card-image">
                     <figure class="image is-2by1">
-                      
+                      <img src='http://localhost:3000/' note.noted_image alt="note_img">
                     </figure>
                   </div>
                   <div class="card-content">
                     <div class="media">
                       <div class="media-content" style="width: 100%;">
-                        <p class="title title-note is-4"></p>
+                        <p class="title title-note is-4">{{note.noted_title}}</p>
                         <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                        <p class="subtitle" style="float: left;"></p>
+                        <p class="subtitle" style="float: left;">{{note.noted_content}}</p>
                       </div>
                     </div>
                   </div>
@@ -149,6 +149,11 @@
 import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
+import axios from '@/plugins/axios'
+import { reactive, ref, onMounted } from 'vue'
+import useVuelidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import { useUserStore } from '@/stores/user'
 
 export default {
   data() {
@@ -158,11 +163,87 @@ export default {
       data_note: ''
     }
   },
+  setup() {
+
+      const user_id = ref(''); // สร้างมาเก็บตัวแปร user_id ที่ได้มาจากตอน userStore
+      const note = ref(null);
+
+        const note_diary = reactive({
+            name_note: '',
+            date_note: '',
+            data_note: '',
+        }) // พอมันอยู่ในนี้แล้วตัวแปรข้างในเป็น object task_todo เวลาจะใช้ตัวแปรข้างในก้ต้อง task_todo.task_name ยังงี้
+
+        const rules_add = { // กำหนด validations ที่จะเช้ค
+          name_note: {
+            required: required,
+          },
+          date_note: {
+            required: required,
+          },
+          data_note: {
+            required: required,
+          }
+        }
+
+        // const rules_edit = { // กำหนด validations ที่จะเช้ค สร้างแยกกันระหว่าง add และ edit
+        //     task_name_edit: {
+        //         required: required,
+        //     },
+        //     due_date_edit: {
+        //         required: required,
+        //     },
+        // }
+
+        const v$_add = useVuelidate(rules_add, note_diary);
+        // const v$_edit = useVuelidate(rules_edit, task_todo); // ส่งค่าไปเช้คใน useVuelidate ของ vue ที่ import มา
+
+        // const getTask = async () => {
+        //     await userStore.getUser();
+        //     user_id.value = userStore.user.user_id; // เอาค่ามาใส่ใน user_id ที่ได้จาก userStore ใน conunter.js
+        //     // console.log('user_id: ' + user_id.value)
+
+        //     axios.get("/Task/" + user_id.value) // get ค่า task ที่ดึงมาจาก user_id ที่ได้มาอยู่ใน tasks ที่สร้างไว้ 
+        //     .then((response) => {
+        //         console.log(user_id.value)
+        //         tasks.value = response.data;
+        //         console.log(tasks.value)
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     });
+        // };
+        // onMounted(getTask); // มันจะทำทุกครั้งที่เข้าหน้า task มาอะไปทำฟังก์ชั่น getTask
+
+        return { user_id, note, v$_add, note_diary }; // จะเอาค่าไปใช้ต่อก้ต้อง return ออกไป
+    },
   components: {
     Navbar,
     Logo,
     Profile
-  }
+  },
+  async created() {
+
+        const userStore = useUserStore();
+
+        await userStore.getUser();
+        this.user_id = userStore.user.user_id;
+        console.log('User ID:', this.user_id);
+
+        await axios.get("/NoteDiary/" + this.user_id)
+            .then((response) => {
+                this.note = response.data;
+                console.log('note:', this.note.notes);
+                // this.task_todo.task_name_edit = this.tasks.task[0].list_act
+                // this.task_todo.due_date_edit = this.tasks.task[0].list_date
+                // console.log('Tasks:', this.tasks.task[0].list_act);
+                // console.log('Tasks:', this.tasks.task[0].list_date);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+    },
 }
 
 </script>
