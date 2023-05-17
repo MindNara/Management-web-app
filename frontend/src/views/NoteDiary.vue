@@ -93,9 +93,22 @@
                       <p class="help is-danger" v-if="v$_add.name_note.required">This field is required</p>
                     </span>
                   </div>
-                  <div class="field">
+                  <!-- <div class="field">
                     <label for="image-note" class="label">IMAGE :</label>
-                    <input type="file" id="image-note" name="image-note">
+                    <input id="image-note" name="image-note" class="file-input" type="file" ref="file" @change="handleFileUpload()">
+                  </div> -->
+                  <div class="file">
+                      <label class="file-label">
+                        <input class="file-input" type="file" name="image_note" id="image_note" ref="file" @change="handleFileUpload()">
+                            <span class="file-cta is-size-7">
+                              <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                              </span>
+                              <span class="file-label">
+                                Choose a file…
+                              </span>
+                            </span>
+                      </label>
                   </div>
                   <div class="field">
                     <label for="date-note" class="label">DATE :</label>
@@ -229,6 +242,7 @@ export default {
       // name_note_edit: '',
       // date_note_edit: '',
       // data_note_edit: '',
+      file: null,
       content_note: '',
       show_modal_card: false,
       show_modal: false,
@@ -295,10 +309,6 @@ export default {
             .then((response) => {
                 this.note = response.data.notes; // เข้าไปใน object อีกทีอะ this.note.notes ยังงี้อะ
                 console.log('note:', this.note);
-                // this.task_todo.task_name_edit = this.tasks.task[0].list_act
-                // this.task_todo.due_date_edit = this.tasks.task[0].list_date
-                // console.log('Tasks:', this.tasks.task[0].list_act);
-                // console.log('Tasks:', this.tasks.task[0].list_date);
             })
             .catch((err) => {
                 console.log(err);
@@ -341,7 +351,36 @@ export default {
             console.log(err);
           });
           this.show_modal_edit = !this.show_modal_edit;
-        }
+        },
+
+        handleFileUpload() {
+          this.file = this.$refs.file.files[0];
+        },
+
+        addNote() {
+          this.v$.$touch();
+
+          console.log(this.v$.$invalid)
+          if (!this.v$.$invalid) {
+            var formData = new FormData();
+            formData.append("note_img", this.file);
+            formData.append("name_note", this.note_diary.name_note);
+            formData.append("date_note", this.note_diary.date_note);
+            formData.append("data_note", this.note_diary.data_note);
+            formData.append("user_id", this.user_id)
+
+            axios.put("/NoteDiary/add", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            }).then((response) => {
+              console.log(response);
+              document.location.reload();
+            }).catch((error) => {
+              console.log(error.message);
+            });
+          }
+        },
       },
 }
 

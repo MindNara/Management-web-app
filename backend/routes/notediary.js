@@ -43,51 +43,50 @@ router.get("/NoteDiary/detail/:noteId", async function (req, res, next) {
 });
 
 // เพิ่ม note_diary
+router.post('/NoteDiary/add', upload.single('note_img'), async function (req, res, next) {
 
-// router.post('/NoteDiary/add', upload.single('note_img'), async function (req, res, next) {
+    try {
+        await schemaInsert.validateAsync(req.body, { abortEarly: false })
+    } catch (error) {
+        return res.status(400).send(error)
+    }
 
-//     try {
-//         await schemaInsert.validateAsync(req.body, { abortEarly: false })
-//     } catch (error) {
-//         return res.status(400).send(error)
-//     }
+    const file = req.file;
+    const noted_id = req.body.user_id;
+    const noted_title = req.body.name_note;
+    const noted_content = req.body.data_note;
+    const noted_date = req.body.date_note
+    const user_id = req.body.user_id
 
-//     const file = req.file;
-//     const noted_id = req.body.user_id;
-//     const noted_title = req.body.name_note;
-//     const noted_content = req.body.data_note;
-//     const noted_date = req.body.date_note
+    console.log({noted_content, noted_id, noted_title, noted_date, user_id})
 
-//     console.log({noted_content, noted_id, noted_title, noted_date})
+    const conn = await pool.getConnection()
+    await conn.beginTransaction();
 
-//     const conn = await pool.getConnection()
-//     await conn.beginTransaction();
+    try {
 
-//     try {
+        if (file != undefined) {
+            const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
+            [noted_date, noted_title, noted_content, file.path.substr(6), user_id])
+        }
+        // } else {
+        //     const [newUser, newUserF] = await conn.query(
+        //         'UPDATE user SET fname=?, lname=?, email=?, password=? WHERE user_id = ?',
+        //         [fname, lname, email, password, user_id]
+        //     )
+        // }
+        await conn.commit();
+        res.json("success!");
 
-//         if (file != undefined) {
-//             const [newUser, newUserF] = await conn.query(
-//                 'UPDATE user SET fname=?, lname=?, email=?, password=?, image_user=? WHERE user_id = ?',
-//                 [fname, lname, email, password, file.path.substr(6), user_id]
-//             )
-//         } else {
-//             const [newUser, newUserF] = await conn.query(
-//                 'UPDATE user SET fname=?, lname=?, email=?, password=? WHERE user_id = ?',
-//                 [fname, lname, email, password, user_id]
-//             )
-//         }
-//         await conn.commit();
-//         res.json("Update profile success!");
+    } catch (err) {
+        await conn.rollback();
+        res.status(400).json(err);
+    } finally {
+        console.log('finally');
+        conn.release();
+    }
 
-//     } catch (err) {
-//         await conn.rollback();
-//         res.status(400).json(err);
-//     } finally {
-//         console.log('finally');
-//         conn.release();
-//     }
-
-// })
+})
 
 
 
