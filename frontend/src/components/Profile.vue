@@ -139,7 +139,7 @@
 <script>
 import axios from '@/plugins/axios'
 import { useUserStore } from '@/stores/user'
-import { reactive, onMounted } from 'vue'
+import { reactive } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 
@@ -172,6 +172,7 @@ export default {
             lname: '',
             email: '',
             password: 'AaBb1234',
+            passwordCrrut: '',
             image_user: '',
         });
 
@@ -214,6 +215,7 @@ export default {
         this.user.fname = userStore.user.fname;
         this.user.lname = userStore.user.lname;
         this.user.email = userStore.user.email;
+        this.user.passwordCrrut = userStore.user.password;
         this.user.image_user = userStore.user.image_user;
 
     },
@@ -254,7 +256,7 @@ export default {
             this.user.email = userStore.user.email;
             this.user.image_user = userStore.user.image_user;
 
-            document.getElementById('input-password').type = 'password';
+            // document.getElementById('input-password').type = 'password';
             this.user.password = 'AaBb1234';
         },
 
@@ -272,8 +274,14 @@ export default {
                 formData.append("fname", this.user.fname);
                 formData.append("lname", this.user.lname);
                 formData.append("email", this.user.email);
-                formData.append("password", this.user.password);
                 formData.append("user_id", this.user.user_id);
+                // formData.append("password", this.user.password);
+
+                if (this.user.password != 'AaBb1234') {
+                    formData.append("password", this.user.password);
+                } else {
+                    formData.append("password", this.user.passwordCrrut);
+                }
 
                 axios.put("/Profile", formData, {
                     headers: {

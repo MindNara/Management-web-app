@@ -35,8 +35,17 @@ router.put('/Profile', upload.single('user_img'), async function (req, res, next
     const fname = req.body.fname;
     const lname = req.body.lname;
     const email = req.body.email;
-    const password = await bcrypt.hash(req.body.password, 5)
+    // const password = await bcrypt.hash(req.body.password, 5)
+    const password = req.body.password;
     const user_id = req.body.user_id;
+
+    console.log({
+        'fname': fname,
+        'lname': lname,
+        'email': email,
+        'password': password,
+        'user_id': user_id,
+    })
 
     const conn = await pool.getConnection()
     await conn.beginTransaction();
