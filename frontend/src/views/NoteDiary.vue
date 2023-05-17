@@ -358,10 +358,10 @@ export default {
         },
 
         addNote() {
-          this.v$.$touch();
+          this.v$_add.$touch();
 
-          console.log(this.v$.$invalid)
-          if (!this.v$.$invalid) {
+          console.log(this.v$_add.$invalid)
+          if (!this.v$_add.$invalid) {
             var formData = new FormData();
             formData.append("note_img", this.file);
             formData.append("name_note", this.note_diary.name_note);
@@ -369,7 +369,7 @@ export default {
             formData.append("data_note", this.note_diary.data_note);
             formData.append("user_id", this.user_id)
 
-            axios.put("/NoteDiary/add", formData, {
+            axios.post("/NoteDiary/add", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },

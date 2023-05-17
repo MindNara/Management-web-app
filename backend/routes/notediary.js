@@ -5,9 +5,9 @@ const router = express.Router();
 const Joi = require('joi');
 
 const schemaInsert = Joi.object({
-    noted_name: Joi.string().required().max(100),
-    noted_date: Joi.date().required(),
-    noted_content: Joi.string().required(),
+    name_note: Joi.string().required().max(100),
+    date_note: Joi.date().required(),
+    data_note: Joi.string().required(),
 }).unknown()
 
 // ดึงข้อมูล note-diary
@@ -45,11 +45,11 @@ router.get("/NoteDiary/detail/:noteId", async function (req, res, next) {
 // เพิ่ม note_diary
 router.post('/NoteDiary/add', upload.single('note_img'), async function (req, res, next) {
 
-    try {
-        await schemaInsert.validateAsync(req.body, { abortEarly: false })
-    } catch (error) {
-        return res.status(400).send(error)
-    }
+    // try {
+    //     await schemaInsert.validateAsync(req.body, { abortEarly: false })
+    // } catch (error) {
+    //     return res.status(400).send(error)
+    // }
 
     const file = req.file;
     const noted_id = req.body.user_id;
@@ -58,7 +58,7 @@ router.post('/NoteDiary/add', upload.single('note_img'), async function (req, re
     const noted_date = req.body.date_note
     const user_id = req.body.user_id
 
-    console.log({noted_content, noted_id, noted_title, noted_date, user_id})
+    console.log({noted_content, noted_id, noted_title, noted_date, user_id, file})
 
     const conn = await pool.getConnection()
     await conn.beginTransaction();
