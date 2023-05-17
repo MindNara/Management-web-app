@@ -174,15 +174,14 @@
                                     <div class="card">
                                         <div class="card-image">
                                             <figure class="image is-2by1">
-                                                <img :src="note.image" alt="Placeholder image">
+                                                <img :src="'http://localhost:3000/'+note.noted_image" alt="Placeholder image">
                                             </figure>
                                         </div>
                                         <div class="card-content">
                                             <div class="media">
                                                 <div class="media-content" style="width: 100%;">
                                                     <p class="title title-note is-4">{{ note.noted_title }}</p>
-                                                    <p class="subtitle is-6">{{ note.noted_content }}</p>
-                                                    <p class="subtitle"></p>
+                                                    <p class="subtitle is-6">{{ shortContent(note.noted_content) }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -447,7 +446,12 @@ export default {
             }
             this.renderCalendar();
         },
-
+        shortContent(content) {
+            if (content.length > 10) {
+                return content.substring(0, 10) + "...";
+            }
+            return content;
+        },
     },
     computed: {
         filteredTasksToday() {

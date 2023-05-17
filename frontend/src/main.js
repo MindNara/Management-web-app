@@ -4,7 +4,7 @@ import router from './router/router'
 import Vuelidate from 'vuelidate'
 import { createPinia } from 'pinia'
 
-import './assets/style.css'
+import './assets/style.css' // ประกาศเรียกใช้ style
 
 const app = createApp(App)
 

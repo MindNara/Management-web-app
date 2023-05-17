@@ -48,7 +48,7 @@
                       <div class="media-content" style="width: 100%;">
                         <p class="title title-note is-4">{{note.noted_title}}</p>
                         <!-- <p class="subtitle is-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                        <p class="subtitle" style="float: left;">{{note.noted_content}}</p>
+                        <p class="subtitle is-6" style="float: left;">{{ shortContent(note.noted_content) }}</p>
                       </div>
                     </div>
                   </div>
@@ -196,24 +196,6 @@ export default {
         // }
 
         const v$_add = useVuelidate(rules_add, note_diary);
-        // const v$_edit = useVuelidate(rules_edit, task_todo); // ส่งค่าไปเช้คใน useVuelidate ของ vue ที่ import มา
-
-        // const getTask = async () => {
-        //     await userStore.getUser();
-        //     user_id.value = userStore.user.user_id; // เอาค่ามาใส่ใน user_id ที่ได้จาก userStore ใน conunter.js
-        //     // console.log('user_id: ' + user_id.value)
-
-        //     axios.get("/Task/" + user_id.value) // get ค่า task ที่ดึงมาจาก user_id ที่ได้มาอยู่ใน tasks ที่สร้างไว้ 
-        //     .then((response) => {
-        //         console.log(user_id.value)
-        //         tasks.value = response.data;
-        //         console.log(tasks.value)
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
-        // };
-        // onMounted(getTask); // มันจะทำทุกครั้งที่เข้าหน้า task มาอะไปทำฟังก์ชั่น getTask
 
         return { user_id, note, v$_add, note_diary }; // จะเอาค่าไปใช้ต่อก้ต้อง return ออกไป
     },
@@ -244,6 +226,14 @@ export default {
             });
 
     },
+    methods: {
+      shortContent(content) {
+        if (content.length > 100) {
+          return content.substring(0, 100) + "...";
+        }
+        return content;
+      },
+    }
 }
 
 </script>
