@@ -174,7 +174,8 @@
                                     <div class="card">
                                         <div class="card-image">
                                             <figure class="image is-2by1">
-                                                <img :src="'http://localhost:3000/'+note.noted_image" alt="Placeholder image">
+                                                <img :src="'http://localhost:3000/' + note.noted_image"
+                                                    alt="Placeholder image">
                                             </figure>
                                         </div>
                                         <div class="card-content">
@@ -255,15 +256,15 @@
                             <div class="columns" style="height: 33vh;">
                                 <div class="column mr-5">
                                     <div v-for="schedule in schedulesToday" :key="schedule.id">
-                                        <div class="level schedule-box px-5 mb-4 has-background-black"
-                                            v-if="schedule === schedulesToday[0]">
-                                            <span id="schedule1" class="has-text-white has-text-weight-light">
-                                                {{ schedule.schedule_act }}</span>
-                                        </div>
-                                        <div class="level schedule-box px-5 mb-4" v-else>
-                                            <span id="schedule2" class="has-text-black">
-                                                {{ schedule.schedule_act }}</span>
-                                        </div>
+                                        <a href="/Schedule" class="level schedule-box-dashboard px-5 mb-4">
+                                            <div class="level-left">
+                                                <span id="schedule2">{{ schedule.schedule_act
+                                                }}</span>
+                                            </div>
+                                            <div class="level-right">
+                                                <span class="scheduleDate">{{ schedule.schedule_date }}</span>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

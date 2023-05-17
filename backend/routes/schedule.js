@@ -102,6 +102,12 @@ router.get('/Schedule/Detail/:scheduleId', async function (req, res, next) {
 
 router.put('/Schedule/Update/:scheduleId', async function (req, res, next) {
 
+    try {
+        await schemaInsert.validateAsync(req.body, { abortEarly: false })
+    } catch (error) {
+        return res.status(400).send(error)
+    }
+
     const schedule_id = req.params.scheduleId;
     const schedule_act = req.body.schedule_act;
     const schedule_date = req.body.schedule_date;
