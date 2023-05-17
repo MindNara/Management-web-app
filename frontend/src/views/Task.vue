@@ -58,7 +58,7 @@
                                 class="card-content is-flex is-justify-content-center is-align-items-center has-text-black">
                                 <i class='bx bx-task-x'></i>
                                 <div class="text">
-                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{ filteredTasksToDo.length}}</span>
+                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{ filteredTasksToDo.length }}</span>
                                     <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
                                 </div>
                             </div>
@@ -156,7 +156,8 @@
                                         <td>{{ index + 1 }}</td>
                                         <td>
                                             <label class="checkbox">
-                                                <input type="checkbox" @click="addCheck(task.list_id, task.list_status)" checked>
+                                                <input type="checkbox" @click="addCheck(task.list_id, task.list_status)"
+                                                    checked>
                                                 {{ task.list_act }}
                                             </label>
                                         </td>
@@ -441,7 +442,7 @@ export default {
                     .catch((error) => {
                         this.error = error.response.data.message;
                     });
-            }   
+            }
         },
         submitAddtask() {
             this.v$_add.$touch();
@@ -482,20 +483,20 @@ export default {
                     });
             }
         },
-        addCheck(task_id, task_status){
+        addCheck(task_id, task_status) {
             console.log(task_id, task_status)
             const data = {
                 list_id: task_id,
                 list_status: task_status,
             }
             axios.put("/Task/addCheck", data)
-            .then((response) => {
-                this.$router.push({ path: "/Task" })
-                document.location.reload();
-            })
-            .catch((error) => {                        
-                this.error = error.response.data.message;
-            });
+                .then((response) => {
+                    this.$router.push({ path: "/Task" })
+                    document.location.reload();
+                })
+                .catch((error) => {
+                    this.error = error.response.data.message;
+                });
         }
     },
     computed: {

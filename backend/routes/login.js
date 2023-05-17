@@ -61,8 +61,4 @@ router.get('/user/me', isLoggedIn, async (req, res, next) => {
     res.json(req.user)
 })
 
-// router.get('/Login', function (req, res) {
-//     res.render('LoginPage')
-// })
-
 exports.router = router;
