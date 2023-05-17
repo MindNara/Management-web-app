@@ -143,25 +143,14 @@
                                         <div class="level-left">
                                             <span id="schedule2" class="has-text-black">{{ schedule.schedule_act }}</span>
                                         </div>
-
                                         <div class="level-right">
-                                            <!-- <span class="mr-6 has-text-black">{{ schedule.schedule_date }}</span> -->
-                                            <a class="mr-5 icon-edit"><i class="fas fa-pen"></i></a>
-                                            <a class="icon-delete"><i class="fas fa-trash"></i></a>
+                                            <a class="mr-5 icon has-text-dark"
+                                                @click="editSchedule(schedule.schedule_id)"><i class="fas fa-pen"></i></a>
+                                            <a class="icon" style="color: rgb(105, 16, 16);"
+                                                @click="deleteSchedule(schedule.schedule_id, schedule.schedule_act)"><i
+                                                    class="fas fa-trash"></i></a>
                                         </div>
-
                                     </div>
-
-                                    <!-- <div class="level schedule-box px-5 mb-4 has-background-black"
-                                        v-if="schedule === schedulesToday[0]">
-                                        <span id="schedule1" class="has-text-white has-text-weight-light">
-                                            {{ schedule.schedule_act }}
-                                        </span>
-                                    </div>
-                                    <div class="level schedule-box px-5 mb-4" v-else>
-                                        <span id="schedule2" class="has-text-black">
-                                            {{ schedule.schedule_act }}</span>
-                                    </div> -->
                                 </div>
 
                             </div>
@@ -175,50 +164,95 @@
         <!-- modal-add-schedule -->
         <div class="modal model-addSchedule" :class="{ 'is-active': showModel }">
             <div class="modal-background"></div>
-            <form method="POST" action="/Schedule">
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title has-text-weight-semibold">ADD SCHEDULE</p>
-                        <a class="delete btn-close" aria-label="close"
-                            @click="showModel = !showModel; closeEditingInput()"></a>
-                    </header>
-                    <!-- Content ... -->
-                    <section class="modal-card-body">
-                        <div class="field">
-                            <label class="label">TITLE :</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input" type="text" name="schedule_act" id="schedule_act"
-                                    placeholder="your title" v-model="schedule.schedule_act"
-                                    :class="{ 'is-danger': v$.schedule_act.$error }" @input="v$.schedule_act.$touch()">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-book"></i>
-                                </span>
-                            </div>
-                            <span v-if="v$.schedule_act.$error">
-                                <p class="help is-danger">{{ v$.schedule_act.$errors[0].$message }}</p>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title has-text-weight-semibold">ADD SCHEDULE</p>
+                    <a class="delete btn-close" aria-label="close" @click="showModel = !showModel; closeEditingInput()"></a>
+                </header>
+                <!-- Content ... -->
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">TITLE :</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input class="input" type="text" name="schedule_act" id="schedule_act" placeholder="your title"
+                                v-model="schedule.schedule_act" :class="{ 'is-danger': v$.schedule_act.$error }"
+                                @input="v$.schedule_act.$touch()">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-book"></i>
                             </span>
                         </div>
-                        <div class="field">
-                            <label for="date" class="label">DATE :</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input type="date" id="schedule_date" name="schedule_date" class="input"
-                                    v-model="schedule.schedule_date" :class="{ 'is-danger': v$.schedule_date.$error }"
-                                    @input="v$.schedule_date.$touch()">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-calendar"></i>
-                                </span>
-                            </div>
-                            <span v-if="v$.schedule_date.$error">
-                                <p class="help is-danger">{{ v$.schedule_date.$errors[0].$message }}</p>
+                        <span v-if="v$.schedule_act.$error">
+                            <p class="help is-danger">{{ v$.schedule_act.$errors[0].$message }}</p>
+                        </span>
+                    </div>
+                    <div class="field">
+                        <label for="date" class="label">DATE :</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input type="date" id="schedule_date" name="schedule_date" class="input"
+                                v-model="schedule.schedule_date" :class="{ 'is-danger': v$.schedule_date.$error }"
+                                @input="v$.schedule_date.$touch()">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-calendar"></i>
                             </span>
                         </div>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <button class="btn-create button is-black" type="button" @click="createSchedule()">Create</button>
-                        <a class="button btn-cancle" @click="showModel = !showModel; closeEditingInput()">Cancel</a>
-                    </footer>
-                </div>
-            </form>
+                        <span v-if="v$.schedule_date.$error">
+                            <p class="help is-danger">{{ v$.schedule_date.$errors[0].$message }}</p>
+                        </span>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="btn-create button is-black" type="button" @click="createSchedule()">Create</button>
+                    <a class="button btn-cancle" @click="showModel = !showModel; closeEditingInput()">Cancel</a>
+                </footer>
+            </div>
+        </div>
+
+        <!-- modal-edit-schedule -->
+        <div class="modal model-addSchedule" :class="{ 'is-active': showModelEdit }">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title has-text-weight-semibold">EDIT SCHEDULE</p>
+                    <a class="delete btn-close" aria-label="close" @click="showModelEdit = !showModelEdit;"></a>
+                </header>
+                <!-- Content ... -->
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">TITLE :</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input class="input" type="text" placeholder="your title"
+                                v-model="schedule_edit.schedule_act_edit"
+                                :class="{ 'is-danger': vEdit$.schedule_act_edit.$error }"
+                                @input="vEdit$.schedule_act_edit.$touch()">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-book"></i>
+                            </span>
+                        </div>
+                        <span v-if="vEdit$.schedule_act_edit.$error">
+                            <p class="help is-danger">{{ vEdit$.schedule_act_edit.$errors[0].$message }}</p>
+                        </span>
+                    </div>
+                    <div class="field">
+                        <label for="date" class="label">DATE :</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input type="date" class="input" v-model="schedule_edit.schedule_date_edit"
+                                :class="{ 'is-danger': vEdit$.schedule_date_edit.$error }"
+                                @input="vEdit$.schedule_date_edit.$touch()">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-calendar"></i>
+                            </span>
+                        </div>
+                        <span v-if="vEdit$.schedule_date_edit.$error">
+                            <p class="help is-danger">{{ vEdit$.schedule_date_edit.$errors[0].$message }}</p>
+                        </span>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="btn-create button is-black" type="button"
+                        @click="UpdateSchedule(schedule_edit.schedule_id_edit)">Update</button>
+                    <a class="button btn-cancle" @click="showModelEdit = !showModelEdit;">Cancel</a>
+                </footer>
+            </div>
         </div>
 
     </div>
@@ -239,6 +273,7 @@ export default {
         const date = new Date();
         return {
             showModel: false,
+            showModelEdit: false,
             date: date,
             currYear: date.getFullYear(),
             currMonth: date.getMonth(),
@@ -259,6 +294,12 @@ export default {
             schedule_date: '',
         })
 
+        const schedule_edit = reactive({
+            schedule_act_edit: '',
+            schedule_date_edit: '',
+            schedule_id_edit: '',
+        })
+
         const rules = {
             schedule_act: {
                 required: required,
@@ -268,9 +309,19 @@ export default {
             },
         }
 
-        const v$ = useVuelidate(rules, schedule);
+        const rules_edit = {
+            schedule_act_edit: {
+                required: required,
+            },
+            schedule_date_edit: {
+                required: required,
+            },
+        }
 
-        return { schedule, schedulesToday, schedulesAll, v$, user_id };
+        const v$ = useVuelidate(rules, schedule);
+        const vEdit$ = useVuelidate(rules_edit, schedule_edit);
+
+        return { schedule, schedulesToday, schedulesAll, v$, user_id, schedule_edit, vEdit$ };
     },
     components: {
         Navbar,
@@ -283,7 +334,7 @@ export default {
 
         await userStore.getUser();
         this.user_id = userStore.user.user_id;
-        console.log('User ID:', this.user_id);
+        // console.log('User ID:', this.user_id);
 
         await axios.get("http://localhost:3000/Schedule/" + this.user_id)
             .then((response) => {
@@ -336,6 +387,61 @@ export default {
                         }
                     })
                 document.location.reload();
+            }
+        },
+
+        editSchedule(schedule_id) {
+
+            this.showModelEdit = true;
+            console.log('Edit Schedule: ' + schedule_id)
+
+            axios.get("http://localhost:3000/Schedule/Detail/" + schedule_id)
+                .then((response) => {
+                    this.schedule_edit.schedule_act_edit = response.data.scheduleEdit[0].schedule_act;
+                    this.schedule_edit.schedule_date_edit = response.data.scheduleEdit[0].schedule_date;
+                    this.schedule_edit.schedule_id_edit = schedule_id;
+                    // console.log('schedule_date_edit: ' + this.schedule_edit.schedule_date_edit);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+        },
+
+        UpdateSchedule(schedule_id) {
+            this.vEdit$.$touch();
+            // console.log('Update Schedule: ' + schedule_id)
+
+            if (!this.vEdit$.$invalid) {
+                let formData = {
+                    schedule_act: this.schedule_edit.schedule_act_edit,
+                    schedule_date: this.schedule_edit.schedule_date_edit,
+                }
+
+                axios.put("http://localhost:3000/Schedule/Update/" + schedule_id, formData)
+                    .then((response) => {
+                        console.log(response);
+                        document.location.reload();
+                    }).catch((error) => {
+                        console.log(error.message);
+                    });
+            }
+
+        },
+
+        deleteSchedule(schedule_id, schedule_act) {
+            let scheduleId = schedule_id;
+            let scheduleAct = schedule_act;
+            const result = confirm(`Are you sure you want to delete \'${scheduleAct}\'`);
+
+            if (result) {
+                console.log('Delete Schedule')
+                axios.delete("http://localhost:3000/Schedule/Delete/" + scheduleId)
+                    .then((response) => {
+                        document.location.reload();
+                    }).catch((error) => {
+                        console.log(error.message);
+                    });
             }
         },
 

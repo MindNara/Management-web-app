@@ -256,7 +256,7 @@ export default {
             this.user.email = userStore.user.email;
             this.user.image_user = userStore.user.image_user;
 
-            // document.getElementById('input-password').type = 'password';
+            document.getElementById('input-password').type = 'password';
             this.user.password = 'AaBb1234';
         },
 
@@ -275,7 +275,6 @@ export default {
                 formData.append("lname", this.user.lname);
                 formData.append("email", this.user.email);
                 formData.append("user_id", this.user.user_id);
-                // formData.append("password", this.user.password);
 
                 if (this.user.password != 'AaBb1234') {
                     formData.append("password", this.user.password);
