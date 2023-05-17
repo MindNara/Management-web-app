@@ -177,6 +177,27 @@ button {
     background: #F6F6F8;
 }
 
+/* .schedule-box:hover {
+    background: black;
+    color: #F6F6F8;
+} */
+
+.schedule-box .icon-edit {
+    color: black;
+}
+
+/* .schedule-box .icon-edit:hover {
+    color: #F6F6F8;
+} */
+
+.schedule-box .icon-delete {
+    color: rgb(105, 16, 16);
+}
+
+/* .schedule-box .icon-delete:hover {
+    color: rgb(187, 70, 70);
+} */
+
 .schedule-box span {
     font-size: 18px;
 }

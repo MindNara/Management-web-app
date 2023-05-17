@@ -76,7 +76,7 @@
                                     <th>Sat</th>
                                 </tr>
                             </thead>
-                            <tbody class="days"><!-- FullCalendar --></tbody>
+                            <tbody class="days"></tbody>
                         </table>
                     </div>
                 </div>
@@ -139,7 +139,20 @@
                         <div class="columns" style="height: 32vh; overflow-y: auto; overflow-x: hidden;">
                             <div class="column mr-3">
                                 <div v-for="schedule in schedulesToday" :key="schedule.id">
-                                    <div class="level schedule-box px-5 mb-4 has-background-black"
+                                    <div class="level schedule-box px-5 mb-4">
+                                        <div class="level-left">
+                                            <span id="schedule2" class="has-text-black">{{ schedule.schedule_act }}</span>
+                                        </div>
+
+                                        <div class="level-right">
+                                            <!-- <span class="mr-6 has-text-black">{{ schedule.schedule_date }}</span> -->
+                                            <a class="mr-5 icon-edit"><i class="fas fa-pen"></i></a>
+                                            <a class="icon-delete"><i class="fas fa-trash"></i></a>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- <div class="level schedule-box px-5 mb-4 has-background-black"
                                         v-if="schedule === schedulesToday[0]">
                                         <span id="schedule1" class="has-text-white has-text-weight-light">
                                             {{ schedule.schedule_act }}
@@ -148,7 +161,7 @@
                                     <div class="level schedule-box px-5 mb-4" v-else>
                                         <span id="schedule2" class="has-text-black">
                                             {{ schedule.schedule_act }}</span>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                             </div>
@@ -283,12 +296,14 @@ export default {
                 console.log(err);
             });
 
+        this.renderFullCalendar();
+        this.showSchedule();
+
     },
     mounted() {
         const today = new Date();
         this.currentYear = today.getFullYear();
         this.currentMonth = today.getMonth();
-        this.renderFullCalendar();
     },
     methods: {
         closeEditingInput() {
@@ -379,11 +394,42 @@ export default {
 
         },
 
+        showSchedule() {
+
+            const firstDayOfMonth = new Date(this.currYear, this.currMonth, 1); // วันที่แรกของเดือน
+            const lastDayOfMonth = new Date(this.currYear, this.currMonth + 1, 0); // วันสุดท้ายของเดือน
+
+            // แปลงเป็นรูปแบบ "YYYY-MM-DD"
+            const formattedFirstDay = `${firstDayOfMonth.getFullYear()}-${(firstDayOfMonth.getMonth() + 1 < 10 ? '0' : '') + (firstDayOfMonth.getMonth() + 1)}-${(firstDayOfMonth.getDate() < 10 ? '0' : '') + firstDayOfMonth.getDate()}`;
+            const formattedLastDay = `${lastDayOfMonth.getFullYear()}-${(lastDayOfMonth.getMonth() + 1 < 10 ? '0' : '') + (lastDayOfMonth.getMonth() + 1)}-${(lastDayOfMonth.getDate() < 10 ? '0' : '') + lastDayOfMonth.getDate()}`;
+
+            // console.log(formattedFirstDay)
+            // console.log(formattedLastDay)
+
+            this.schedulesAll.forEach((item, index) => {
+
+                if (item.schedule_date >= formattedFirstDay && item.schedule_date <= formattedLastDay) {
+                    // console.log('item date ' + index + ' : ' + item.schedule_date);
+
+                    const div = document.createElement("div");
+                    const date = item.schedule_date;
+                    const title = item.schedule_act;
+                    const tdDate = document.getElementById(date);
+                    // console.log('tdDate ' + index + ' : ' + tdDate)
+                    div.innerHTML = title;
+                    tdDate.appendChild(div);
+                    div.classList.add("boxtext");
+                }
+            })
+
+        },
+
         goToToday() {
             const today = new Date();
             this.currYear = today.getFullYear();
             this.currMonth = today.getMonth();
             this.renderFullCalendar();
+            this.showSchedule();
         },
 
         goToPreviousMonth() {
@@ -393,6 +439,7 @@ export default {
                 this.currMonth = 11;
             }
             this.renderFullCalendar();
+            this.showSchedule();
         },
 
         goToNextMonth() {
@@ -402,6 +449,7 @@ export default {
                 this.currYear += 1;
             }
             this.renderFullCalendar();
+            this.showSchedule();
         },
 
     }
