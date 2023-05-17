@@ -98,13 +98,7 @@ router.delete("/NoteDiary/delete/:noteId", async (req, res, next) => {
     const conn = await pool.getConnection() // สร้าง transaction ก่อนจะไปทำการลบ
     await conn.beginTransaction();
 
-    const [datalist] = await pool.query('SELECT * FROM note_diary WHERE noted_id =?', [noted_id]) // ดึงข้อมูลออกมาเก็บไว้เพื่อไปใช้ในตอน check ว่ามี listid นี้ไหม
-
-    // if (datalist.length === 0) { // เช็คว่า params ที่เข้ามามีใน id ไหม
-    //     return res.status(404).send({ // ส่ง status และ message
-    //         "message": "ไม่พบ Task ที่ต้องการลบ",
-    //     })
-    // }
+    const [datalist] = await pool.query('SELECT * FROM note_diary WHERE noted_id =?', [noted_id]) // ดึงข้อมูลออกมาเก็บไว้เพื่อไปใช้ในตอน check ว่ามี noteid นี้ไหม
 
     try {
         const [todo] = await pool.query('DELETE FROM note_diary WHERE noted_id =?', [noted_id]) // ลบ todo
@@ -120,6 +114,55 @@ router.delete("/NoteDiary/delete/:noteId", async (req, res, next) => {
     } finally {
         conn.release() // ตอนจบควรมีนี่ด้วยมันจะได้หยุดจริงๆ ห้ามลืม
     }
+
+})
+
+router.put('/NoteDiary/edit/:noteId', upload.single('note_img_edit'), async function (req, res, next) {
+    const noted_id = req.params.noteId
+    try {
+        await schemaInsert.validateAsync(req.body, { abortEarly: false })
+    } catch (error) {
+        return res.status(400).send(error)
+    }
+
+    const file = req.file;
+    const noted_title = req.body.name_note;
+    const noted_content = req.body.data_note;
+    const noted_date = req.body.date_note
+
+    console.log({noted_content, noted_id, noted_title, noted_date, file})
+
+    const conn = await pool.getConnection()
+    await conn.beginTransaction();
+
+    // try {
+
+    //     if (file != undefined) {
+    //         const [dataEdit] = await conn.query('UPDATE user SET noted_date=?, noted_title=?, noted_content=?, noted_image=?, WHERE noted_id = ?',
+    //         [noted_date, noted_title, noted_content, file.path.substr(6), noted_id])
+    //     } else {
+    //         const [dataEdit] = await conn.query('UPDATE user SET noted_date=?, noted_title=?, noted_content=?, WHERE noted_id = ?',
+    //         [noted_date, noted_title, noted_content, noted_id])
+    //     }
+
+    //     // if (file != undefined) {
+    //     //     const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
+    //     //     [noted_date, noted_title, noted_content, file.path.substr(6), user_id])
+    //     // } else {
+    //     //     image = "\\uploads\\note-pic1.jpeg" // ถ้าไม่เลือกรูปจะมีรูปตั้งต้นให้
+    //     //     const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
+    //     //     [noted_date, noted_title, noted_content, image, user_id])
+    //     // }
+    //     await conn.commit();
+    //     res.json("success!");
+
+    // } catch (err) {
+    //     await conn.rollback();
+    //     res.status(400).json(err);
+    // } finally {
+    //     console.log('finally');
+    //     conn.release();
+    // }
 
 })
 

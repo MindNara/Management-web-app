@@ -166,7 +166,7 @@
           <!-- modal-edit-note -->
           <div class="modal" v-bind:class="{'is-active':show_modal_edit}">
             <div class="modal-background" @click="show_modal_edit = !show_modal_edit"></div>
-            <div class="modal-card">
+            <div class="modal-card" v-for="(content, index) in content_note" :key="index">
               <header class="modal-card-head">
                 <p class="modal-card-title has-text-weight-semibold m-0">EDIT NOTE-DIARY</p>
                 <button class="delete" aria-label="close" @click="show_modal_edit = !show_modal_edit"></button>
@@ -186,9 +186,22 @@
                       <p class="help is-danger" v-if="v$_edit.name_note_edit.required">This field is required</p>
                     </span>
                   </div>
-                  <div class="field">
+                  <!-- <div class="field">
                     <label for="image-note" class="label">IMAGE :</label>
                     <input type="file" id="image-note-edit" name="image-note-edit">
+                  </div> -->
+                  <div class="file">
+                      <label class="file-label">
+                        <input class="file-input" type="file" name="image_note_edit" id="image_note_edit" ref="file" @change="handleFileUpload()">
+                            <span class="file-cta is-size-7">
+                              <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                              </span>
+                              <span class="file-label">
+                                Choose a file…
+                              </span>
+                            </span>
+                      </label>
                   </div>
                   <div class="field">
                     <label for="date-note" class="label">DATE :</label>
@@ -212,7 +225,7 @@
                 </form>
               </section>
               <footer class="modal-card-foot">
-                <button class="button is-black">Update</button>
+                <button class="button is-black" @click="editNote(content.noted_id)">Update</button>
                 <button class="button" @click="show_modal_edit = !show_modal_edit" >Cancel</button>
               </footer>
             </div>
@@ -397,6 +410,28 @@ export default {
                     .catch((error) => {
                         this.error = error.response.data.message;
                     });
+            }
+        },
+        editNote(noted_id) {
+            this.v$_edit.$touch(); // ไปเอามาเช้คอีกทีใน usevalidate
+            console.log(noted_id)
+            if (!this.v$_add.$invalid) {
+              var formData = new FormData();
+              formData.append("note_img_edit", this.file);
+              formData.append("name_note", this.note_diary.name_note_edit);
+              formData.append("date_note", this.note_diary.date_note_edit);
+              formData.append("data_note", this.note_diary.data_note_edit);
+
+              axios.put("/NoteDiary/edit/" + noted_id, formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+              }).then((response) => {
+                console.log(response);
+                document.location.reload();
+              }).catch((error) => {
+                console.log(error.message);
+              });
             }
         },
       },
