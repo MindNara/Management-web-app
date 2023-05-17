@@ -40,7 +40,7 @@
                 <div>
                   <div class="card-image">
                     <figure class="image is-2by1">
-                      <img src='http://localhost:3000/' note.noted_image alt="note_img">
+                      <img :src="'http://localhost:3000/'+note.noted_image" alt="note_img">
                     </figure>
                   </div>
                   <div class="card-content">
