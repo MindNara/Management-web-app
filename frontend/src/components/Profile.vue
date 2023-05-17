@@ -138,7 +138,7 @@
 
 <script>
 import axios from '@/plugins/axios'
-import { useUserStore } from '@/stores/counter'
+import { useUserStore } from '@/stores/user'
 import { reactive, onMounted } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'

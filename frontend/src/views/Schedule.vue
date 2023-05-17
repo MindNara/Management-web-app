@@ -232,7 +232,7 @@ import axios from "axios";
 import { reactive, ref, onMounted, computed } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-import { useUserStore } from '@/stores/counter'
+import { useUserStore } from '@/stores/user'
 
 export default {
     data() {

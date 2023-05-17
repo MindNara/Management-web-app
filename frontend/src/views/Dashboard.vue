@@ -307,7 +307,7 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
-import { useUserStore } from '@/stores/counter'
+import { useUserStore } from '@/stores/user'
 import { watchEffect, ref } from 'vue'
 
 export default {
