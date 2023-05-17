@@ -101,7 +101,7 @@
                                         <td>{{ index + 1 }}</td>
                                         <td>
                                             <label class="checkbox">
-                                                <input type="checkbox">
+                                                <input type="checkbox" @click="addCheck(task.list_id, task.list_status)">
                                                 {{ task.list_act }}
                                             </label>
                                         </td>
@@ -157,7 +157,7 @@
                                         <td>{{ index + 1 }}</td>
                                         <td>
                                             <label class="checkbox">
-                                                <input type="checkbox" checked>
+                                                <input type="checkbox" @click="addCheck(task.list_id, task.list_status)" checked>
                                                 {{ task.list_act }}
                                             </label>
                                         </td>
@@ -335,7 +335,7 @@ export default {
             },
         }
 
-        const rules_edit = { // กำหนด validations ที่จะเช้ค
+        const rules_edit = { // กำหนด validations ที่จะเช้ค สร้างแยกกันระหว่าง add และ edit
             task_name_edit: {
                 required: required,
             },
@@ -426,26 +426,29 @@ export default {
             this.show_modal_edit = !this.show_modal_edit;
         },
         editTask(task_id) {
+            this.v$_edit.$touch(); // ไปเอามาเช้คอีกทีใน usevalidate
             console.log(task_id)
-            const data = {
-                list_act: this.task_todo.task_name_edit,
-                list_date: this.task_todo.due_date_edit,
-            }
-            console.log(data)
-            axios.put("/Task/edit/" + task_id, data)
-                .then((response) => {
-                    this.$router.push({ path: "/Task" })
-                    document.location.reload();
-                })
-                .catch((error) => {
-                    this.error = error.response.data.message;
-                });
+            if (!this.v$_edit.$invalid) { // เช้คก่อนส่งไป backend เพราะไม่อยากให้ error
+                const data = {
+                    list_act: this.task_todo.task_name_edit,
+                    list_date: this.task_todo.due_date_edit,
+                }
+                console.log(data)
+                axios.put("/Task/edit/" + task_id, data)
+                    .then((response) => {
+                        this.$router.push({ path: "/Task" })
+                        document.location.reload();
+                    })
+                    .catch((error) => {
+                        this.error = error.response.data.message;
+                    });
+            }   
         },
         submitAddtask() {
             this.v$_add.$touch();
 
             console.log(this.v$_add.$invalid)
-            if (!this.v$_add.$invalid) {
+            if (!this.v$_add.$invalid) { // เช้คก่อนส่งไป backend อีกรอบว่าใน rule ที่ตั้งไว้ผ่านไหม
                 console.log('Add Tasks')
                 const data = {
                     list_act: this.task_todo.task_name,
@@ -479,6 +482,21 @@ export default {
                         this.error = error.response.data.message;
                     });
             }
+        },
+        addCheck(task_id, task_status){
+            console.log(task_id, task_status)
+            const data = {
+                list_id: task_id,
+                list_status: task_status,
+            }
+            axios.put("/Task/addCheck", data)
+            .then((response) => {
+                this.$router.push({ path: "/Task" })
+                document.location.reload();
+            })
+            .catch((error) => {                        
+                this.error = error.response.data.message;
+            });
         }
     },
     computed: {
