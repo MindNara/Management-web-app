@@ -61,7 +61,7 @@
                     </span>
                   </a>
                   <a href="#" class="edit-delete card-footer-item">
-                    <span class="icon has-text-black">
+                    <span class="icon has-text-black" @click="deleteNote(note.noted_id, note.noted_title)">
                       <i class="fas fa-trash mr-3" style="color: rgb(105, 16, 16);"></i>
                       <p style="color: rgb(105, 16, 16);">Delete</p>
                     </span>
@@ -380,6 +380,24 @@ export default {
               console.log(error.message);
             });
           }
+        },
+
+        deleteNote(noted_id, noted_title) {
+            // this.list_act = task_act
+            // this.list_id = task_id
+            const result = confirm(`Are you sure you want to delete \'${noted_title}\'`);
+
+            if (result) {
+                axios.delete("/NoteDiary/delete/" + noted_id)
+                    .then((response) => {
+                        // this.$router.push({ path: "/NoteDiaey" })
+                        document.location.reload();
+
+                    })
+                    .catch((error) => {
+                        this.error = error.response.data.message;
+                    });
+            }
         },
       },
 }
