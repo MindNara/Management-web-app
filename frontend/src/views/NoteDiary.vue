@@ -26,7 +26,7 @@
         </div>
         <div class="content column pr-5" style="overflow-x: hidden; overflow-y: scroll;">
           <div>
-            <button class="button is-black is is-normal has-text-weight-normal">
+            <button class="button is-black is is-normal has-text-weight-normal" @click="show_modal = !show_modal">
               <span class="icon">
                 <i class="fas fa-solid fa-plus"></i>
               </span>
@@ -55,7 +55,7 @@
                 </div>
                 <footer class="card-footer">
                   <a href="#" class="edit-delete card-footer-item">
-                    <span class="icon has-text-black">
+                    <span class="icon has-text-black"  @click="openModalEdit(note.noted_id)">
                       <i class="fas fa-pen mr-3"></i>
                       <p>Edit</p>
                     </span>
@@ -71,12 +71,12 @@
             </div>
           </div>
           <!-- modal-add-note -->
-          <div class="modal">
-            <div class="modal-background"></div>
+          <div class="modal" v-bind:class="{'is-active':show_modal}">
+            <div class="modal-background" @click="show_modal = !show_modal"></div>
             <div class="modal-card">
               <header class="modal-card-head">
                 <p class="modal-card-title has-text-weight-semibold m-0">ADD NOTE-DIARY</p>
-                <button class="delete" aria-label="close"></button>
+                <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
               </header>
               <section class="modal-card-body">
                 <!-- Content ... -->
@@ -84,11 +84,14 @@
                   <div class="field">
                     <label class="label">TOPIC :</label>
                     <div class="control has-icons-left has-icons-right">
-                      <input class="input" type="text" id="name-note" name="name-note" v-model="name_note">
+                      <input class="input" type="text" id="name-note" name="name-note" v-model="note_diary.name_note" @input="v$_add.name_note.$touch()">
                       <span class="icon is-small is-left">
                         <i class="fas fa-book"></i>
                       </span>
                     </div>
+                    <span v-if="v$_add.name_note.$error">
+                      <p class="help is-danger" v-if="v$_add.name_note.required">This field is required</p>
+                    </span>
                   </div>
                   <div class="field">
                     <label for="image-note" class="label">IMAGE :</label>
@@ -97,21 +100,27 @@
                   <div class="field">
                     <label for="date-note" class="label">DATE :</label>
                     <div class="control has-icons-left has-icons-right">
-                      <input type="date" id="date-note" name="date-note" class="input" v-model="date_note">
+                      <input type="date" id="date-note" name="date-note" class="input" v-model="note_diary.date_note" @input="v$_add.date_note.$touch()" >
                       <span class="icon is-small is-left">
                         <i class="fas fa-calendar"></i>
                       </span>
                     </div>
+                    <span v-if="v$_add.date_note.$error">
+                      <p class="help is-danger" v-if="v$_add.date_note.required">This field is required</p>
+                    </span>
                   </div>
                   <div class="field">
                     <label for="date-note" class="label">STORY :</label>
-                    <textarea class="p-5 is-size-5" style="width: 100%;" placeholder="Remember, be nice!" cols="90" rows="10" v-model="data_note"></textarea>
+                    <textarea class="p-5 is-size-5" style="width: 100%;" placeholder="Remember, be nice!" cols="90" rows="10" v-model="note_diary.data_note" @input="v$_add.data_note.$touch()" ></textarea>
                   </div>
+                  <span v-if="v$_add.data_note.$error">
+                      <p class="help is-danger" v-if="v$_add.data_note.required">This field is required</p>
+                  </span>
                 </form>
               </section>
               <footer class="modal-card-foot">
                 <button class="button is-black" @click="addNote()">Create</button>
-                <button class="button" @click="show_modal = !show_modal">Cancel</button>
+                <button class="button" @click="show_modal = !show_modal" >Cancel</button>
               </footer>
             </div>
           </div>
@@ -140,6 +149,62 @@
             </div>
           </div>
           <!-- modal-open-card -->
+
+          <!-- modal-edit-note -->
+          <div class="modal" v-bind:class="{'is-active':show_modal_edit}">
+            <div class="modal-background" @click="show_modal_edit = !show_modal_edit"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title has-text-weight-semibold m-0">EDIT NOTE-DIARY</p>
+                <button class="delete" aria-label="close" @click="show_modal_edit = !show_modal_edit"></button>
+              </header>
+              <section class="modal-card-body">
+                <!-- Content ... -->
+                <form id="form_edit">
+                  <div class="field">
+                    <label class="label">TOPIC :</label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input class="input" type="text" id="name-note-edit" name="name-note-edit" v-model="note_diary.name_note_edit" @input="v$_edit.name_note_edit.$touch()">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-book"></i>
+                      </span>
+                    </div>
+                    <span v-if="v$_edit.name_note_edit.$error">
+                      <p class="help is-danger" v-if="v$_edit.name_note_edit.required">This field is required</p>
+                    </span>
+                  </div>
+                  <div class="field">
+                    <label for="image-note" class="label">IMAGE :</label>
+                    <input type="file" id="image-note-edit" name="image-note-edit">
+                  </div>
+                  <div class="field">
+                    <label for="date-note" class="label">DATE :</label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input type="date" id="date-note-edit" name="date-note-edit" class="input" v-model="note_diary.date_note_edit" @input="v$_edit.date_note_edit.$touch()">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-calendar"></i>
+                      </span>
+                    </div>
+                    <span v-if="v$_edit.date_note_edit.$error">
+                      <p class="help is-danger" v-if="v$_edit.date_note_edit.required">This field is required</p>
+                    </span>
+                  </div>
+                  <div class="field">
+                    <label for="date-note" class="label">STORY :</label>
+                    <textarea class="p-5 is-size-5" style="width: 100%;" placeholder="Remember, be nice!" cols="90" rows="10" v-model="note_diary.data_note_edit" @input="v$_edit.data_note_edit.$touch()"></textarea>
+                  </div>
+                  <span v-if="v$_edit.data_note_edit.$error">
+                      <p class="help is-danger" v-if="v$_edit.date_note_edit.required">This field is required</p>
+                    </span>
+                </form>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-black">Update</button>
+                <button class="button" @click="show_modal_edit = !show_modal_edit" >Cancel</button>
+              </footer>
+            </div>
+          </div>
+          <!-- modal-edit-note -->
         </div>
       </div>
     </div>
@@ -158,11 +223,16 @@ import { useUserStore } from '@/stores/user'
 export default {
   data() {
     return {
-      name_note: '',
-      date_note: '',
-      data_note: '',
+      // name_note: '',
+      // date_note: '',
+      // data_note: '',
+      // name_note_edit: '',
+      // date_note_edit: '',
+      // data_note_edit: '',
       content_note: '',
       show_modal_card: false,
+      show_modal: false,
+      show_modal_edit: false,
     }
   },
   setup() {
@@ -174,6 +244,9 @@ export default {
             name_note: '',
             date_note: '',
             data_note: '',
+            name_note_edit: '',
+            date_note_edit: '',
+            data_note_edit: '',
         }) // พอมันอยู่ในนี้แล้วตัวแปรข้างในเป็น object task_todo เวลาจะใช้ตัวแปรข้างในก้ต้อง task_todo.task_name ยังงี้
 
         const rules_add = { // กำหนด validations ที่จะเช้ค
@@ -188,18 +261,22 @@ export default {
           }
         }
 
-        // const rules_edit = { // กำหนด validations ที่จะเช้ค สร้างแยกกันระหว่าง add และ edit
-        //     task_name_edit: {
-        //         required: required,
-        //     },
-        //     due_date_edit: {
-        //         required: required,
-        //     },
-        // }
+        const rules_edit = { // กำหนด validations ที่จะเช้ค สร้างแยกกันระหว่าง add และ edit
+          name_note_edit: {
+            required: required,
+          },
+          date_note_edit: {
+            required: required,
+          },
+          data_note_edit: {
+            required: required,
+          }
+        }
 
         const v$_add = useVuelidate(rules_add, note_diary);
+        const v$_edit = useVuelidate(rules_edit, note_diary);
 
-        return { user_id, note, v$_add, note_diary }; // จะเอาค่าไปใช้ต่อก้ต้อง return ออกไป
+        return { user_id, note, v$_add, v$_edit, note_diary }; // จะเอาค่าไปใช้ต่อก้ต้อง return ออกไป
     },
   components: {
     Navbar,
@@ -241,16 +318,31 @@ export default {
           axios.get("/NoteDiary/detail/" + note_id)
           .then((response) => {
             this.content_note = response.data.content_note; //จะเข้าไปใน content_task เลย
-            // this.task_todo.task_name_edit = this.content_task[0].list_act
-            // this.task_todo.due_date_edit = this.content_task[0].list_date
             console.log(this.content_note) // พอจะใช้ก้ this.content_task[0].list_act ได้เลย
           })
           .catch((err) => {
             console.log(err);
           });
           this.show_modal_card = !this.show_modal_card;
+        },
+
+        openModalEdit(note_id){
+        console.log(note_id)
+          axios.get("/NoteDiary/detail/" + note_id)
+          .then((response) => {
+            this.content_note = response.data.content_note; //จะเข้าไปใน content_task เลย
+            this.note_diary.name_note_edit = this.content_note[0].noted_title
+            this.note_diary.data_note_edit = this.content_note[0].noted_content
+            this.note_diary.date_note_edit = this.content_note[0].noted_date
+            console.log(this.content_note) // พอจะใช้ก้ this.content_task[0].list_act ได้เลย
+            console.log(this.note_diary.name_note_edit)
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+          this.show_modal_edit = !this.show_modal_edit;
         }
-      }
+      },
 }
 
 </script>
