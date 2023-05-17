@@ -3,8 +3,33 @@ const pool = require("../config");
 const bcrypt = require('bcrypt')
 const router = express.Router();
 const upload = require('../multer');
+const Joi = require('joi');
+
+
+const passwordValidator = (value, helpers) => {
+    if (value.length < 8) {
+        throw new Joi.ValidationError('Password must contain at least 8 characters')
+    }
+    if (!(value.match(/[a-z]/) && value.match(/[A-Z]/) && value.match(/[0-9]/))) {
+        throw new Joi.ValidationError('Password must be harder')
+    }
+    return value
+}
+
+const schemaUpdate = Joi.object({
+    fname: Joi.string().required().max(150),
+    lname: Joi.string().required().max(150),
+    email: Joi.string().required().email(),
+    password: Joi.string().required().custom(passwordValidator),
+}).unknown()
 
 router.put('/Profile', upload.single('user_img'), async function (req, res, next) {
+
+    try {
+        await schemaUpdate.validateAsync(req.body, { abortEarly: false })
+    } catch (error) {
+        return res.status(400).send(error)
+    }
 
     const file = req.file;
     const fname = req.body.fname;

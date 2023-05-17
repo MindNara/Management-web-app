@@ -1,6 +1,7 @@
 const express = require("express");
 const pool = require("../config");
 const router = express.Router();
+const Joi = require('joi');
 
 
 router.get('/Schedule/:userId', async function (req, res, next) {
@@ -35,7 +36,18 @@ router.get('/Schedule/:userId', async function (req, res, next) {
 })
 
 
+const schemaInsert = Joi.object({
+    schedule_date: Joi.date().required(),
+    schedule_act: Joi.string().required(),
+}).unknown()
+
 router.post('/Schedule', async function (req, res, next) {
+
+    try {
+        await schemaInsert.validateAsync(req.body, { abortEarly: false })
+    } catch (error) {
+        return res.status(400).send(error)
+    }
 
     const schedule_act = req.body.schedule_act;
     const schedule_date = req.body.schedule_date;
