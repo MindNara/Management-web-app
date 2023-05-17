@@ -57,6 +57,7 @@ router.post('/NoteDiary/add', upload.single('note_img'), async function (req, re
     const noted_content = req.body.data_note;
     const noted_date = req.body.date_note
     const user_id = req.body.user_id
+    let image = '';
 
     console.log({noted_content, noted_id, noted_title, noted_date, user_id, file})
 
@@ -68,13 +69,11 @@ router.post('/NoteDiary/add', upload.single('note_img'), async function (req, re
         if (file != undefined) {
             const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
             [noted_date, noted_title, noted_content, file.path.substr(6), user_id])
+        } else {
+            image = "\\uploads\\note-pic1.jpeg" // ถ้าไม่เลือกรูปจะมีรูปตั้งต้นให้
+            const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
+            [noted_date, noted_title, noted_content, image, user_id])
         }
-        // } else {
-        //     const [newUser, newUserF] = await conn.query(
-        //         'UPDATE user SET fname=?, lname=?, email=?, password=? WHERE user_id = ?',
-        //         [fname, lname, email, password, user_id]
-        //     )
-        // }
         await conn.commit();
         res.json("success!");
 
