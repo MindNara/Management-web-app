@@ -3,8 +3,10 @@ const pool = require("../config");
 const router = express.Router();
 const Joi = require('joi');
 
+const currentDate = new Date().toISOString().split('T')[0]; // วันที่ปัจจุบัน
+
 const schemaInsert = Joi.object({ // สร้าง Joi มา check data ที่เข้ามาว่าครบยัง
-    list_date: Joi.date().greater('now').required(), // .greater('now') วันที่มากกว่าวันนี้? -> ใส่วันที่วันนี้แล้วไม่ผ่าน
+    list_date: Joi.date().min(new Date(currentDate)).required(),  // เช็คว่า list_date ต้องมีค่า >= วันที่ปัจจุบัน
     list_act: Joi.string().required(),
 }).unknown()
 
@@ -152,13 +154,13 @@ router.put("/Task/addCheck", async function (req, res, next) {
 
 
     console.log("id " + list_id)
-    console.log("status " +list_status)
+    console.log("status " + list_status)
 
     try {
-        if(list_status === 0){
+        if (list_status === 0) {
             const [dataEdit] = await pool.query('UPDATE to_do_list SET list_status = 1 WHERE list_id=?', [list_id])
         }
-        else{
+        else {
             const [dataEdit] = await pool.query('UPDATE to_do_list SET list_status = 0 WHERE list_id=?', [list_id])
         }
         await conn.commit()
