@@ -246,24 +246,6 @@ export default {
             schedule_date: '',
         })
 
-        // const getSchedule = async () => {
-        //     await userStore.getUser();
-        //     user_id.value = userStore.user.user_id;
-        //     // console.log('user_id: ' + user_id.value)
-
-        //     axios.get("http://localhost:3000/Schedule/" + user_id.value)
-        //         .then((response) => {
-        //             schedulesToday.value = response.data.scheduleToday;
-        //             schedulesAll.value = response.data.scheduleAll;
-        //             console.log(schedulesToday.value);
-        //             console.log(schedulesAll.value);
-        //         })
-        //         .catch((err) => {
-        //             console.log(err);
-        //         });
-        // };
-        // onMounted(getSchedule);
-
         const rules = {
             schedule_act: {
                 required: required,
@@ -288,14 +270,14 @@ export default {
 
         await userStore.getUser();
         this.user_id = userStore.user.user_id;
-        console.log('user_id: ' + this.user_id)
+        console.log('User ID:', this.user_id);
 
         await axios.get("http://localhost:3000/Schedule/" + this.user_id)
             .then((response) => {
                 this.schedulesToday = response.data.scheduleToday;
                 this.schedulesAll = response.data.scheduleAll;
-                console.log(this.schedulesToday);
-                console.log(this.schedulesAll);
+                console.log('SchedulesToday:', this.schedulesToday);
+                console.log('SchedulesAll:', this.schedulesAll);
             })
             .catch((err) => {
                 console.log(err);

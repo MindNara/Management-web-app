@@ -4,7 +4,7 @@ const router = express.Router();
 const Joi = require('joi');
 
 const schemaInsert = Joi.object({ // สร้าง Joi มา check data ที่เข้ามาว่าครบยัง
-    list_date: Joi.date().greater('now').required(),
+    list_date: Joi.date().greater('now').required(), // .greater('now') วันที่มากกว่าวันนี้? -> ใส่วันที่วันนี้แล้วไม่ผ่าน
     list_act: Joi.string().required(),
 }).unknown()
 
@@ -25,7 +25,7 @@ router.get("/Task/:userId", async function (req, res, next) {
 // เพิ่มข้อมูล task
 router.post("/Task/add", async (req, res, next) => {
     try {
-        await schemaInsert.validateAsync(req.body, { abortEarly: false}) // เอา joi ที่เราสร้างไว้มาเช็ค data ที่ได้มาจาก req.body บางครั้งมาจาก query ก็ต้องใช้ req.query
+        await schemaInsert.validateAsync(req.body, { abortEarly: false }) // เอา joi ที่เราสร้างไว้มาเช็ค data ที่ได้มาจาก req.body บางครั้งมาจาก query ก็ต้องใช้ req.query
     } catch (error) {
         return res.status(400).send(error)
     }
@@ -33,7 +33,7 @@ router.post("/Task/add", async (req, res, next) => {
     const conn = await pool.getConnection() // สร้าง transaction ก่อนจะไปทำการลบ
     await conn.beginTransaction();
 
-    
+
     const list_act = req.body.list_act
     const list_date = req.body.list_date
     const user_id = req.body.user_id
@@ -43,8 +43,8 @@ router.post("/Task/add", async (req, res, next) => {
     console.log(list_date)
 
     try {
-        const [data] = await pool.query('INSERT INTO to_do_list(list_create_date, list_date, list_act, list_status, user_id) VALUES (CURRENT_TIMESTAMP, ?, ?, 0, ?);', 
-        [list_date, list_act, user_id])
+        const [data] = await pool.query('INSERT INTO to_do_list(list_create_date, list_date, list_act, list_status, user_id) VALUES (CURRENT_TIMESTAMP, ?, ?, 0, ?);',
+            [list_date, list_act, user_id])
 
         await conn.commit()
         res.send({
@@ -53,13 +53,13 @@ router.post("/Task/add", async (req, res, next) => {
     } catch (error) {
         await conn.rollback()
         res.send(error)
-    }finally{
+    } finally {
         conn.release()
     }
 })
 
 // ลบข้อมูล task
-router.delete("/Task/delete/:taskId", async(req, res, next) => {
+router.delete("/Task/delete/:taskId", async (req, res, next) => {
     const list_id = req.params.taskId
     // const user_id = req.body.user_id
     console.log(list_id)
@@ -69,25 +69,25 @@ router.delete("/Task/delete/:taskId", async(req, res, next) => {
     await conn.beginTransaction();
 
     const [datalist] = await pool.query('SELECT * FROM to_do_list WHERE list_id =?', [list_id]) // ดึงข้อมูลออกมาเก็บไว้เพื่อไปใช้ในตอน check ว่ามี listid นี้ไหม
-    
-    if (datalist.length === 0){ // เช็คว่า params ที่เข้ามามีใน id ไหม
+
+    if (datalist.length === 0) { // เช็คว่า params ที่เข้ามามีใน id ไหม
         return res.status(404).send({ // ส่ง status และ message
-            "message" : "ไม่พบ Task ที่ต้องการลบ",
+            "message": "ไม่พบ Task ที่ต้องการลบ",
         })
     }
 
     try {
         const [todo] = await pool.query('DELETE FROM to_do_list WHERE list_id =?', [list_id]) // ลบ todo
-        
+
         await conn.commit() // ต้อง commit ด้วยเพื่อให้ทำคำสั่ง sql
         res.send({ // สำเร็จส่งออก
-            "message" : `ลบ ToDo '${datalist[0].list_act}' สำเร็จ`,
+            "message": `ลบ ToDo '${datalist[0].list_act}' สำเร็จ`,
         })
 
     } catch (error) { // ทำไม่สำเร็จก้จะเข้านี่ 
         conn.rollback() // ต้องมี rollbacke ด้วยเวลาทำ transaction
         res.status(404)
-    }finally{
+    } finally {
         conn.release() // ตอนจบควรมีนี่ด้วยมันจะได้หยุดจริงๆ ห้ามลืม
     }
 
@@ -112,7 +112,7 @@ router.get("/Task/detail/:taskId", async function (req, res, next) {
 router.put("/Task/edit/:taskId", async function (req, res, next) {
     const list_id = req.params.taskId
     try {
-        await schemaInsert.validateAsync(req.body, { abortEarly: false}) // เอา joi ที่เราสร้างไว้มาเช็ค data ที่ได้มาจาก req.body บางครั้งมาจาก query ก็ต้องใช้ req.query
+        await schemaInsert.validateAsync(req.body, { abortEarly: false }) // เอา joi ที่เราสร้างไว้มาเช็ค data ที่ได้มาจาก req.body บางครั้งมาจาก query ก็ต้องใช้ req.query
     } catch (error) {
         return res.status(400).send(error)
     }
@@ -129,7 +129,7 @@ router.put("/Task/edit/:taskId", async function (req, res, next) {
 
     try {
         const [dataEdit] = await pool.query('UPDATE to_do_list SET list_date=?, list_act=? WHERE list_id=?', [list_date, list_act, list_id])
-        
+
         await conn.commit()
         res.send("สำเร็จ")
     } catch (err) {
@@ -139,7 +139,7 @@ router.put("/Task/edit/:taskId", async function (req, res, next) {
         console.log('finally')
         conn.release();
     }
-    
+
 });
 
 

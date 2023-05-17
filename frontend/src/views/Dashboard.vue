@@ -324,36 +324,35 @@ export default {
         }
     },
     setup() {
-        const userStore = useUserStore();
         const user = ref(null);
         const schedulesToday = ref(null);
         const tasks = ref(null);
         const notes = ref(null);
 
         // ถ้ามีการเปลี่ยนแปลงค่าจะเข้ามาทำในนี้
-        watchEffect(async () => {
-            await userStore.getUser();
+        // watchEffect(async () => {
+        //     await userStore.getUser();
 
-            // user.value like this.user => vue3
-            user.value = userStore.user;
+        //     // user.value like this.user => vue3
+        //     user.value = userStore.user;
 
-            // ถ้าใช้ข้างใน setup => user.value.fname
-            // console.log('user:', user.value.fname);
+        //     // ถ้าใช้ข้างใน setup => user.value.fname
+        //     // console.log('user:', user.value.fname);
 
-            axios.get(`http://localhost:3000/Dashboard/` + user.value.user_id)
-                .then((response) => {
-                    schedulesToday.value = response.data.scheduleToday;
-                    tasks.value = response.data.task;
-                    notes.value = response.data.note;
+        //     axios.get(`http://localhost:3000/Dashboard/` + user.value.user_id)
+        //         .then((response) => {
+        //             schedulesToday.value = response.data.scheduleToday;
+        //             tasks.value = response.data.task;
+        //             notes.value = response.data.note;
 
-                    console.log(schedulesToday.value)
-                    console.log(tasks.value)
-                    console.log(notes.value)
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        });
+        //             console.log(schedulesToday.value)
+        //             console.log(tasks.value)
+        //             console.log(notes.value)
+        //         })
+        //         .catch((err) => {
+        //             console.log(err);
+        //         });
+        // });
 
         return { user, schedulesToday, tasks, notes };
     },
@@ -362,20 +361,27 @@ export default {
         Logo,
         Profile,
     },
-    // created() {
-    //     axios.get(`http://localhost:3000/Dashboard/` + this.user.user_id)
-    //         .then((response) => {
-    //             this.schedulesToday = response.data.scheduleToday;
-    //             this.tasks = response.data.task;
-    //             this.notes = response.data.note;
+    async created() {
 
-    //             // ถ้าใช้ข้างนอก setup => this.user
-    //             console.log('user:', this.user.user_id);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // },
+        const userStore = useUserStore();
+
+        await userStore.getUser();
+        this.user = userStore.user;
+
+        await axios.get(`http://localhost:3000/Dashboard/` + this.user.user_id)
+            .then((response) => {
+                this.schedulesToday = response.data.scheduleToday;
+                this.tasks = response.data.task;
+                this.notes = response.data.note;
+                console.log('User ID:', this.user.user_id);
+                console.log('SchedulesToday:', this.schedulesToday);
+                console.log('Tasks:', this.tasks);
+                console.log('Notes:', this.notes);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    },
     mounted() {
         const today = new Date();
         this.currentYear = today.getFullYear();
