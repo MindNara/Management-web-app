@@ -59,7 +59,7 @@ router.post('/NoteDiary/add', upload.single('note_img'), async function (req, re
     const user_id = req.body.user_id
     let image = '';
 
-    console.log({noted_content, noted_id, noted_title, noted_date, user_id, file})
+    console.log({ noted_content, noted_id, noted_title, noted_date, user_id, file })
 
     const conn = await pool.getConnection()
     await conn.beginTransaction();
@@ -68,11 +68,11 @@ router.post('/NoteDiary/add', upload.single('note_img'), async function (req, re
 
         if (file != undefined) {
             const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
-            [noted_date, noted_title, noted_content, file.path.substr(6), user_id])
+                [noted_date, noted_title, noted_content, file.path.substr(6), user_id])
         } else {
             image = "\\uploads\\note-pic1.jpeg" // ถ้าไม่เลือกรูปจะมีรูปตั้งต้นให้
             const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
-            [noted_date, noted_title, noted_content, image, user_id])
+                [noted_date, noted_title, noted_content, image, user_id])
         }
         await conn.commit();
         res.json("success!");
@@ -128,41 +128,33 @@ router.put('/NoteDiary/edit/:noteId', upload.single('note_img_edit'), async func
     const file = req.file;
     const noted_title = req.body.name_note;
     const noted_content = req.body.data_note;
-    const noted_date = req.body.date_note
+    const noted_date = req.body.date_note;
+    const user_id = req.body.user_id;
 
-    console.log({noted_content, noted_id, noted_title, noted_date, file})
+    console.log({ noted_content, noted_id, noted_title, noted_date, file, user_id })
 
     const conn = await pool.getConnection()
     await conn.beginTransaction();
 
-    // try {
+    try {
 
-    //     if (file != undefined) {
-    //         const [dataEdit] = await conn.query('UPDATE user SET noted_date=?, noted_title=?, noted_content=?, noted_image=?, WHERE noted_id = ?',
-    //         [noted_date, noted_title, noted_content, file.path.substr(6), noted_id])
-    //     } else {
-    //         const [dataEdit] = await conn.query('UPDATE user SET noted_date=?, noted_title=?, noted_content=?, WHERE noted_id = ?',
-    //         [noted_date, noted_title, noted_content, noted_id])
-    //     }
+        if (file != undefined) {
+            const [dataEdit] = await conn.query('UPDATE note_diary SET noted_date=?, noted_title=?, noted_content=?, noted_image=?, user_id=? WHERE noted_id = ?',
+                [noted_date, noted_title, noted_content, file.path.substr(6), user_id, noted_id])
+        } else {
+            const [dataEdit, dataEditF] = await conn.query('UPDATE note_diary SET noted_date=?, noted_title=?, noted_content=?, user_id=? WHERE noted_id = ?',
+                [noted_date, noted_title, noted_content, user_id, noted_id])
+        }
+        await conn.commit();
+        res.json("success!");
 
-    //     // if (file != undefined) {
-    //     //     const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
-    //     //     [noted_date, noted_title, noted_content, file.path.substr(6), user_id])
-    //     // } else {
-    //     //     image = "\\uploads\\note-pic1.jpeg" // ถ้าไม่เลือกรูปจะมีรูปตั้งต้นให้
-    //     //     const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
-    //     //     [noted_date, noted_title, noted_content, image, user_id])
-    //     // }
-    //     await conn.commit();
-    //     res.json("success!");
-
-    // } catch (err) {
-    //     await conn.rollback();
-    //     res.status(400).json(err);
-    // } finally {
-    //     console.log('finally');
-    //     conn.release();
-    // }
+    } catch (err) {
+        await conn.rollback();
+        res.status(400).json(err);
+    } finally {
+        console.log('finally');
+        conn.release();
+    }
 
 })
 
