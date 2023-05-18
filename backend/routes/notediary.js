@@ -141,7 +141,7 @@ router.put('/NoteDiary/edit/:noteId', upload.single('note_img_edit'), async func
         if (file != undefined) {
             const [dataEdit] = await conn.query('UPDATE note_diary SET noted_date=?, noted_title=?, noted_content=?, noted_image=?, user_id=? WHERE noted_id = ?',
                 [noted_date, noted_title, noted_content, file.path.substr(6), user_id, noted_id])
-        } else {
+        } else { //ถ้าไม่เลือกรูปมาก้ไม่ต้องอัพ
             const [dataEdit, dataEditF] = await conn.query('UPDATE note_diary SET noted_date=?, noted_title=?, noted_content=?, user_id=? WHERE noted_id = ?',
                 [noted_date, noted_title, noted_content, user_id, noted_id])
         }

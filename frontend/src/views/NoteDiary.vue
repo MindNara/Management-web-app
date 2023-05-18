@@ -95,17 +95,18 @@
                   </span>
                 </div>
                 <div class="file">
-                  <label class="file-label">
-                    <input class="file-input" type="file" name="image-note" id="image-note" ref="file"
+                  <label class="field">
+                    <label for="image-note" class="label">IMAGE :</label>
+                    <input type="file" name="image-note" id="image-note" ref="file"
                       @change="handleFileUpload()">
-                    <span class="file-cta is-size-7">
+                    <!-- <span class="file-cta is-size-7">
                       <span class="file-icon">
                         <i class="fas fa-upload"></i>
                       </span>
                       <span class="file-label">
                         Choose a file…
                       </span>
-                    </span>
+                    </span> -->
                   </label>
                 </div>
                 <div class="field">
@@ -189,17 +190,18 @@
                   </span>
                 </div>
                 <div class="file">
-                  <label class="file-label">
-                    <input class="file-input" type="file" name="note_img_edit" id="note_img_edit" ref="editfile"
+                  <label class="field">
+                    <label for="image-note" class="label">IMAGE :</label>
+                    <input  type="file" name="note_img_edit" id="note_img_edit" ref="editfile"
                       @change="handleFileUploadEdit()">
-                    <span class="file-cta is-size-7">
+                    <!-- <span class="file-cta is-size-7">
                       <span class="file-icon">
                         <i class="fas fa-upload"></i>
                       </span>
                       <span class="file-label">
                         Choose a file…
                       </span>
-                    </span>
+                    </span> -->
                   </label>
                 </div>
                 <div class="field">
@@ -282,7 +284,7 @@ export default {
       }
     }
 
-    const note_diary_edit = reactive({
+    const note_diary_edit = reactive({ // แยกกัน
       name_note_edit: '',
       date_note_edit: '',
       data_note_edit: '',
@@ -366,7 +368,7 @@ export default {
       this.show_modal_edit = !this.show_modal_edit;
     },
 
-    handleFileUpload() {
+    handleFileUpload() { // แยกกันไม่งั้นมันทับ ระหว่าง add กะ edit
       this.file = this.$refs.file.files[0];
       // console.log(this.$refs.file.files[0])
     },
