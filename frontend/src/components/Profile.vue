@@ -39,7 +39,19 @@
                         <div class="is-flex is-flex-direction-column has-text-black is-size-6" style="width: 65%;">
                             <label class="is-size-6 has-text-grey-dark">Username</label>
                             <span class="boxuser">
-                                <h1 class="pb-2 is-size-3 has-text-weight-medium">{{ user.username }}</h1>
+                                <!-- <h1 class="pb-2 is-size-3 has-text-weight-medium">{{ user.username }}</h1> -->
+                                <div class="mb-4">
+                                    <input type="text"
+                                        class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center is-size-5"
+                                        name="username" id="input-username" v-model="user.username"
+                                        :disabled="!EditUsername" @input="v$.username.$touch()">
+                                    <a @click="editInput('input-username')"><i id="iconUsername"
+                                            class="icon-user iconUsername fas fa-pen is-size-7"
+                                            style="color: rgb(109, 109, 109);"></i></a>
+                                    <span class="mb-4" v-if="v$.username.$error">
+                                        <p class="help is-danger">{{ v$.username.$errors[0].$message }}</p>
+                                    </span>
+                                </div>
                                 <div class="file">
                                     <label class="file-label">
                                         <input class="file-input" type="file" name="user_img" id="file" ref="file"
@@ -55,6 +67,18 @@
                                     </label>
                                 </div>
                             </span>
+                            <!-- <span class="boxuser">
+                                <input type="text"
+                                    class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
+                                    name="fname" id="input-fname" v-model="user.fname" :disabled="!EditFname"
+                                    @input="v$.fname.$touch()">
+                                <a @click="editInput('input-fname')"><i id="iconFname"
+                                        class="icon-user iconLname fas fa-pen is-size-7"
+                                        style="color: rgb(109, 109, 109);"></i></a>
+                            </span>
+                            <span v-if="v$.fname.$error">
+                                <p class="help is-danger">{{ v$.fname.$errors[0].$message }}</p>
+                            </span> -->
                         </div>
                     </div>
                     <div class="field mt-3">
@@ -162,6 +186,7 @@ export default {
             EditLname: false,
             EditEmail: false,
             EditPwd: false,
+            EditUsername: false,
         }
     },
     setup() {
@@ -240,6 +265,10 @@ export default {
                 this.user.password = '';
                 input.type = 'text';
                 input.focus();
+            } else if (field === 'input-username') {
+                this.EditUsername = true;
+                const input = document.getElementById('input-username');
+                input.focus();
             }
         },
 
@@ -248,12 +277,14 @@ export default {
             this.EditLname = false;
             this.EditEmail = false;
             this.EditPwd = false;
+            this.EditUsername = false;
 
             const userStore = useUserStore();
             await userStore.getUser();
             this.user.fname = userStore.user.fname;
             this.user.lname = userStore.user.lname;
             this.user.email = userStore.user.email;
+            this.user.username = userStore.user.username;
             this.user.image_user = userStore.user.image_user;
 
             document.getElementById('input-password').type = 'password';
@@ -274,12 +305,15 @@ export default {
                 formData.append("fname", this.user.fname);
                 formData.append("lname", this.user.lname);
                 formData.append("email", this.user.email);
+                formData.append("username", this.user.username);
                 formData.append("user_id", this.user.user_id);
 
-                if (this.user.password != 'AaBb1234') {
-                    formData.append("password", this.user.password);
+                if (this.user.password === 'AaBb1234') {
+                    formData.append("password", this.user.passwordCrrut); // มันไปเข้ารหัสอีกที
+                    // console.log('passwordCrrut: ' + this.user.passwordCrrut);
                 } else {
-                    formData.append("password", this.user.passwordCrrut);
+                    formData.append("password", this.user.password);
+                    // console.log('password: ' + this.user.password);
                 }
 
                 axios.put("/Profile", formData, {

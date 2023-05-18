@@ -35,6 +35,7 @@ router.put('/Profile', upload.single('user_img'), async function (req, res, next
     const fname = req.body.fname;
     const lname = req.body.lname;
     const email = req.body.email;
+    const username = req.body.username;
     const password = await bcrypt.hash(req.body.password, 5)
     const user_id = req.body.user_id;
 
@@ -42,6 +43,7 @@ router.put('/Profile', upload.single('user_img'), async function (req, res, next
         'fname': fname,
         'lname': lname,
         'email': email,
+        'username': username,
         'password': password,
         'user_id': user_id,
     })
@@ -53,13 +55,13 @@ router.put('/Profile', upload.single('user_img'), async function (req, res, next
 
         if (file != undefined) {
             const [newUser, newUserF] = await conn.query(
-                'UPDATE user SET fname=?, lname=?, email=?, password=?, image_user=? WHERE user_id = ?',
-                [fname, lname, email, password, file.path.substr(6), user_id]
+                'UPDATE user SET fname=?, lname=?, email=?, username=?, password=?, image_user=? WHERE user_id = ?',
+                [fname, lname, email, username, password, file.path.substr(6), user_id]
             )
         } else {
             const [newUser, newUserF] = await conn.query(
-                'UPDATE user SET fname=?, lname=?, email=?, password=? WHERE user_id = ?',
-                [fname, lname, email, password, user_id]
+                'UPDATE user SET fname=?, lname=?, email=?, username=?, password=? WHERE user_id = ?',
+                [fname, lname, email, username, password, user_id]
             )
         }
         await conn.commit();
