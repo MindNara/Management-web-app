@@ -117,24 +117,30 @@
 
                             <!----------------- today tasks card ----------------->
                             <div class="columns" style="height: 30vh;">
-                                <div class="clumns" style="width: 100%;">
-                                    <div class="column" v-for="task in filteredTasksToday" :key="task.id">
-                                        <div class="level task-box p-3">
-                                            <div class="level-left">
-                                                <div class="level-item">
-                                                    <i class='bx bx-check-circle mx-4 is-size-3 has-text-black'
-                                                        style="cursor: pointer;"></i>
-                                                    <span class="is-size-5 has-text-weight-medium">
-                                                        {{ task.list_act }}</span>
+                                <div class="clumns" style="width: 100%;" v-if="filteredTasksToday.length === 0">
+                                    <div class="tasksToday">
+                                        <span>Today is task-free</span>
+                                    </div>
+                                </div>
+                                <div v-else style="width: 100%;">
+                                    <div class="clumns" v-for="task in filteredTasksToday" :key="task.task_id">
+                                        <div class="column">
+                                            <div class="level task-box p-3">
+                                                <div class="level-left">
+                                                    <div class="level-item">
+                                                        <i class='bx bx-check-circle mx-4 is-size-3 has-text-black'
+                                                            style="cursor: pointer;"></i>
+                                                        <span class="is-size-5 has-text-weight-medium">
+                                                            {{ task.list_act }}</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="level-right">
-                                                <div class="level-item">
-                                                    <span class="date mr-6">{{ task.list_date }}</span>
-                                                    <span
-                                                        class="btn-status has-background-black has-text-white has-text-weight-light mx-4">
-                                                        In Progress</span>
+                                                <div class="level-right">
+                                                    <div class="level-item">
+                                                        <span class="date mr-6">{{ task.list_date }}</span>
+                                                        <span
+                                                            class="btn-status has-background-black has-text-white has-text-weight-light mx-4">
+                                                            In Progress</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -168,9 +174,13 @@
                             </div>
 
                             <!----------------- notes card ----------------->
-                            <div class="columns mt-4 is-multiline" style="height: 33vh;">
-
-                                <div class="column is-one-third" v-for="note in notes" :key="note.noted_id">
+                            <div class="columns is-multiline" style="height: 33vh;" v-if="filteredNotesToday.length === 0">
+                                <div class="notesToday mt-3">
+                                    <span>Today is notes-free</span>
+                                </div>
+                            </div>
+                            <div class="columns is-multiline" style="height: 33vh;" v-else>
+                                <div class="column is-one-third" v-for="note in filteredNotesToday" :key="note.noted_id">
                                     <div class="card">
                                         <div class="card-image">
                                             <figure class="image is-2by1">
@@ -202,7 +212,7 @@
                             <div class="dynaminCalendar calendar">
                                 <header class="level m-0">
                                     <div class="level-left">
-                                        <p class="current-date has-text-black ml-4"></p>
+                                        <p class="current-date has-text-black ml-5"></p>
                                     </div>
                                     <div class="level-right mr-2">
                                         <span class="todaybtn todayDy-btn" @click="goToToday">Today</span>
@@ -255,17 +265,23 @@
 
                             <div class="columns" style="height: 33vh;">
                                 <div class="column mr-5">
-                                    <div v-for="schedule in schedulesToday" :key="schedule.id">
-                                        <a href="/Schedule" class="level schedule-box-dashboard px-5 mb-4">
-                                            <div class="level-left">
-                                                <span id="schedule2">{{ schedule.schedule_act
-                                                }}</span>
-                                            </div>
-                                            <div class="level-right">
-                                                <span class="scheduleDate">{{ schedule.schedule_date }}</span>
-                                            </div>
-                                        </a>
+                                    <div class="schedulesToday" v-if="filteredSchedulesToday.length === 0">
+                                        <span>Today is schedule-free</span>
                                     </div>
+                                    <div v-else>
+                                        <div v-for="schedule in filteredSchedulesToday" :key="schedule.id">
+                                            <a href="/Schedule" class="level schedule-box-dashboard px-5 mb-4">
+                                                <div class="level-left">
+                                                    <span id="schedule2">{{ schedule.schedule_act
+                                                    }}</span>
+                                                </div>
+                                                <div class="level-right">
+                                                    <span class="scheduleDate">{{ schedule.schedule_date }}</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -329,31 +345,6 @@ export default {
         const tasks = ref(null);
         const notes = ref(null);
 
-        // ถ้ามีการเปลี่ยนแปลงค่าจะเข้ามาทำในนี้
-        // watchEffect(async () => {
-        //     await userStore.getUser();
-
-        //     // user.value like this.user => vue3
-        //     user.value = userStore.user;
-
-        //     // ถ้าใช้ข้างใน setup => user.value.fname
-        //     // console.log('user:', user.value.fname);
-
-        //     axios.get(`http://localhost:3000/Dashboard/` + user.value.user_id)
-        //         .then((response) => {
-        //             schedulesToday.value = response.data.scheduleToday;
-        //             tasks.value = response.data.task;
-        //             notes.value = response.data.note;
-
-        //             console.log(schedulesToday.value)
-        //             console.log(tasks.value)
-        //             console.log(notes.value)
-        //         })
-        //         .catch((err) => {
-        //             console.log(err);
-        //         });
-        // });
-
         return { user, schedulesToday, tasks, notes };
     },
     components: {
@@ -377,6 +368,9 @@ export default {
                 console.log('SchedulesToday:', this.schedulesToday);
                 console.log('Tasks:', this.tasks);
                 console.log('Notes:', this.notes);
+                console.log('Filter: ', this.filteredTasksToday.length)
+                console.log('ScheduleToday: ', this.filteredSchedulesToday.length)
+                console.log('NoteToday: ', this.filteredNotesToday.length)
             })
             .catch((err) => {
                 console.log(err);
@@ -462,7 +456,20 @@ export default {
             let month = date_ob.getMonth() + 1;
             let year = date_ob.getFullYear();
             let todayDate = year + "-" + (month < 10 ? '0' : '') + month + "-" + (date < 10 ? '0' : '') + date;
+            this.tasks.filter(task => console.log('Task ID: ' + task.list_id + ' Date: ' + task.list_date));
             return this.tasks.filter(task => task.list_status === 0 && task.list_date === todayDate);
+        },
+        filteredNotesToday() {
+            let ts = Date.now();
+            let date_ob = new Date(ts);
+            let date = date_ob.getDate();
+            let month = date_ob.getMonth() + 1;
+            let year = date_ob.getFullYear();
+            let todayDate = year + "-" + (month < 10 ? '0' : '') + month + "-" + (date < 10 ? '0' : '') + date;
+            return this.notes.filter(note => note.noted_date === todayDate);
+        },
+        filteredSchedulesToday() {
+            return this.schedulesToday.slice(0, 3);
         },
         filteredTasksDone() {
             return this.tasks.filter(task => task.list_status === 1);

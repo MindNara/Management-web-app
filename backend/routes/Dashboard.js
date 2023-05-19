@@ -23,7 +23,7 @@ router.get('/Dashboard/:userId', async function (req, res, next) {
         const [task, fields] = await pool.query("SELECT list_id, DATE_FORMAT(list_date, '%Y-%m-%d') as list_create_date, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date, list_act, list_status, user_id FROM to_do_list JOIN user USING(user_id) WHERE user.user_id = ?",
             [user_id]);
 
-        const [note, noteF] = await pool.query("SELECT * FROM note_diary WHERE user_id = ?",
+        const [note, noteF] = await pool.query("SELECT noted_id, DATE_FORMAT(noted_date, '%Y-%m-%d') as noted_date, noted_title, noted_content, noted_image FROM note_diary WHERE user_id = ?",
             [user_id]);
 
         res.json({
