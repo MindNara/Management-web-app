@@ -38,8 +38,7 @@
                     as
                     you move to catch
                     one ball, Unfortunately, some balls are bound to hit the ground.</p>
-                <a class="btn" @click="getStart()"><span>Get Start</span></a>
-                <!-- <a href="/"><span class="btn">Get Start</span></a> -->
+                <a href="/Login" class="btn" @click="getStart()"><span>Get Start</span></a>
             </div>
         </div>
     </div>
