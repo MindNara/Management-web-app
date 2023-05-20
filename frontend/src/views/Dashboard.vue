@@ -370,7 +370,7 @@ export default {
                 console.log('SchedulesToday:', this.schedulesToday);
                 console.log('Tasks:', this.tasks);
                 console.log('Notes:', this.notes);
-                console.log('Filter: ', this.filteredTasksToday.length)
+                console.log('TaskToday: ', this.filteredTasksToday.length)
                 console.log('ScheduleToday: ', this.filteredSchedulesToday.length)
                 console.log('NoteToday: ', this.filteredNotesToday.length)
             })
@@ -468,7 +468,6 @@ export default {
             let month = date_ob.getMonth() + 1;
             let year = date_ob.getFullYear();
             let todayDate = year + "-" + (month < 10 ? '0' : '') + month + "-" + (date < 10 ? '0' : '') + date;
-            this.tasks.filter(task => console.log('Task ID: ' + task.list_id + ' Date: ' + task.list_date));
             return this.tasks.filter(task => task.list_status === 0 && task.list_date === todayDate);
         },
         filteredNotesToday() {

@@ -148,8 +148,8 @@
                                                 <span id="schedule2" class="has-text-black">{{ schedule.schedule_act
                                                 }}</span>
                                             </div>
-                                            <div class="level-right">
-                                                <a class="mr-5 icon has-text-dark"
+                                            <div class="level-right" style="opacity: 80%;">
+                                                <a class="mr-4 icon has-text-dark"
                                                     @click="editSchedule(schedule.schedule_id)"><i
                                                         class="fas fa-pen"></i></a>
                                                 <a class="icon" style="color: rgb(105, 16, 16);"
@@ -366,11 +366,6 @@ export default {
         this.showSchedule();
 
     },
-    mounted() {
-        const today = new Date();
-        this.currentYear = today.getFullYear();
-        this.currentMonth = today.getMonth();
-    },
     methods: {
         closeEditingInput() {
 
@@ -524,9 +519,6 @@ export default {
             // แปลงเป็นรูปแบบ "YYYY-MM-DD"
             const formattedFirstDay = `${firstDayOfMonth.getFullYear()}-${(firstDayOfMonth.getMonth() + 1 < 10 ? '0' : '') + (firstDayOfMonth.getMonth() + 1)}-${(firstDayOfMonth.getDate() < 10 ? '0' : '') + firstDayOfMonth.getDate()}`;
             const formattedLastDay = `${lastDayOfMonth.getFullYear()}-${(lastDayOfMonth.getMonth() + 1 < 10 ? '0' : '') + (lastDayOfMonth.getMonth() + 1)}-${(lastDayOfMonth.getDate() < 10 ? '0' : '') + lastDayOfMonth.getDate()}`;
-
-            // console.log(formattedFirstDay)
-            // console.log(formattedLastDay)
 
             this.schedulesAll.forEach((item, index) => {
 
