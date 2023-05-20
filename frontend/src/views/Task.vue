@@ -220,7 +220,7 @@
                                 </span>
                             </div>
                             <span v-if="v$_add.due_date.$error">
-                                <p class="help is-danger" v-if="v$_add.due_date.required">This field is required</p>
+                                <p class="help is-danger">{{ v$_add.due_date.$errors[0].$message }}</p>
                             </span>
                         </div>
                     </form>
@@ -249,7 +249,7 @@
                             <label class="label">NAME TASKS : </label>
                             <div class="control has-icons-left has-icons-right">
                                 <input class="input" type="text" id="name-task-edit" name="name-task-edit"
-                                    placeholder="Change Task name" v-model="task_todo.task_name_edit"
+                                    placeholder="Change Task name" v-model="task_todo_edit.task_name_edit"
                                     @input="v$_edit.task_name_edit.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-book"></i>
@@ -263,14 +263,17 @@
                             <label for="due-date" class="label">DUE DATE :</label>
                             <div class="control has-icons-left has-icons-right">
                                 <input type="date" id="due-date-edit" name="due-date-edit" class="input"
-                                    v-model="task_todo.due_date_edit" @input="v$_edit.due_date_edit.$touch()">
+                                    v-model="task_todo_edit.due_date_edit" @input="v$_edit.due_date_edit.$touch()">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-calendar"></i>
                                 </span>
                             </div>
                             <span v-if="v$_edit.due_date_edit.$error">
-                                <p class="help is-danger" v-if="v$_edit.due_date_edit.required">This field is required</p>
+                                <p class="help is-danger">{{ v$_edit.due_date_edit.$errors[0].$message }}</p>
                             </span>
+                            <!-- <span v-if="v$_edit.due_date_edit.$error">
+                                <p class="help is-danger" v-if="v$_edit.due_date_edit.required">This field is required</p>
+                            </span> -->
                         </div>
                     </form>
                 </section>
@@ -291,7 +294,7 @@ import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
 import { reactive, ref, onMounted } from 'vue'
 import useVuelidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import { required , minValue} from '@vuelidate/validators'
 import { useUserStore } from '@/stores/user'
 // import { reactive, computed } from 'vue'
 // import useVuelidate from '@vuelidate/core'
@@ -322,9 +325,14 @@ export default {
         const task_todo = reactive({
             task_name: '',
             due_date: '',
+            currentDate: new Date().toISOString().split('T')[0],
+        }) // พอมันอยู่ในนี้แล้วตัวแปรข้างในเป็น object task_todo เวลาจะใช้ตัวแปรข้างในก้ต้อง task_todo.task_name ยังงี้
+
+        const task_todo_edit = reactive({
             task_name_edit: '',
             due_date_edit: '',
-        }) // พอมันอยู่ในนี้แล้วตัวแปรข้างในเป็น object task_todo เวลาจะใช้ตัวแปรข้างในก้ต้อง task_todo.task_name ยังงี้
+            currentDate: new Date().toISOString().split('T')[0],
+        })
 
         const rules_add = { // กำหนด validations ที่จะเช้ค
             task_name: {
@@ -332,6 +340,7 @@ export default {
             },
             due_date: {
                 required: required,
+                minValue: minValue(task_todo.currentDate),
             },
         }
 
@@ -341,11 +350,12 @@ export default {
             },
             due_date_edit: {
                 required: required,
+                minValue: minValue(task_todo_edit.currentDate),
             },
         }
 
         const v$_add = useVuelidate(rules_add, task_todo);
-        const v$_edit = useVuelidate(rules_edit, task_todo); // ส่งค่าไปเช้คใน useVuelidate ของ vue ที่ import มา
+        const v$_edit = useVuelidate(rules_edit, task_todo_edit); // ส่งค่าไปเช้คใน useVuelidate ของ vue ที่ import มา
 
         // const getTask = async () => {
         //     await userStore.getUser();
@@ -364,7 +374,7 @@ export default {
         // };
         // onMounted(getTask); // มันจะทำทุกครั้งที่เข้าหน้า task มาอะไปทำฟังก์ชั่น getTask
 
-        return { user_id, tasks, v$_add, v$_edit, task_todo }; // จะเอาค่าไปใช้ต่อก้ต้อง return ออกไป
+        return { user_id, tasks, v$_add, v$_edit, task_todo, task_todo_edit }; // จะเอาค่าไปใช้ต่อก้ต้อง return ออกไป
     },
     components: {
         Navbar,
@@ -415,8 +425,8 @@ export default {
             axios.get("/Task/detail/" + task_id)
                 .then((response) => {
                     this.content_task = response.data.content_task; //จะเข้าไปใน content_task เลย
-                    this.task_todo.task_name_edit = this.content_task[0].list_act
-                    this.task_todo.due_date_edit = this.content_task[0].list_date
+                    this.task_todo_edit.task_name_edit = this.content_task[0].list_act
+                    this.task_todo_edit.due_date_edit = this.content_task[0].list_date
                     console.log(this.content_task) // พอจะใช้ก้ this.content_task[0].list_act ได้เลย
                     console.log(task_id)
                 })
