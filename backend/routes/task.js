@@ -3,7 +3,7 @@ const pool = require("../config");
 const router = express.Router();
 const Joi = require('joi');
 
-const currentDate = new Date().toISOString().split('T')[0]; // วันที่ปัจจุบัน
+const currentDate = new Date().toISOString().split('T')[0]; // วันที่ปัจจุบัน YYYY-MM-DDTHH:mm:ss.sssZ" split T เพื่อให้ได้เป็น format YYYY-MM-DD
 
 const schemaInsert = Joi.object({ // สร้าง Joi มา check data ที่เข้ามาว่าครบยัง
     list_date: Joi.date().min(new Date(currentDate)).required(),  // เช็คว่า list_date ต้องมีค่า >= วันที่ปัจจุบัน
