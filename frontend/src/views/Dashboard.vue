@@ -337,7 +337,7 @@ export default {
                 "January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"
             ],
-            content_note: '',
+            content_note: [],
             show_modal_card: false,
         }
     },
@@ -450,16 +450,14 @@ export default {
             return content;
         },
         openModalDetail(note_id) {
-            console.log(note_id)
-            axios.get("/NoteDiary/detail/" + note_id)
-                .then((response) => {
-                    this.content_note = response.data.content_note; //จะเข้าไปใน content_task เลย
-                    console.log(this.content_note) // พอจะใช้ก้ this.content_task[0].list_act ได้เลย
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-            this.show_modal_card = !this.show_modal_card;
+            // console.log(note_id)
+            // console.log(this.notes[0].noted_id)
+            for (let i = 0; i < this.notes.length; i++){
+                if(this.notes[i].noted_id === note_id){
+                    this.content_note.push(this.notes[i])
+                }
+            }
+            this.show_modal_card = !this.show_modal_card
         },
     },
     computed: {
