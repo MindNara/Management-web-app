@@ -7,7 +7,7 @@ const { isLoggedIn } = require('../middlewares')
 
 router = express.Router();
 const loginSchema = Joi.object({
-    username: Joi.string().required(),
+    email: Joi.string().required(),
     password: Joi.string().required()
 })
 
@@ -15,9 +15,9 @@ router.post('/Login', async (req, res, next) => {
     try {
         await loginSchema.validateAsync(req.body, { abortEarly: false })
     } catch (err) {
-        return res.status(400).send("Enter your username or password")
+        return res.status(400).send("Enter your email or password")
     }
-    const username = req.body.username
+    const email = req.body.email
     const password = req.body.password
 
     console.log(req.body)
@@ -27,15 +27,15 @@ router.post('/Login', async (req, res, next) => {
     await conn.beginTransaction()
  
     try {
-        // Check if username is correct
-       const [users] = await conn.query('SELECT * FROM user WHERE username=?',[username])
+        // Check if email is correct
+       const [users] = await conn.query('SELECT * FROM user WHERE email=?',[email])
        const user = users[0]
        if (!user) {
-        throw new Error('Incorrect username or password')
+        throw new Error('Incorrect email or password')
         } 
        // Check if password is correct
         if (!(await bcrypt.compare(password, user.password))) {
-            throw new Error('Incorrect username or password')
+            throw new Error('Incorrect email or password')
         }
 
         // Check if token already existed

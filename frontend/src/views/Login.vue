@@ -29,10 +29,10 @@
                             {{ error }}
                         </p>
                         <div class="field">
-                            <label class="label">username :</label>
+                            <label class="label">email :</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input" type="text" id="user" name="user" placeholder="Enter your username"
-                                    v-model="username">
+                                <input class="input" type="text" id="email" name="email" placeholder="Enter your email"
+                                    v-model="email">
                                 <!-- <input v-model="username" class="input" type="text" /> -->
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-user"></i>
@@ -71,7 +71,7 @@ import axios from '@/plugins/axios'
 export default {
     data() {
         return {
-            username: '',
+            email: '',
             password: '',
             error: ''
         }
@@ -82,7 +82,7 @@ export default {
             // username: this.username,
             // password: this.password
             const data = { // data ที่ผู้ใช้กรอกเข้ามาอะ
-                username: this.username,
+                email: this.email,
                 password: this.password
             }
 
