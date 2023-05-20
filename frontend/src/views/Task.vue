@@ -271,9 +271,6 @@
                             <span v-if="v$_edit.due_date_edit.$error">
                                 <p class="help is-danger">{{ v$_edit.due_date_edit.$errors[0].$message }}</p>
                             </span>
-                            <!-- <span v-if="v$_edit.due_date_edit.$error">
-                                <p class="help is-danger" v-if="v$_edit.due_date_edit.required">This field is required</p>
-                            </span> -->
                         </div>
                     </form>
                 </section>
@@ -294,11 +291,17 @@ import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
 import { reactive, ref, onMounted } from 'vue'
 import useVuelidate from '@vuelidate/core'
-import { required , minValue} from '@vuelidate/validators'
+import { required , helpers} from '@vuelidate/validators'
 import { useUserStore } from '@/stores/user'
 // import { reactive, computed } from 'vue'
 // import useVuelidate from '@vuelidate/core'
 // import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
+
+function checkDate(value) {
+    const currentDate = new Date().toISOString().split('T')[0];
+    const inputDate = new Date(value).toISOString().split('T')[0];
+    return inputDate >= currentDate;
+}
 
 export default {
     data() {
@@ -325,13 +328,11 @@ export default {
         const task_todo = reactive({
             task_name: '',
             due_date: '',
-            currentDate: new Date().toISOString().split('T')[0],
         }) // พอมันอยู่ในนี้แล้วตัวแปรข้างในเป็น object task_todo เวลาจะใช้ตัวแปรข้างในก้ต้อง task_todo.task_name ยังงี้
 
         const task_todo_edit = reactive({
             task_name_edit: '',
             due_date_edit: '',
-            currentDate: new Date().toISOString().split('T')[0],
         })
 
         const rules_add = { // กำหนด validations ที่จะเช้ค
@@ -340,7 +341,7 @@ export default {
             },
             due_date: {
                 required: required,
-                minValue: minValue(task_todo.currentDate),
+                minValue : helpers.withMessage('Due Date should be greater than current date', checkDate)
             },
         }
 
@@ -350,7 +351,7 @@ export default {
             },
             due_date_edit: {
                 required: required,
-                minValue: minValue(task_todo_edit.currentDate),
+                minValue : helpers.withMessage('Due Date should be greater than current date', checkDate)
             },
         }
 
@@ -440,8 +441,8 @@ export default {
             console.log(task_id)
             if (!this.v$_edit.$invalid) { // เช้คก่อนส่งไป backend เพราะไม่อยากให้ error
                 const data = {
-                    list_act: this.task_todo.task_name_edit,
-                    list_date: this.task_todo.due_date_edit,
+                    list_act: this.task_todo_edit.task_name_edit,
+                    list_date: this.task_todo_edit.due_date_edit,
                 }
                 console.log(data)
                 axios.put("/Task/edit/" + task_id, data)
