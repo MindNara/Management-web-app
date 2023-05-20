@@ -160,7 +160,7 @@
                                     <div class="column">
                                         <span
                                             class="has-text-black is-size-4-fullhd has-text-weight-medium is-size-5-widescreen">
-                                            Notes
+                                            Today Notes
                                         </span>
                                     </div>
                                 </div>
@@ -281,7 +281,6 @@
                                             </a>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

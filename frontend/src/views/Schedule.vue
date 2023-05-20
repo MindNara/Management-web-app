@@ -138,21 +138,45 @@
 
                         <div class="columns" style="height: 32vh; overflow-y: auto; overflow-x: hidden;">
                             <div class="column mr-3">
-                                <div v-for="schedule in schedulesToday" :key="schedule.id">
-                                    <div class="level schedule-box px-5 mb-4">
-                                        <div class="level-left">
-                                            <span id="schedule2" class="has-text-black">{{ schedule.schedule_act }}</span>
-                                        </div>
-                                        <div class="level-right">
-                                            <a class="mr-5 icon has-text-dark"
-                                                @click="editSchedule(schedule.schedule_id)"><i class="fas fa-pen"></i></a>
-                                            <a class="icon" style="color: rgb(105, 16, 16);"
-                                                @click="deleteSchedule(schedule.schedule_id, schedule.schedule_act)"><i
-                                                    class="fas fa-trash"></i></a>
+                                <div class="schedulesToday" v-if="schedulesToday.length === 0">
+                                    <span>Today is schedule-free</span>
+                                </div>
+                                <div v-else>
+                                    <div v-for="schedule in schedulesToday" :key="schedule.id">
+                                        <div class="level schedule-box px-5 mb-4">
+                                            <div class="level-left">
+                                                <span id="schedule2" class="has-text-black">{{ schedule.schedule_act
+                                                }}</span>
+                                            </div>
+                                            <div class="level-right">
+                                                <a class="mr-5 icon has-text-dark"
+                                                    @click="editSchedule(schedule.schedule_id)"><i
+                                                        class="fas fa-pen"></i></a>
+                                                <a class="icon" style="color: rgb(105, 16, 16);"
+                                                    @click="deleteSchedule(schedule.schedule_id, schedule.schedule_act)"><i
+                                                        class="fas fa-trash"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
+
+                                <!-- <div class="schedulesToday" v-if="filteredSchedulesToday.length === 0">
+                                    <span>Today is schedule-free</span>
+                                </div>
+                                <div v-else>
+                                    <div v-for="schedule in filteredSchedulesToday" :key="schedule.id">
+                                        <a href="/Schedule" class="level schedule-box-dashboard px-5 mb-4">
+                                            <div class="level-left">
+                                                <span id="schedule2">{{ schedule.schedule_act
+                                                }}</span>
+                                            </div>
+                                            <div class="level-right">
+                                                <span class="scheduleDate">{{ schedule.schedule_date }}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
