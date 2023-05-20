@@ -301,19 +301,28 @@ export default {
             console.log(this.v$.$invalid)
             if (!this.v$.$invalid) {
                 var formData = new FormData();
-                formData.append("user_img", this.file);
-                formData.append("fname", this.user.fname);
-                formData.append("lname", this.user.lname);
-                formData.append("email", this.user.email);
-                formData.append("username", this.user.username);
-                formData.append("user_id", this.user.user_id);
 
+                // ไม่ได้เปลี่ยนรหัส -> ส่งค่า password ที่เป็นค่า default
                 if (this.user.password === 'AaBb1234') {
-                    formData.append("password", this.user.passwordCrrut); // มันไปเข้ารหัสอีกที
-                    // console.log('passwordCrrut: ' + this.user.passwordCrrut);
-                } else {
+                    console.log('ไม่ได้เปลี่ยนรหัส')
+                    formData.append("user_img", this.file);
+                    formData.append("fname", this.user.fname);
+                    formData.append("lname", this.user.lname);
+                    formData.append("email", this.user.email);
+                    formData.append("username", this.user.username);
+                    formData.append("user_id", this.user.user_id);
+                    formData.append("password", 'AaBb1234');
+                }
+                // เปลี่ยนรหัส -> ส่งค่า password ใหม่
+                else {
+                    console.log('เปลี่ยนรหัส')
+                    formData.append("user_img", this.file);
+                    formData.append("fname", this.user.fname);
+                    formData.append("lname", this.user.lname);
+                    formData.append("email", this.user.email);
+                    formData.append("username", this.user.username);
+                    formData.append("user_id", this.user.user_id);
                     formData.append("password", this.user.password);
-                    // console.log('password: ' + this.user.password);
                 }
 
                 axios.put("/Profile", formData, {
