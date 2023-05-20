@@ -159,24 +159,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-                                <!-- <div class="schedulesToday" v-if="filteredSchedulesToday.length === 0">
-                                    <span>Today is schedule-free</span>
-                                </div>
-                                <div v-else>
-                                    <div v-for="schedule in filteredSchedulesToday" :key="schedule.id">
-                                        <a href="/Schedule" class="level schedule-box-dashboard px-5 mb-4">
-                                            <div class="level-left">
-                                                <span id="schedule2">{{ schedule.schedule_act
-                                                }}</span>
-                                            </div>
-                                            <div class="level-right">
-                                                <span class="scheduleDate">{{ schedule.schedule_date }}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
