@@ -182,13 +182,13 @@
                             <div class="columns is-multiline" style="height: 33vh;" v-else>
                                 <div class="column is-one-third" v-for="note in filteredNotesToday" :key="note.noted_id">
                                     <div class="card">
-                                        <div class="card-image">
+                                        <div class="card-image"  @click="openModalDetail(note.noted_id)">
                                             <figure class="image is-2by1">
                                                 <img :src="'http://localhost:3000/' + note.noted_image"
                                                     alt="Placeholder image">
                                             </figure>
                                         </div>
-                                        <div class="card-content">
+                                        <div class="card-content"  @click="openModalDetail(note.noted_id)">
                                             <div class="media">
                                                 <div class="media-content" style="width: 100%;">
                                                     <p class="title title-note is-4">{{ note.noted_title }}</p>
@@ -291,24 +291,24 @@
             </div>
 
             <!-- modal-open-card -->
-            <div class="modal">
+            <div class="modal" v-bind:class="{ 'is-active': show_modal_card }" v-for="(content, index) in content_note" :key="index">
                 <div class="modal-background"></div>
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title">MY DIARY</p>
-                        <button class="delete" aria-label="close"></button>
+                        <button class="delete" aria-label="close" @click="show_modal_card = !show_modal_card"></button>
                     </header>
                     <section class="modal-card-body">
                         <!-- Content ... -->
                         <figure class="image is-5by3">
-                            <!-- <img src="" alt="Placeholder image"> -->
+                            <img :src="'http://localhost:3000/' + content.noted_image" alt="Placeholder image">
                         </figure>
-                        <p class="title">{{ }}</p>
-                        <p class="content">{{ }}</p>
-                        <p class="content">{{ }} #mydiary</p>
+                        <p class="title">{{ content.noted_title }}</p>
+                        <p class="content">{{ content.noted_content }}</p>
+                        <p class="content">{{ content.noted_date}} #mydiary</p>
                     </section>
                     <footer class="modal-card-foot">
-                        <button class="button is-black">OK</button>
+                        <button class="button is-black" @click="show_modal_card = !show_modal_card">OK</button>
                     </footer>
                 </div>
             </div>
@@ -337,6 +337,8 @@ export default {
                 "January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"
             ],
+            content_note: '',
+            show_modal_card: false,
         }
     },
     setup() {
@@ -446,6 +448,18 @@ export default {
                 return content.substring(0, 10) + "...";
             }
             return content;
+        },
+        openModalDetail(note_id) {
+            console.log(note_id)
+            axios.get("/NoteDiary/detail/" + note_id)
+            .then((response) => {
+                this.content_note = response.data.content_note; //จะเข้าไปใน content_task เลย
+                console.log(this.content_note) // พอจะใช้ก้ this.content_task[0].list_act ได้เลย
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+            this.show_modal_card = !this.show_modal_card;
         },
     },
     computed: {
