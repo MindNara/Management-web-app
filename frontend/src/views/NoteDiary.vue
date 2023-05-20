@@ -97,8 +97,7 @@
                 <div class="file">
                   <label class="field">
                     <label for="image-note" class="label">IMAGE :</label>
-                    <input type="file" name="image-note" id="image-note" ref="file"
-                      @change="handleFileUpload()">
+                    <input type="file" name="image-note" id="image-note" ref="file" @change="handleFileUpload()">
                     <!-- <span class="file-cta is-size-7">
                       <span class="file-icon">
                         <i class="fas fa-upload"></i>
@@ -192,7 +191,7 @@
                 <div class="file">
                   <label class="field">
                     <label for="image-note" class="label">IMAGE :</label>
-                    <input  type="file" name="note_img_edit" id="note_img_edit" ref="editfile"
+                    <input type="file" name="note_img_edit" id="note_img_edit" ref="editfile"
                       @change="handleFileUploadEdit()">
                     <!-- <span class="file-cta is-size-7">
                       <span class="file-icon">
@@ -318,7 +317,7 @@ export default {
 
     await userStore.getUser();
     this.user_id = userStore.user.user_id;
-    console.log('User ID:', this.user_id);
+    // console.log('User ID:', this.user_id);
 
     await axios.get("/NoteDiary/" + this.user_id)
       .then((response) => {

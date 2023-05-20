@@ -377,7 +377,7 @@ export default {
 
         await userStore.getUser();
         this.user_id = userStore.user.user_id;
-        console.log('User ID:', this.user_id);
+        // console.log('User ID:', this.user_id);
 
         await axios.get("/Task/" + this.user_id)
             .then((response) => {
