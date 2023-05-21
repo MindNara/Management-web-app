@@ -4,7 +4,19 @@ const bcrypt = require('bcrypt')
 const router = express.Router();
 const upload = require('../multer');
 const Joi = require('joi');
+const { isLoggedIn } = require('../middlewares')
 
+
+router.get('/Profile', isLoggedIn, async function (req, res, next) {
+
+    const user = req.user;
+    console.log(req.user);
+
+    res.json({
+        user: user,
+    })
+
+})
 
 const passwordValidator = (value, helpers) => {
     if (value.length < 8) {
@@ -19,7 +31,6 @@ const passwordValidator = (value, helpers) => {
 const schemaUpdate = Joi.object({
     fname: Joi.string().required().max(150),
     lname: Joi.string().required().max(150),
-    email: Joi.string().required().email(),
     password: Joi.string().required().custom(passwordValidator),
 }).unknown()
 
@@ -34,7 +45,6 @@ router.put('/Profile', upload.single('user_img'), async function (req, res, next
     const file = req.file;
     const fname = req.body.fname;
     const lname = req.body.lname;
-    const email = req.body.email;
     const username = req.body.username;
     let password = req.body.password
     const user_id = req.body.user_id;
@@ -47,7 +57,6 @@ router.put('/Profile', upload.single('user_img'), async function (req, res, next
     console.log({
         'fname': fname,
         'lname': lname,
-        'email': email,
         'username': username,
         'password': password,
         'user_id': user_id,
@@ -68,13 +77,13 @@ router.put('/Profile', upload.single('user_img'), async function (req, res, next
 
         if (file != undefined) {
             const [newUser, newUserF] = await conn.query(
-                'UPDATE user SET fname=?, lname=?, email=?, username=?, image_user=? WHERE user_id = ?',
-                [fname, lname, email, username, file.path.substr(6), user_id]
+                'UPDATE user SET fname=?, lname=?, username=?, image_user=? WHERE user_id = ?',
+                [fname, lname, username, file.path.substr(6), user_id]
             )
         } else {
             const [newUser, newUserF] = await conn.query(
-                'UPDATE user SET fname=?, lname=?, email=?, username=? WHERE user_id = ?',
-                [fname, lname, email, username, user_id]
+                'UPDATE user SET fname=?, lname=?, username=? WHERE user_id = ?',
+                [fname, lname, username, user_id]
             )
         }
         await conn.commit();

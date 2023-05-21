@@ -39,7 +39,6 @@
                         <div class="is-flex is-flex-direction-column has-text-black is-size-6" style="width: 65%;">
                             <label class="is-size-6 has-text-grey-dark">Username</label>
                             <span class="boxuser">
-                                <!-- <h1 class="pb-2 is-size-3 has-text-weight-medium">{{ user.username }}</h1> -->
                                 <div class="mb-4">
                                     <input type="text"
                                         class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center is-size-5"
@@ -67,18 +66,6 @@
                                     </label>
                                 </div>
                             </span>
-                            <!-- <span class="boxuser">
-                                <input type="text"
-                                    class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
-                                    name="fname" id="input-fname" v-model="user.fname" :disabled="!EditFname"
-                                    @input="v$.fname.$touch()">
-                                <a @click="editInput('input-fname')"><i id="iconFname"
-                                        class="icon-user iconLname fas fa-pen is-size-7"
-                                        style="color: rgb(109, 109, 109);"></i></a>
-                            </span>
-                            <span v-if="v$.fname.$error">
-                                <p class="help is-danger">{{ v$.fname.$errors[0].$message }}</p>
-                            </span> -->
                         </div>
                     </div>
                     <div class="field mt-3">
@@ -121,14 +108,7 @@
                             <span class="boxuser">
                                 <input type="text"
                                     class="user-card px-4 py-3 has-text-weight-medium is-flex is-align-items-center"
-                                    name="email" id="input-email" v-model="user.email" :disabled="!EditEmail"
-                                    @input="v$.email.$touch()">
-                                <a @click="editInput('input-email')"><i id="iconEmail"
-                                        class="icon-user iconEmail fas fa-pen is-size-7"
-                                        style="color: rgb(109, 109, 109);"></i></a>
-                            </span>
-                            <span v-if="v$.email.$error">
-                                <p class="help is-danger">{{ v$.email.$errors[0].$message }}</p>
+                                    name="email" id="input-email" v-model="user.email" disabled>
                             </span>
                         </div>
                     </div>
@@ -162,7 +142,6 @@
 
 <script>
 import axios from '@/plugins/axios'
-import { useUserStore } from '@/stores/user'
 import { reactive } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
@@ -210,10 +189,6 @@ export default {
                 required: required,
                 maxLength: maxLength(150),
             },
-            email: {
-                required: required,
-                email
-            },
             username: {
                 required: required,
                 minLength: minLength(5),
@@ -230,18 +205,21 @@ export default {
 
         return { user, v$ };
     },
-    async created() {
+    created() {
 
-        const userStore = useUserStore();
-
-        await userStore.getUser();
-        this.user.user_id = userStore.user.user_id;
-        this.user.username = userStore.user.username;
-        this.user.fname = userStore.user.fname;
-        this.user.lname = userStore.user.lname;
-        this.user.email = userStore.user.email;
-        this.user.passwordCrrut = userStore.user.password;
-        this.user.image_user = userStore.user.image_user;
+        axios.get("/Profile")
+            .then((response) => {
+                this.user.user_id = response.data.user.user_id;
+                this.user.username = response.data.user.username;
+                this.user.fname = response.data.user.fname;
+                this.user.lname = response.data.user.lname;
+                this.user.email = response.data.user.email;
+                this.user.passwordCrrut = response.data.user.password;
+                this.user.image_user = response.data.user.image_user;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
     },
     methods: {
@@ -254,10 +232,6 @@ export default {
             } else if (field === 'input-lname') {
                 this.EditLname = true;
                 const input = document.getElementById('input-lname');
-                input.focus();
-            } else if (field === 'input-email') {
-                this.EditEmail = true;
-                const input = document.getElementById('input-email');
                 input.focus();
             } else if (field === 'input-password') {
                 this.EditPwd = true;
@@ -272,20 +246,24 @@ export default {
             }
         },
 
-        async closeEditingInput() {
+        closeEditingInput() {
             this.EditFname = false;
             this.EditLname = false;
-            this.EditEmail = false;
             this.EditPwd = false;
             this.EditUsername = false;
 
-            const userStore = useUserStore();
-            await userStore.getUser();
-            this.user.fname = userStore.user.fname;
-            this.user.lname = userStore.user.lname;
-            this.user.email = userStore.user.email;
-            this.user.username = userStore.user.username;
-            this.user.image_user = userStore.user.image_user;
+            axios.get("/Profile")
+                .then((response) => {
+                    this.user.user_id = response.data.user.user_id;
+                    this.user.username = response.data.user.username;
+                    this.user.fname = response.data.user.fname;
+                    this.user.lname = response.data.user.lname;
+                    this.user.passwordCrrut = response.data.user.password;
+                    this.user.image_user = response.data.user.image_user;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
 
             document.getElementById('input-password').type = 'password';
             this.user.password = 'AaBb1234';
@@ -308,7 +286,6 @@ export default {
                     formData.append("user_img", this.file);
                     formData.append("fname", this.user.fname);
                     formData.append("lname", this.user.lname);
-                    formData.append("email", this.user.email);
                     formData.append("username", this.user.username);
                     formData.append("user_id", this.user.user_id);
                     formData.append("password", 'AaBb1234');
@@ -319,7 +296,6 @@ export default {
                     formData.append("user_img", this.file);
                     formData.append("fname", this.user.fname);
                     formData.append("lname", this.user.lname);
-                    formData.append("email", this.user.email);
                     formData.append("username", this.user.username);
                     formData.append("user_id", this.user.user_id);
                     formData.append("password", this.user.password);
