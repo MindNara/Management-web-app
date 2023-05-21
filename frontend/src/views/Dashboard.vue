@@ -323,7 +323,6 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
-import { ref } from 'vue'
 
 export default {
     data() {
@@ -338,15 +337,10 @@ export default {
             ],
             content_note: [],
             show_modal_card: false,
+            schedulesToday: '',
+            tasks: '',
+            notes: '',
         }
-    },
-    setup() {
-        const user = ref(null);
-        const schedulesToday = ref(null);
-        const tasks = ref(null);
-        const notes = ref(null);
-
-        return { user, schedulesToday, tasks, notes };
     },
     components: {
         Navbar,
@@ -450,7 +444,7 @@ export default {
                     this.content_note.push(this.notes[i])
                 }
             }
-            this.show_modal_card = !this.show_modal_card
+            this.show_modal_card = !this.show_modal_card;
         },
     },
     computed: {

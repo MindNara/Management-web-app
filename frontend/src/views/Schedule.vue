@@ -277,11 +277,11 @@
 import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
-import axios from "axios";
 import { reactive, ref } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-import { useUserStore } from '@/stores/user'
+import axios from '@/plugins/axios'
+
 
 export default {
     data() {
@@ -299,8 +299,6 @@ export default {
         }
     },
     setup() {
-
-        const user_id = ref('');
         const schedulesToday = ref(null);
         const schedulesAll = ref(null);
 
@@ -336,7 +334,7 @@ export default {
         const v$ = useVuelidate(rules, schedule);
         const vEdit$ = useVuelidate(rules_edit, schedule_edit);
 
-        return { schedule, schedulesToday, schedulesAll, v$, user_id, schedule_edit, vEdit$ };
+        return { schedule, schedulesToday, schedulesAll, v$, schedule_edit, vEdit$ };
     },
     components: {
         Navbar,
@@ -345,13 +343,7 @@ export default {
     },
     async created() {
 
-        const userStore = useUserStore();
-
-        await userStore.getUser();
-        this.user_id = userStore.user.user_id;
-        // console.log('User ID:', this.user_id);
-
-        await axios.get("http://localhost:3000/Schedule/" + this.user_id)
+        await axios.get("/Schedule")
             .then((response) => {
                 this.schedulesToday = response.data.scheduleToday;
                 this.schedulesAll = response.data.scheduleAll;
@@ -362,9 +354,10 @@ export default {
                 console.log(err);
             });
 
+    },
+    mounted() {
         this.renderFullCalendar();
         this.showSchedule();
-
     },
     methods: {
         closeAddSchedule() {
@@ -385,10 +378,9 @@ export default {
                 let formData = {
                     schedule_act: this.schedule.schedule_act,
                     schedule_date: this.schedule.schedule_date,
-                    user_id: this.user_id,
                 }
 
-                axios.post("http://localhost:3000/Schedule", formData)
+                axios.post("/Schedule", formData)
                     .then((response) => {
                         console.log(response);
                     })
@@ -406,15 +398,13 @@ export default {
         editSchedule(schedule_id) {
 
             this.showModelEdit = true;
-            // this.schedule.schedule_id = schedule_id;
             console.log('Edit Schedule: ' + schedule_id)
 
-            axios.get("http://localhost:3000/Schedule/Detail/" + schedule_id)
+            axios.get("/Schedule/Detail/" + schedule_id)
                 .then((response) => {
                     this.schedule_edit.schedule_act_edit = response.data.scheduleEdit[0].schedule_act;
                     this.schedule_edit.schedule_date_edit = response.data.scheduleEdit[0].schedule_date;
                     this.schedule_edit.schedule_id_edit = schedule_id;
-                    // console.log('schedule_date_edit: ' + this.schedule_edit.schedule_date_edit);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -424,7 +414,6 @@ export default {
 
         updateSchedule(schedule_id) {
             this.vEdit$.$touch();
-            // console.log('Update Schedule: ' + schedule_id)
 
             if (!this.vEdit$.$invalid) {
                 let formData = {
@@ -432,7 +421,7 @@ export default {
                     schedule_date: this.schedule_edit.schedule_date_edit,
                 }
 
-                axios.put("http://localhost:3000/Schedule/Update/" + schedule_id, formData)
+                axios.put("/Schedule/Update/" + schedule_id, formData)
                     .then((response) => {
                         console.log(response);
                         document.location.reload();
@@ -450,7 +439,7 @@ export default {
 
             if (result) {
                 console.log('Delete Schedule')
-                axios.delete("http://localhost:3000/Schedule/Delete/" + scheduleId)
+                axios.delete("/Schedule/Delete/" + scheduleId)
                     .then((response) => {
                         document.location.reload();
                     }).catch((error) => {
@@ -532,7 +521,6 @@ export default {
                     const date = item.schedule_date;
                     const title = item.schedule_act;
                     const tdDate = document.getElementById(date);
-                    // console.log('tdDate ' + index + ' : ' + tdDate)
                     div.innerHTML = title;
                     tdDate.appendChild(div);
                     div.classList.add("boxtext");

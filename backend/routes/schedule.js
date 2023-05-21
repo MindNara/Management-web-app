@@ -2,12 +2,13 @@ const express = require("express");
 const pool = require("../config");
 const router = express.Router();
 const Joi = require('joi');
+const { isLoggedIn } = require('../middlewares')
 
 
-router.get('/Schedule/:userId', async function (req, res, next) {
+router.get('/Schedule', isLoggedIn, async function (req, res, next) {
 
-    const user_id = req.params.userId;
-    // console.log(user_id)
+    const user_id = req.user.user_id;
+    console.log(req.user);
 
     try {
 
@@ -26,6 +27,7 @@ router.get('/Schedule/:userId', async function (req, res, next) {
         res.json({
             scheduleToday: scheduleToday,
             scheduleAll: scheduleAll,
+            user_id: user_id
         })
 
     } catch (err) {
@@ -41,7 +43,7 @@ const schemaInsert = Joi.object({
     schedule_act: Joi.string().required(),
 }).unknown()
 
-router.post('/Schedule', async function (req, res, next) {
+router.post('/Schedule', isLoggedIn, async function (req, res, next) {
 
     try {
         await schemaInsert.validateAsync(req.body, { abortEarly: false })
@@ -51,7 +53,7 @@ router.post('/Schedule', async function (req, res, next) {
 
     const schedule_act = req.body.schedule_act;
     const schedule_date = req.body.schedule_date;
-    const user_id = req.body.user_id;
+    const user_id = req.user.user_id;
     console.log({
         'user_id': user_id,
         'schedule_act': schedule_act,
