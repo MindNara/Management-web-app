@@ -76,7 +76,7 @@
           <div class="modal-card">
             <header class="modal-card-head">
               <p class="modal-card-title has-text-weight-semibold m-0">ADD NOTE-DIARY</p>
-              <button class="delete" aria-label="close" @click="show_modal = !show_modal"></button>
+              <button class="delete" aria-label="close" @click="show_modal = !show_modal; closeAddNote()"></button>
             </header>
             <section class="modal-card-body">
               <!-- Content ... -->
@@ -85,7 +85,7 @@
                   <label class="label">TOPIC :</label>
                   <div class="control has-icons-left has-icons-right">
                     <input class="input" type="text" id="name-note" name="name-note" v-model="note_diary.name_note"
-                      @input="v$_add.name_note.$touch()">
+                      @input="v$_add.name_note.$touch()" :class="{ 'is-danger': v$_add.name_note.$error }">
                     <span class="icon is-small is-left">
                       <i class="fas fa-book"></i>
                     </span>
@@ -98,21 +98,13 @@
                   <label class="field">
                     <label for="image-note" class="label">IMAGE :</label>
                     <input type="file" name="image-note" id="image-note" ref="file" @change="handleFileUpload()">
-                    <!-- <span class="file-cta is-size-7">
-                      <span class="file-icon">
-                        <i class="fas fa-upload"></i>
-                      </span>
-                      <span class="file-label">
-                        Choose a file…
-                      </span>
-                    </span> -->
                   </label>
                 </div>
-                <div class="field">
+                <div class="field mt-3">
                   <label for="date-note" class="label">DATE :</label>
                   <div class="control has-icons-left has-icons-right">
                     <input type="date" id="date-note" name="date-note" class="input" v-model="note_diary.date_note"
-                      @input="v$_add.date_note.$touch()">
+                      @input="v$_add.date_note.$touch()" :class="{ 'is-danger': v$_add.date_note.$error }">
                     <span class="icon is-small is-left">
                       <i class="fas fa-calendar"></i>
                     </span>
@@ -124,7 +116,8 @@
                 <div class="field">
                   <label for="date-note" class="label">STORY :</label>
                   <textarea class="p-5 is-size-5" style="width: 100%;" placeholder="Remember, be nice!" cols="90"
-                    rows="10" v-model="note_diary.data_note" @input="v$_add.data_note.$touch()"></textarea>
+                    rows="10" v-model="note_diary.data_note" @input="v$_add.data_note.$touch()"
+                    :class="{ 'is-danger': v$_add.data_note.$error }"></textarea>
                 </div>
                 <span v-if="v$_add.data_note.$error">
                   <p class="help is-danger" v-if="v$_add.data_note.required">This field is required</p>
@@ -133,7 +126,7 @@
             </section>
             <footer class="modal-card-foot">
               <button class="button is-black" @click="addNote()">Create</button>
-              <button class="button" @click="show_modal = !show_modal">Cancel</button>
+              <button class="button" @click="show_modal = !show_modal; closeAddNote()">Cancel</button>
             </footer>
           </div>
         </div>
@@ -145,7 +138,7 @@
           <div class="modal-background"></div>
           <div class="modal-card">
             <header class="modal-card-head">
-              <p class="modal-card-title">MY DIARY</p>
+              <p class="modal-card-title has-text-weight-semibold m-0">MY DIARY</p>
               <button class="delete" aria-label="close" @click="show_modal_card = !show_modal_card"></button>
             </header>
             <section class="modal-card-body">
@@ -193,17 +186,9 @@
                     <label for="image-note" class="label">IMAGE :</label>
                     <input type="file" name="note_img_edit" id="note_img_edit" ref="editfile"
                       @change="handleFileUploadEdit()">
-                    <!-- <span class="file-cta is-size-7">
-                      <span class="file-icon">
-                        <i class="fas fa-upload"></i>
-                      </span>
-                      <span class="file-label">
-                        Choose a file…
-                      </span>
-                    </span> -->
                   </label>
                 </div>
-                <div class="field">
+                <div class="field mt-3">
                   <label for="date-note" class="label">DATE :</label>
                   <div class="control has-icons-left has-icons-right">
                     <input type="date" id="date-note-edit" name="date-note-edit" class="input"
@@ -348,6 +333,15 @@ export default {
           console.log(err);
         });
       this.show_modal_card = !this.show_modal_card;
+    },
+
+    closeAddNote() {
+      this.note_diary.name_note = '';
+      this.note_diary.date_note = '';
+      this.note_diary.data_note = '';
+
+      // reset สถานะของ vuelidate
+      this.v$_add.$reset();
     },
 
     openModalEdit(note_id) {

@@ -58,7 +58,8 @@
                                 class="card-content is-flex is-justify-content-center is-align-items-center has-text-black">
                                 <i class='bx bx-task-x'></i>
                                 <div class="text">
-                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{ filteredTasksToDo.length }}</span>
+                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{ filteredTasksToDo.length
+                                    }}</span>
                                     <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
                                 </div>
                             </div>
@@ -192,7 +193,8 @@
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title has-text-weight-semibold">ADD TASKS</p>
-                    <button class="delete btn-close" aria-label="close" @click="show_modal = !show_modal"></button>
+                    <button class="delete btn-close" aria-label="close"
+                        @click="show_modal = !show_modal; closeAddTask()"></button>
                 </header>
                 <section class="modal-card-body">
                     <!-- Content ... -->
@@ -201,7 +203,8 @@
                             <label class="label">NAME TASKS :</label>
                             <div class="control has-icons-left has-icons-right">
                                 <input class="input" type="text" id="name-task" name="name-task" placeholder="Your task"
-                                    v-model="task_todo.task_name" @input="v$_add.task_name.$touch()">
+                                    v-model="task_todo.task_name" @input="v$_add.task_name.$touch()"
+                                    :class="{ 'is-danger': v$_add.task_name.$error }">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-book"></i>
                                 </span>
@@ -214,7 +217,7 @@
                             <label for="due-date" class="label">DUE DATE :</label>
                             <div class="control has-icons-left has-icons-right">
                                 <input type="date" id="due-date" name="due-date" class="input" v-model="task_todo.due_date"
-                                    @input="v$_add.due_date.$touch()">
+                                    @input="v$_add.due_date.$touch()" :class="{ 'is-danger': v$_add.due_date.$error }">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-calendar"></i>
                                 </span>
@@ -227,7 +230,7 @@
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-black" @click="submitAddtask()">Create</button>
-                    <button class="button btn-cancle" @click="show_modal = !show_modal">Cancel</button>
+                    <button class="button btn-cancle" @click="show_modal = !show_modal; closeAddTask()">Cancel</button>
                 </footer>
             </div>
         </div>
@@ -291,7 +294,7 @@ import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
 import { reactive, ref, onMounted } from 'vue'
 import useVuelidate from '@vuelidate/core'
-import { required , helpers} from '@vuelidate/validators'
+import { required, helpers } from '@vuelidate/validators'
 import { useUserStore } from '@/stores/user'
 // import { reactive, computed } from 'vue'
 // import useVuelidate from '@vuelidate/core'
@@ -341,7 +344,7 @@ export default {
             },
             due_date: {
                 required: required,
-                minValue : helpers.withMessage('Due Date should be greater than current date', checkDate)
+                minValue: helpers.withMessage('Due Date should be greater than current date', checkDate)
             },
         }
 
@@ -351,7 +354,7 @@ export default {
             },
             due_date_edit: {
                 required: required,
-                minValue : helpers.withMessage('Due Date should be greater than current date', checkDate)
+                minValue: helpers.withMessage('Due Date should be greater than current date', checkDate)
             },
         }
 
@@ -435,6 +438,13 @@ export default {
                     console.log(err);
                 });
             this.show_modal_edit = !this.show_modal_edit;
+        },
+        closeAddTask() {
+            this.task_todo.task_name = '';
+            this.task_todo.due_date = '';
+
+            // reset สถานะของ vuelidate
+            this.v$_add.$reset();
         },
         editTask(task_id) {
             this.v$_edit.$touch(); // ไปเอามาเช้คอีกทีใน usevalidate

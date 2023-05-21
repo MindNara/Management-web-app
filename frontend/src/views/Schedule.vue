@@ -208,7 +208,7 @@
                 </section>
                 <footer class="modal-card-foot level">
                     <a class="btn-create button is-black" type="button" @click="createSchedule()">Create</a>
-                    <a class="button btn-cancle" @click="showModel = !showModel; closeEditingInput()">Cancel</a>
+                    <a class="button btn-cancle" @click="showModel = !showModel; closeAddSchedule()">Cancel</a>
                 </footer>
             </div>
         </div>
@@ -367,10 +367,13 @@ export default {
 
     },
     methods: {
-        closeEditingInput() {
+        closeAddSchedule() {
 
             this.schedule.schedule_act = '';
             this.schedule.schedule_date = '';
+
+            // reset สถานะของ vuelidate
+            this.v$.$reset();
 
         },
 
