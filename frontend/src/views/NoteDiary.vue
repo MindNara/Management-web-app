@@ -296,15 +296,9 @@ export default {
     Logo,
     Profile
   },
-  async created() {
+  created() {
 
-    const userStore = useUserStore();
-
-    await userStore.getUser();
-    this.user_id = userStore.user.user_id;
-    // console.log('User ID:', this.user_id);
-
-    await axios.get("/NoteDiary/" + this.user_id)
+    axios.get("/NoteDiary")
       .then((response) => {
         this.note = response.data.notes; // เข้าไปใน object อีกทีอะ this.note.notes ยังงี้อะ
         console.log('note:', this.note);
@@ -381,7 +375,6 @@ export default {
         formData.append("name_note", this.note_diary.name_note);
         formData.append("date_note", this.note_diary.date_note);
         formData.append("data_note", this.note_diary.data_note);
-        formData.append("user_id", this.user_id)
 
         console.log(this.file)
 
@@ -425,7 +418,6 @@ export default {
         formData.append("name_note", this.note_diary_edit.name_note_edit);
         formData.append("date_note", this.note_diary_edit.date_note_edit);
         formData.append("data_note", this.note_diary_edit.data_note_edit);
-        formData.append("user_id", this.user_id);
 
         console.log(this.editfile)
 

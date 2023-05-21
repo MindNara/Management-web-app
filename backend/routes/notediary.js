@@ -3,6 +3,7 @@ const pool = require("../config");
 const upload = require('../multer');
 const router = express.Router();
 const Joi = require('joi');
+const { isLoggedIn } = require('../middlewares')
 
 const schemaInsert = Joi.object({
     name_note: Joi.string().required().max(100),
@@ -11,8 +12,8 @@ const schemaInsert = Joi.object({
 }).unknown()
 
 // ดึงข้อมูล note-diary
-router.get('/NoteDiary/:userId', async function (req, res) {
-    const user_id = req.params.userId
+router.get('/NoteDiary', isLoggedIn, async function (req, res) {
+    const user_id = req.user.user_id
     try {
         const [note] = await pool.query("SELECT * FROM note_diary WHERE user_id =?", [user_id]);
 
@@ -43,7 +44,7 @@ router.get("/NoteDiary/detail/:noteId", async function (req, res, next) {
 });
 
 // เพิ่ม note_diary
-router.post('/NoteDiary/add', upload.single('note_img'), async function (req, res, next) {
+router.post('/NoteDiary/add',isLoggedIn, upload.single('note_img'), async function (req, res, next) {
 
     try {
         await schemaInsert.validateAsync(req.body, { abortEarly: false })
@@ -52,11 +53,10 @@ router.post('/NoteDiary/add', upload.single('note_img'), async function (req, re
     }
 
     const file = req.file;
-    const noted_id = req.body.user_id;
     const noted_title = req.body.name_note;
     const noted_content = req.body.data_note;
     const noted_date = req.body.date_note
-    const user_id = req.body.user_id
+    const user_id = req.user.user_id
     let image = '';
 
     console.log({ noted_content, noted_id, noted_title, noted_date, user_id, file })
@@ -129,9 +129,8 @@ router.put('/NoteDiary/edit/:noteId', upload.single('note_img_edit'), async func
     const noted_title = req.body.name_note;
     const noted_content = req.body.data_note;
     const noted_date = req.body.date_note;
-    const user_id = req.body.user_id;
 
-    console.log({ noted_content, noted_id, noted_title, noted_date, file, user_id })
+    console.log({ noted_content, noted_id, noted_title, noted_date, file })
 
     const conn = await pool.getConnection()
     await conn.beginTransaction();
@@ -139,11 +138,11 @@ router.put('/NoteDiary/edit/:noteId', upload.single('note_img_edit'), async func
     try {
 
         if (file != undefined) {
-            const [dataEdit] = await conn.query('UPDATE note_diary SET noted_date=?, noted_title=?, noted_content=?, noted_image=?, user_id=? WHERE noted_id = ?',
-                [noted_date, noted_title, noted_content, file.path.substr(6), user_id, noted_id])
+            const [dataEdit] = await conn.query('UPDATE note_diary SET noted_date=?, noted_title=?, noted_content=?, noted_image=? WHERE noted_id = ?',
+                [noted_date, noted_title, noted_content, file.path.substr(6), noted_id])
         } else { //ถ้าไม่เลือกรูปมาก้ไม่ต้องอัพ
-            const [dataEdit, dataEditF] = await conn.query('UPDATE note_diary SET noted_date=?, noted_title=?, noted_content=?, user_id=? WHERE noted_id = ?',
-                [noted_date, noted_title, noted_content, user_id, noted_id])
+            const [dataEdit, dataEditF] = await conn.query('UPDATE note_diary SET noted_date=?, noted_title=?, noted_content=? WHERE noted_id = ?',
+                [noted_date, noted_title, noted_content, noted_id])
         }
         await conn.commit();
         res.json("success!");
