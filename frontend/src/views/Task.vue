@@ -45,7 +45,7 @@
                                 class="card-content is-flex is-justify-content-center is-align-items-center has-text-black">
                                 <i class='bx bx-task'></i>
                                 <div class="text">
-                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{ filteredTasksDone.length
+                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{ tasksDone.length
                                     }}</span>
                                     <p class="is-size-5-fullhd is-size-6-widescreen">Task Done</p>
                                 </div>
@@ -58,7 +58,7 @@
                                 class="card-content is-flex is-justify-content-center is-align-items-center has-text-black">
                                 <i class='bx bx-task-x'></i>
                                 <div class="text">
-                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{ filteredTasksToDo.length
+                                    <span class="is-size-2-fullhd is-size-3-widescreen">{{ tasksTodo.length
                                     }}</span>
                                     <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
                                 </div>
@@ -74,7 +74,7 @@
                             <span class="icon icon-todo is-medium" @click="status1 = !status1">
                                 <i class="fas fa-angle-down"></i>
                             </span>
-                            <span>To-Do List ( {{ filteredTasksToDo.length }} )</span>
+                            <span>To-Do List ( {{ tasksTodo.length }} )</span>
                         </a>
                         <a class="has-text-white is-size-5">
                             <span class="icon" style="float: right;" @click="show_modal = !show_modal">
@@ -97,7 +97,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(task, index) in filteredTasksToDo" :key="index">
+                                    <tr v-for="(task, index) in tasksTodo" :key="index">
                                         <td>{{ index + 1 }}</td>
                                         <td>
                                             <label class="checkbox">
@@ -135,7 +135,7 @@
                             <span class="icon icon-done is-medium" @click="status2 = !status2">
                                 <i class="fas fa-angle-down"></i>
                             </span>
-                            <span>Done ( {{ filteredTasksDone.length }} )</span>
+                            <span>Done ( {{ tasksDone.length }} )</span>
                         </a>
                     </div>
 
@@ -153,7 +153,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(task, index) in filteredTasksDone" :key="index">
+                                    <tr v-for="(task, index) in tasksDone" :key="index">
                                         <td>{{ index + 1 }}</td>
                                         <td>
                                             <label class="checkbox">
@@ -292,10 +292,9 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, ref } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
-import { useUserStore } from '@/stores/user'
 // import { reactive, computed } from 'vue'
 // import useVuelidate from '@vuelidate/core'
 // import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
@@ -319,14 +318,13 @@ export default {
             status1: false,
             status2: false,
             content_task: '',
+            tasksTodo: '',
+            tasksDone: ''
             // task_name_edit: '',
             // due_date_edit: '',
         }
     },
     setup() {
-
-        const user_id = ref(''); // สร้างมาเก็บตัวแปร user_id ที่ได้มาจากตอน userStore
-        const tasks = ref(null);
 
         const task_todo = reactive({
             task_name: '',
@@ -378,25 +376,20 @@ export default {
         // };
         // onMounted(getTask); // มันจะทำทุกครั้งที่เข้าหน้า task มาอะไปทำฟังก์ชั่น getTask
 
-        return { user_id, tasks, v$_add, v$_edit, task_todo, task_todo_edit }; // จะเอาค่าไปใช้ต่อก้ต้อง return ออกไป
+        return { v$_add, v$_edit, task_todo, task_todo_edit }; // จะเอาค่าไปใช้ต่อก้ต้อง return ออกไป
     },
     components: {
         Navbar,
         Logo,
         Profile
     },
-    async created() {
-
-        const userStore = useUserStore();
-
-        await userStore.getUser();
-        this.user_id = userStore.user.user_id;
-        // console.log('User ID:', this.user_id);
-
-        await axios.get("/Task/" + this.user_id)
+    created() {
+        axios.get("/Task")
             .then((response) => {
-                this.tasks = response.data;
-                console.log('Tasks:', this.tasks.task);
+                this.tasksTodo = response.data.taskTodo;
+                this.tasksDone = response.data.taskDone;
+                console.log('TaskTodo:', this.tasksTodo);
+                console.log("taskDone", this.tasksDone);
                 // this.task_todo.task_name_edit = this.tasks.task[0].list_act
                 // this.task_todo.due_date_edit = this.tasks.task[0].list_date
                 // console.log('Tasks:', this.tasks.task[0].list_act);
@@ -474,7 +467,6 @@ export default {
                 const data = {
                     list_act: this.task_todo.task_name,
                     list_date: this.task_todo.due_date,
-                    user_id: this.user_id
                 }
                 // console.log(this.user_id)
                 axios.post("/Task/add", data)
@@ -520,22 +512,22 @@ export default {
                 });
         }
     },
-    computed: {
-        filteredTasksToDo() {
-            if (this.tasks !== null || this.task !== undefined) {
-                return this.tasks.task.filter(task => task.list_status === 0); // check ว่า list_status ไหน === 0
-            }
-            return [] // ถ้าไม่กำหนดเงื่อนไขมันจะ error ควรเช้คค่าก่อนว่า null หรือ undefined ไหม
+    // computed: {
+    //     filteredTasksToDo() {
+    //         if (this.tasks !== null || this.tasks !== undefined) {
+    //             return this.tasks.task.filter(task => task.list_status === 0); // check ว่า list_status ไหน === 0
+    //         }
+    //         return [] // ถ้าไม่กำหนดเงื่อนไขมันจะ error ควรเช้คค่าก่อนว่า null หรือ undefined ไหม
 
-        },
-        filteredTasksDone() {
-            if (this.tasks !== null || this.task !== undefined) {
-                return this.tasks.task.filter(task => task.list_status === 1);
-            }
-            return []
+    //     },
+    //     filteredTasksDone() {
+    //         if (this.tasks !== null || this.tasks !== undefined) {
+    //             return this.tasks.task.filter(task => task.list_status === 1);
+    //         }
+    //         return []
 
-        }
-    },
+    //     }
+    // },
 }
 
 </script>

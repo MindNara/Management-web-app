@@ -2,6 +2,7 @@ const express = require("express");
 const pool = require("../config");
 const router = express.Router();
 const Joi = require('joi');
+const { isLoggedIn } = require('../middlewares')
 
 const currentDate = new Date().toISOString().split('T')[0]; // วันที่ปัจจุบัน YYYY-MM-DDTHH:mm:ss.sssZ" split T เพื่อให้ได้เป็น format YYYY-MM-DD
 
@@ -11,12 +12,14 @@ const schemaInsert = Joi.object({ // สร้าง Joi มา check data ท�
 }).unknown()
 
 // ดึงข้อมูล task ทั้งหมดของ user นั้นๆ
-router.get("/Task/:userId", async function (req, res, next) {
+router.get("/Task", isLoggedIn, async function (req, res, next) {
     try {
-        const user_id = req.params.userId
-        const [task] = await pool.query("SELECT list_id, DATE_FORMAT(list_create_date, '%Y-%m-%d') as list_create_date, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date, list_act, list_status, user_id FROM to_do_list JOIN user USING(user_id) WHERE user.user_id =?", [user_id]);
+        const user_id = req.user.user_id
+        const [taskTodo] = await pool.query("SELECT *, DATE_FORMAT(list_create_date, '%Y-%m-%d') as list_create_date, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date FROM to_do_list  WHERE user_id =? and list_status = 0", [user_id]);
+        const [taskDone] = await pool.query("SELECT *, DATE_FORMAT(list_create_date, '%Y-%m-%d') as list_create_date, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date FROM to_do_list WHERE user_id =? and list_status = 1", [user_id]);
         res.json({
-            task: task,
+            taskTodo: taskTodo,
+            taskDone: taskDone
         })
     }
     catch (err) {
@@ -25,7 +28,7 @@ router.get("/Task/:userId", async function (req, res, next) {
 });
 
 // เพิ่มข้อมูล task
-router.post("/Task/add", async (req, res, next) => {
+router.post("/Task/add", isLoggedIn, async (req, res, next) => {
     try {
         await schemaInsert.validateAsync(req.body, { abortEarly: false }) // เอา joi ที่เราสร้างไว้มาเช็ค data ที่ได้มาจาก req.body บางครั้งมาจาก query ก็ต้องใช้ req.query
     } catch (error) {
@@ -38,7 +41,7 @@ router.post("/Task/add", async (req, res, next) => {
 
     const list_act = req.body.list_act
     const list_date = req.body.list_date
-    const user_id = req.body.user_id
+    const user_id = req.user.user_id
 
     console.log(user_id)
     console.log(list_act)
