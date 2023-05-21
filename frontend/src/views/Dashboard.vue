@@ -51,8 +51,7 @@
                                         <div class="card-content is-flex is-justify-content-center is-align-items-center">
                                             <i class='bx bx-task'></i>
                                             <div class="text">
-                                                <span class="is-size-2-fullhd is-size-3-widescreen">{{
-                                                    filteredTasksDone.length ? filteredTasksDone.length : '0' }}</span>
+                                                <span class="is-size-2-fullhd is-size-3-widescreen">{{ tasksDone.length }}</span>
                                                 <p class="is-size-5-fullhd is-size-6-widescreen">Task Done</p>
                                             </div>
                                         </div>
@@ -66,7 +65,7 @@
                                             <i class='bx bx-task-x'></i>
                                             <div class="text">
                                                 <span class="is-size-2-fullhd is-size-3-widescreen">{{
-                                                    filteredTasksNotStart.length ? filteredTasksNotStart.length : '0'
+                                                    tasksTodo.length
                                                 }}</span>
                                                 <p class="is-size-5-fullhd is-size-6-widescreen">Task Not Started</p>
                                             </div>
@@ -338,7 +337,8 @@ export default {
             content_note: [],
             show_modal_card: false,
             schedulesToday: '',
-            tasks: '',
+            tasksTodo: '',
+            tasksDone: '',
             notes: '',
         }
     },
@@ -352,10 +352,13 @@ export default {
         axios.get(`/Dashboard`)
             .then((response) => {
                 this.schedulesToday = response.data.scheduleToday;
-                this.tasks = response.data.task;
+                this.tasksTodo = response.data.taskTodo;
+                this.tasksDone = response.data.taskDone;
                 this.notes = response.data.note;
                 console.log('SchedulesToday:', this.schedulesToday);
-                console.log('Tasks:', this.tasks);
+                console.log('TaskTodo:', this.tasksTodo);
+                console.log("taskDone", this.tasksDone);
+                // console.log("taskToday", this.tasksToday);
                 console.log('Notes:', this.notes);
                 console.log('TaskToday: ', this.filteredTasksToday.length)
                 console.log('ScheduleToday: ', this.filteredSchedulesToday.length)
@@ -455,7 +458,7 @@ export default {
             let month = date_ob.getMonth() + 1;
             let year = date_ob.getFullYear();
             let todayDate = year + "-" + (month < 10 ? '0' : '') + month + "-" + (date < 10 ? '0' : '') + date;
-            return this.tasks.filter(task => task.list_status === 0 && task.list_date === todayDate);
+            return this.tasksTodo.filter(task => task.list_status === 0 && task.list_date === todayDate);
         },
         filteredNotesToday() {
             let ts = Date.now();
@@ -468,12 +471,6 @@ export default {
         },
         filteredSchedulesToday() {
             return this.schedulesToday.slice(0, 3);
-        },
-        filteredTasksDone() {
-            return this.tasks.filter(task => task.list_status === 1);
-        },
-        filteredTasksNotStart() {
-            return this.tasks.filter(task => task.list_status === 0);
         },
     },
 }

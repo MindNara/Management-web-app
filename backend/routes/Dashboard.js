@@ -21,15 +21,17 @@ router.get('/Dashboard', isLoggedIn, async function (req, res, next) {
         const [scheduleToday, tadayF] = await pool.query("SELECT DATE_FORMAT(schedule_date, '%Y-%m-%d') AS schedule_date, schedule_act FROM schedule WHERE user_id = ? AND schedule_date = ?",
             [user_id, todayDate]);
 
-        const [task, fields] = await pool.query("SELECT list_id, DATE_FORMAT(list_date, '%Y-%m-%d') as list_create_date, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date, list_act, list_status, user_id FROM to_do_list JOIN user USING(user_id) WHERE user.user_id = ?",
-            [user_id]);
+        const [taskTodo, fieldsT] = await pool.query("SELECT *, DATE_FORMAT(list_create_date, '%Y-%m-%d') as list_create_date, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date FROM to_do_list  WHERE user_id =? and list_status = 0", [user_id])
+        
+        const [taskDone, fieldsD] = await pool.query("SELECT *, DATE_FORMAT(list_create_date, '%Y-%m-%d') as list_create_date, DATE_FORMAT(list_date, '%Y-%m-%d') as list_date FROM to_do_list  WHERE user_id =? and list_status = 1", [user_id])
 
         const [note, noteF] = await pool.query("SELECT noted_id, DATE_FORMAT(noted_date, '%Y-%m-%d') as noted_date, noted_title, noted_content, noted_image FROM note_diary WHERE user_id = ?",
             [user_id]);
 
         res.json({
             scheduleToday: scheduleToday,
-            task: task,
+            taskTodo: taskTodo,
+            taskDone: taskDone,
             note: note,
         })
 
