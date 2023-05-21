@@ -59,8 +59,6 @@ router.post('/NoteDiary/add',isLoggedIn, upload.single('note_img'), async functi
     const user_id = req.user.user_id
     let image = '';
 
-    console.log({ noted_content, noted_id, noted_title, noted_date, user_id, file })
-
     const conn = await pool.getConnection()
     await conn.beginTransaction();
 
@@ -70,7 +68,7 @@ router.post('/NoteDiary/add',isLoggedIn, upload.single('note_img'), async functi
             const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
                 [noted_date, noted_title, noted_content, file.path.substr(6), user_id])
         } else {
-            image = "\\uploads\\note-pic1.jpeg" // ถ้าไม่เลือกรูปจะมีรูปตั้งต้นให้
+            image = "\\uploads\\grey.png" // ถ้าไม่เลือกรูปจะมีรูปตั้งต้นให้
             const [data] = await pool.query('INSERT INTO note_diary(noted_date, noted_title, noted_content, noted_image, user_id) VALUES (?, ?, ?, ?, ?);',
                 [noted_date, noted_title, noted_content, image, user_id])
         }
