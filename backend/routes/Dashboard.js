@@ -2,11 +2,13 @@ const express = require("express");
 const pool = require("../config");
 const path = require('path')
 const router = express.Router();
+const { isLoggedIn } = require('../middlewares')
 
 
-router.get('/Dashboard/:userId', async function (req, res, next) {
+router.get('/Dashboard', isLoggedIn, async function (req, res, next) {
 
-    const user_id = req.params.userId;
+    const user_id = req.user.user_id;
+    console.log(user_id);
 
     try {
 

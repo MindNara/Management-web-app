@@ -323,7 +323,6 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
-import { useUserStore } from '@/stores/user'
 import { ref } from 'vue'
 
 export default {
@@ -354,19 +353,13 @@ export default {
         Logo,
         Profile,
     },
-    async created() {
+    created() {
 
-        const userStore = useUserStore();
-
-        await userStore.getUser();
-        this.user = userStore.user;
-
-        await axios.get(`http://localhost:3000/Dashboard/` + this.user.user_id)
+        axios.get(`/Dashboard`)
             .then((response) => {
                 this.schedulesToday = response.data.scheduleToday;
                 this.tasks = response.data.task;
                 this.notes = response.data.note;
-                console.log('User ID:', this.user.user_id);
                 console.log('SchedulesToday:', this.schedulesToday);
                 console.log('Tasks:', this.tasks);
                 console.log('Notes:', this.notes);
@@ -452,8 +445,8 @@ export default {
         openModalDetail(note_id) {
             // console.log(note_id)
             // console.log(this.notes[0].noted_id)
-            for (let i = 0; i < this.notes.length; i++){
-                if(this.notes[i].noted_id === note_id){
+            for (let i = 0; i < this.notes.length; i++) {
+                if (this.notes[i].noted_id === note_id) {
                     this.content_note.push(this.notes[i])
                 }
             }
