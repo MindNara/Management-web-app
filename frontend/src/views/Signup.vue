@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '@/plugins/axios'
 import { reactive } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
@@ -164,10 +164,10 @@ export default {
                     password: this.user.password,
                 }
 
-                axios.post("http://localhost:3000/Signup", formData)
+                axios.post("/Signup", formData)
                     .then((response) => {
-                        console.log(response);
-                        alert("Sign Up Success");
+                        console.log(response)
+                        this.$router.push({ path: '/Login' })
                     })
                     .catch((err) => {
                         if (err.response && err.response.data && err.response.data.details && err.response.data.details.message) {
@@ -176,7 +176,6 @@ export default {
                             alert("Sign up failed");
                         }
                     })
-                window.location.href = '/Login';
             }
         },
     },

@@ -16,13 +16,13 @@ const passwordValidator = (value, helpers) => {
 }
 
 // check username
-const usernameValidator = async (value, helpers) => {
+const emailValidator = async (value, helpers) => {
     const [rows, _] = await pool.query(
-        "SELECT username FROM user WHERE username = ?",
+        "SELECT email FROM user WHERE email = ?",
         [value]
     )
     if (rows.length > 0) {
-        const message = 'This user is already'
+        const message = 'This email is already'
         throw new Joi.ValidationError(message, { message })
     }
     return value
@@ -31,8 +31,8 @@ const usernameValidator = async (value, helpers) => {
 const signupSchema = Joi.object({
     fname: Joi.string().required().max(150),
     lname: Joi.string().required().max(150),
-    email: Joi.string().required().email(),
-    username: Joi.string().required().min(5).max(20).external(usernameValidator),
+    email: Joi.string().required().email().external(emailValidator),
+    username: Joi.string().required().min(5).max(20),
     password: Joi.string().required().custom(passwordValidator),
 })
 
@@ -60,6 +60,7 @@ router.post('/Signup', async (req, res, next) => {
         )
         conn.commit()
         console.log('Sign Up success!');
+        res.json('Sign Up success!')
     } catch (err) {
         await conn.rollback();
         res.status(400).json(err);
