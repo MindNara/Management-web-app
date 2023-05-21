@@ -144,7 +144,7 @@
 import axios from '@/plugins/axios'
 import { reactive } from 'vue'
 import useVuelidate from '@vuelidate/core'
-import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
+import { required, minLength, maxLength, helpers } from '@vuelidate/validators'
 
 
 function complexPassword(value) {

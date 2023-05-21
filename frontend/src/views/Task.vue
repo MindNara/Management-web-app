@@ -292,12 +292,9 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
-// import { reactive, computed } from 'vue'
-// import useVuelidate from '@vuelidate/core'
-// import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 
 function checkDate(value) {
     const currentDate = new Date().toISOString().split('T')[0];

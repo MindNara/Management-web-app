@@ -229,10 +229,9 @@ import Logo from '../components/Logo.vue'
 import Navbar from '../components/Navbar.vue'
 import Profile from '../components/Profile.vue'
 import axios from '@/plugins/axios'
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, ref } from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-import { useUserStore } from '@/stores/user'
 
 export default {
   data() {
