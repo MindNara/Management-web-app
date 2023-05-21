@@ -116,6 +116,10 @@ button {
     z-index: -1;
 }
 
+.profile-box .dropbtn {
+    cursor: pointer;
+}
+
 .task-status .card {
     height: 80%;
     border-radius: 10px;
@@ -277,6 +281,21 @@ button {
     overflow-x: hidden;
 }
 
+.tabs a {
+    cursor: auto;
+}
+
+.tabs a .icon-todo,
+.tabs a .icon-done,
+.tabs a .icon-add {
+    cursor: pointer;
+}
+
+.tabs a .icon-todo.is-active,
+.tabs a .icon-done.is-active {
+    transform: rotate(180deg);
+}
+
 .tabs-content li {
     display: none;
     list-style: none;
@@ -290,11 +309,37 @@ button {
     background: #F6F6F8;
 }
 
+.td-checkbox label {
+    display: flex;
+    align-items: center;
+}
+
 .tabs-content .checkbox input {
-    margin: 10px 0;
     margin-right: 10px;
     width: 1rem;
     height: 1rem;
+    appearance: none;
+    background-color: #fff;
+    font: inherit;
+    color: currentColor;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+}
+
+.tabs-content .checkbox input::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em black;
+}
+
+.tabs-content .checkbox input:checked::before {
+    transform: scale(1);
 }
 
 .tab-profile {

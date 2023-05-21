@@ -70,14 +70,14 @@
                 <!-- table to-do list -->
                 <div class="tabs-wrapper">
                     <div class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                        <a class="has-text-white is-size-5" @click="showTaskToDo()">
-                            <span class="icon icon-todo is-medium" @click="status1 = !status1">
+                        <a class="has-text-white is-size-5">
+                            <span class="icon icon-todo is-medium" @click="status1 = !status1; showTaskToDo()">
                                 <i class="fas fa-angle-down"></i>
                             </span>
                             <span>To-Do List ( {{ tasksTodo.length }} )</span>
                         </a>
                         <a class="has-text-white is-size-5">
-                            <span class="icon" style="float: right;" @click="show_modal = !show_modal">
+                            <span class="icon icon-add" style="float: right;" @click="show_modal = !show_modal">
                                 <i class="fas fa-solid fa-plus"></i>
                             </span>
                         </a>
@@ -99,7 +99,7 @@
                                 <tbody>
                                     <tr v-for="(task, index) in tasksTodo" :key="index">
                                         <td>{{ index + 1 }}</td>
-                                        <td>
+                                        <td class="td-checkbox">
                                             <label class="checkbox">
                                                 <input type="checkbox" @click="addCheck(task.list_id, task.list_status)">
                                                 {{ task.list_act }}
@@ -131,8 +131,8 @@
                 <!-- table done -->
                 <div class="tabs-wrapper mt-5">
                     <div class="tabs has-background-black is-normal has-text-weight-medium has-text-white is-size-5 mb-0">
-                        <a class="has-text-white is-size-5" @click="showTaskDone()">
-                            <span class="icon icon-done is-medium" @click="status2 = !status2">
+                        <a class="has-text-white is-size-5">
+                            <span class="icon icon-done is-medium" @click="status2 = !status2; showTaskDone()">
                                 <i class="fas fa-angle-down"></i>
                             </span>
                             <span>Done ( {{ tasksDone.length }} )</span>
@@ -155,10 +155,10 @@
                                 <tbody>
                                     <tr v-for="(task, index) in tasksDone" :key="index">
                                         <td>{{ index + 1 }}</td>
-                                        <td>
+                                        <td class="td-checkbox">
                                             <label class="checkbox">
-                                                <input type="checkbox" @click="addCheck(task.list_id, task.list_status)"
-                                                    checked>
+                                                <input type="checkbox"
+                                                    @click="addCheck(task.list_id, task.list_status)" checked>
                                                 {{ task.list_act }}
                                             </label>
                                         </td>
@@ -166,11 +166,6 @@
                                         <td>{{ task.list_date }}</td>
                                         <td>Done</td>
                                         <td>
-                                            <a class="edit-delete mr-2" style="float: left;">
-                                                <span class="icon has-text-dark" @click="openmodal(task.list_id)">
-                                                    <i class="fas fa-pen"></i>
-                                                </span>
-                                            </a>
                                             <a class="edit-delete">
                                                 <span class="icon" @click="deleteTask(task.list_id, task.list_act)">
                                                     <i class="fas fa-trash" style="color: rgb(105, 16, 16);"></i>
@@ -307,8 +302,6 @@ export default {
         return {
             list_id: '',
             list_act: '',
-            // task_name: '',
-            // due_date: '',
             user_id: '',
             show_modal: false,
             show_modal_edit: false,
@@ -317,8 +310,6 @@ export default {
             content_task: '',
             tasksTodo: '',
             tasksDone: ''
-            // task_name_edit: '',
-            // due_date_edit: '',
         }
     },
     setup() {
@@ -356,23 +347,6 @@ export default {
         const v$_add = useVuelidate(rules_add, task_todo);
         const v$_edit = useVuelidate(rules_edit, task_todo_edit); // ส่งค่าไปเช้คใน useVuelidate ของ vue ที่ import มา
 
-        // const getTask = async () => {
-        //     await userStore.getUser();
-        //     user_id.value = userStore.user.user_id; // เอาค่ามาใส่ใน user_id ที่ได้จาก userStore ใน conunter.js
-        //     // console.log('user_id: ' + user_id.value)
-
-        //     axios.get("/Task/" + user_id.value) // get ค่า task ที่ดึงมาจาก user_id ที่ได้มาอยู่ใน tasks ที่สร้างไว้ 
-        //     .then((response) => {
-        //         console.log(user_id.value)
-        //         tasks.value = response.data;
-        //         console.log(tasks.value)
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
-        // };
-        // onMounted(getTask); // มันจะทำทุกครั้งที่เข้าหน้า task มาอะไปทำฟังก์ชั่น getTask
-
         return { v$_add, v$_edit, task_todo, task_todo_edit }; // จะเอาค่าไปใช้ต่อก้ต้อง return ออกไป
     },
     components: {
@@ -402,16 +376,24 @@ export default {
             const modal_to_do = document.querySelector(".task-to-do");
             modal_to_do.classList.remove("is-active");
 
+            const icon_todo = document.querySelector(".icon-todo");
+            icon_todo.classList.add("is-active");
+
             if (this.status1 == false) {
                 modal_to_do.classList.add("is-active");
+                icon_todo.classList.remove("is-active");
             }
         },
         showTaskDone() {
             const modal_done = document.querySelector(".task-done");
             modal_done.classList.remove("is-active");
 
+            const icon_done = document.querySelector(".icon-done");
+            icon_done.classList.add("is-active");
+
             if (this.status2 == false) {
                 modal_done.classList.add("is-active");
+                icon_done.classList.remove("is-active");
             }
         },
         openmodal(task_id) { // เปิด modal-edit get data มา
@@ -509,22 +491,6 @@ export default {
                 });
         }
     },
-    // computed: {
-    //     filteredTasksToDo() {
-    //         if (this.tasks !== null || this.tasks !== undefined) {
-    //             return this.tasks.task.filter(task => task.list_status === 0); // check ว่า list_status ไหน === 0
-    //         }
-    //         return [] // ถ้าไม่กำหนดเงื่อนไขมันจะ error ควรเช้คค่าก่อนว่า null หรือ undefined ไหม
-
-    //     },
-    //     filteredTasksDone() {
-    //         if (this.tasks !== null || this.tasks !== undefined) {
-    //             return this.tasks.task.filter(task => task.list_status === 1);
-    //         }
-    //         return []
-
-    //     }
-    // },
 }
 
 </script>

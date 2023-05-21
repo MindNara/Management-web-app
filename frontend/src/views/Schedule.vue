@@ -137,7 +137,7 @@
                         </div>
 
                         <div class="columns" style="height: 32vh; overflow-y: auto; overflow-x: hidden;">
-                            <div class="column mr-3">
+                            <div class="column mr-5">
                                 <div class="schedulesToday" v-if="schedulesToday.length === 0">
                                     <span>Today is schedule-free</span>
                                 </div>

@@ -51,7 +51,8 @@
                                         <div class="card-content is-flex is-justify-content-center is-align-items-center">
                                             <i class='bx bx-task'></i>
                                             <div class="text">
-                                                <span class="is-size-2-fullhd is-size-3-widescreen">{{ tasksDone.length }}</span>
+                                                <span class="is-size-2-fullhd is-size-3-widescreen">{{ tasksDone.length
+                                                }}</span>
                                                 <p class="is-size-5-fullhd is-size-6-widescreen">Task Done</p>
                                             </div>
                                         </div>
@@ -127,8 +128,7 @@
                                             <div class="level task-box p-3">
                                                 <div class="level-left">
                                                     <div class="level-item">
-                                                        <i class='bx bx-check-circle mx-4 is-size-3 has-text-black'
-                                                            style="cursor: pointer;"></i>
+                                                        <i class='bx bx-check-circle mx-4 is-size-3 has-text-black'></i>
                                                         <span class="is-size-5 has-text-weight-medium">
                                                             {{ task.list_act }}</span>
                                                     </div>
