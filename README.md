@@ -4,14 +4,16 @@
 ## Developing
 
 Once you've created a project, start a development server:
-
-* ฝั่ง Backend
+``` bash
+- Backend
+  # install dependencies
   > npm install
   
   > npx nodemon app.js
 
-* ฝั่ง Frontend
+- Frontend
+  # install dependencies
   > npm install
 
   > npm run dev
-
+```
