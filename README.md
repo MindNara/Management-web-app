@@ -4,11 +4,9 @@
 
 เทคโนโลยีที่ใช้พัฒนา: Vue.js, Node.js, Bulma, MySQL
 
-![enter image description here](https://media.discordapp.net/attachments/1204364762515767306/1204364835958165534/Home.png?ex=65d47728&is=65c20228&hm=ed18e45e80f7e1c0a909322d30d90b0b7a1f55acddeab00b3de2491ac03de097&=&format=webp&quality=lossless&width=1061&height=558)
-![enter image description here](https://media.discordapp.net/attachments/1204364762515767306/1204378968573222993/Screenshot_2024-02-06_172815.png?ex=65d48452&is=65c20f52&hm=5d56953b4c5373aaeedac04449b6d709015bcfaeaa4ab025d6af64e07029d0a6&=&format=webp&quality=lossless&width=1122&height=558)
-![enter image description here](https://media.discordapp.net/attachments/1204364762515767306/1204378968912953384/Screenshot_2024-02-06_172106.png?ex=65d48452&is=65c20f52&hm=e32cbc2f674f4c9ca91fc6a93d61161243298000ac8463da1cc1b470ff107d99&=&format=webp&quality=lossless&width=1128&height=558)
-![enter image description here](https://media.discordapp.net/attachments/1204364762515767306/1204378969235918870/Screenshot_2024-02-06_172831.png?ex=65d48452&is=65c20f52&hm=26394790af41d012ffe0b157a6e80873e8e7355fc4e50663769fcfa7d79c623b&=&format=webp&quality=lossless&width=1124&height=558)
-![enter image description here](https://media.discordapp.net/attachments/1204364762515767306/1204378969571598387/Screenshot_2024-02-06_172846.png?ex=65d48452&is=65c20f52&hm=8dc28a4f620424d21aab7de60220b59a4d9532fac4dd31433c5f9a93d5cde78c&=&format=webp&quality=lossless&width=1128&height=558)
+![enter image description here](https://media.discordapp.net/attachments/1204364762515767306/1204364835958165534/Home.png?ex=67d748e8&is=67d5f768&hm=517f8b61e4fbe7c40cbd43f649c8c20f0cbb34906a12335f99ac9027798cd203&=&format=webp&quality=lossless&width=1415&height=744)
+![enter image description here](https://media.discordapp.net/attachments/1204364762515767306/1204378344716763146/page1.png?ex=67d7557d&is=67d603fd&hm=3e415cd204c5dce1f24842e5e8289e38e8dc6db52a8d540062665bf7baf88cea&=&format=webp&quality=lossless&width=878&height=900)
+![enter image description here](https://media.discordapp.net/attachments/1204364762515767306/1204378615525937162/page2.png?ex=67d755be&is=67d6043e&hm=31cdaa0d9d7869fb63c5df25aa58147553c22961def30d52fd6681a485bd8ce7&=&format=webp&quality=lossless&width=878&height=900)
 
 ## How to use
 
